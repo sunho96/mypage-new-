@@ -199,7 +199,7 @@ textarea:focus {
 		<div id="content"
 			style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
 		</div>
-		<button type="button" class="btn btn-outline-danger">Danger</button>
+		<div style="margin: 30" align="center"><button type="button" class="btn btn-outline-danger">Danger</button></div>
 	</div>
 
 	<!-- Footer -->
