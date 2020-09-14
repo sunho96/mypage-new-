@@ -78,10 +78,11 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td id="inputTd"><input type="text" name="name" id="newCata"
+				<td id="inputTd"><input type="text" name="name" id="newCata" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2"
 					placeholder="create your catagory" autofocus="autofocus">
-					<button onclick="insertCata()">등록</button>
-					<button onclick="cataReset()">취소</button></td>
+					<div class="input-group-append">
+					<button onclick="insertCata()" class="btn btn-outline-secondary">등록</button>
+					<button onclick="cataReset()" class="btn btn-outline-secondary">취소</button></div></td>
 			</tr>
 			<tr>
 				<th>subject</th>
