@@ -9,7 +9,6 @@ public class Diary {
 
 	private int diaryNum; // �떎�씠�뼱由� 踰덊샇
 	private String subject; // �젣紐�
-	private String content; // �궡�슜
 	private Date regDate; // �궇吏�
 	private Date updateDate; // �닔�젙�뿬遺�
 	private String del; // �궘�젣 �뿬遺�

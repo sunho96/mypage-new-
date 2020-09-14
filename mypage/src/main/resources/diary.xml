@@ -5,7 +5,6 @@
 	<resultMap type="diary" id="diaryResult">
 		<result property="diaryNum" column="diaryNum" />
 		<result property="subject" column="subject" />
-		<result property="content" column="content" />
 		<result property="regDate" column="regDate" />
 		<result property="updateDate" column="updateDate" />
 		<result property="del" column="del" />
@@ -14,7 +13,7 @@
 	</resultMap>
 	<insert id="insert" parameterType="diary">
 		insert into diary
-		values(diary_seq.nextval,#{subject},#{content},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum})
+		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum})
 	</insert>
 	<select id="list" parameterType="hashmap" resultMap="diaryResult">
 		select * from diary where memberNum = #{memberNum} order by diaryNum desc
@@ -25,7 +24,7 @@
 	</select>
 	<update id="update" parameterType="diary">
 		update diary set subject =
-		#{subject}, content=#{content}, updateDate=sysdate where
+		#{subject}, updateDate=sysdate where
 		diaryNum=#{diaryNum}
 	</update>
 	<update id="delete" parameterType="int">
