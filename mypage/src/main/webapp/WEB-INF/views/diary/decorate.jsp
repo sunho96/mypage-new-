@@ -13,9 +13,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!--draggable  -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--draggable  -->
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> <!--resizable -->
+	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!--resizable -->
 <script type="text/javascript">
 	$(function() {
 		$('#sticker').hide();
@@ -96,23 +98,35 @@
 	}
 	function changeBg() {
 		var color = $('#bgInput').val();
-		alert(color);
 		$('#content').css('background-color',color);
 	}
 	
 </script>
 <style type="text/css">
-
-a:link { text-decoration:none; color:#646464;}
-
- a:visited { text-decoration:none;color:#646464;}
-
- a:active {text-decoration:none; color:#646464; }
-
- a:hover { text-decoration:none; color:#646464;}
-textarea {
-	background-color: transparent;	
+a:link {
+	text-decoration: none;
+	color: #646464;
 }
+
+a:visited {
+	text-decoration: none;
+	color: #646464;
+}
+
+a:active {
+	text-decoration: none;
+	color: #646464;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #646464;
+}
+
+textarea {
+	background-color: transparent;
+}
+
 textarea:focus {
 	outline: none;
 }
@@ -122,9 +136,12 @@ textarea:focus {
 	<h2></h2>
 	<div id="logo" align="center"
 		style="margin-top: 10px; margin-bottom: 30px">
-		<a href="${path }/main"><span style="font-family: 'Dynalight'; font-size: 50px; color: black">My Page</span></a>
+		<a href="${path }/main"><span
+			style="font-family: 'Dynalight'; font-size: 50px; color: black">My
+				Page</span></a>
 	</div>
-	<div style=" margin-bottom:30px; font-family:'Lilly'; font-size: 25px" align="center">"${subject }"</div>
+	<div style="margin-bottom: 30px; font-family: 'Lilly'; font-size: 25px"
+		align="center">"${subject }"</div>
 	<div class="container" align="center">
 		<div>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
@@ -139,9 +156,11 @@ textarea:focus {
 		<p>
 		<p>
 		<p>
-		<div id="backColor"><input type="color" id="bgInput" onchange="changeBg()"></div>
+		<div id="backColor">
+			<input type="color" id="bgInput" onchange="changeBg()">
+		</div>
 		<div id="picture">
-		<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
+			<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
 			<input type="file" name="name" id="getfile" accept="image/*">
 		</div>
 		<div id="sticker">
@@ -155,8 +174,8 @@ textarea:focus {
 
 				<div id="home" class="tab-pane fade in active">
 					<c:forEach items="${stickerList }" var="s">
-						<a onclick="goSti(${s.name})"><img
-							alt="" src="../resources/sticker/${s.name}.png" width="100px"
+						<a onclick="goSti(${s.name})"><img alt=""
+							src="../resources/sticker/${s.name}.png" width="100px"
 							height="100px"></a>
 					</c:forEach>
 				</div>
@@ -165,8 +184,8 @@ textarea:focus {
 					<div id="${g.groupName }" class="tab-pane fade">
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti(${s.name})"><img
-									alt="" src="../resources/sticker/${s.name}.png" width="100px"
+								<a onclick="goSti(${s.name})"><img alt=""
+									src="../resources/sticker/${s.name}.png" width="100px"
 									height="100px"></a>
 							</c:if>
 						</c:forEach>
@@ -179,16 +198,16 @@ textarea:focus {
 	<div class="container" align="center" style="margin-top: 20px">
 		<div id="content"
 			style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
-
 		</div>
+		<button type="button" class="btn btn-outline-danger">Danger</button>
 	</div>
-	
+
 	<!-- Footer -->
 	<div id="footer" style="margin: 50;" align="center">
 		<ul class="copyright" style="list-style: none">
 			<li>mypage</li>
 		</ul>
 	</div>
-	
+
 </body>
 </html>
