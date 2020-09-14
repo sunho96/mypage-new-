@@ -21,7 +21,7 @@ public class DiaryCataController {
 
 	@RequestMapping("diaryCatagory/list")
 	public String list(Model model, HttpSession session) {
-		int memberNum = (Integer) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("cataList", cataList);
 		return "diaryCatagory/list";
