@@ -20,6 +20,7 @@
 	$(function() {
 		$('#sticker').hide();
 		$('#getfile').hide();
+		$('#backColor').hide();
 		
 		var file = document.querySelector('#getfile');
 		
@@ -33,6 +34,7 @@
 			/* 	document.querySelector('#preview').src=reader.result; */
 				$('#content').prepend("<div id='imgDisp' style='width: 100px; height: 100px'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
 				$('#imgDisp').resizable().draggable();
+		/* 		$('#morefile').prepend('<a onclick="morefile()">사진추가하기(click)</a>'); */
 				var width=$('#imgDisp').width();
 				var heigth=$('#imgDisp').height();
 				var postion=$('#imgDisp').postion();
@@ -45,6 +47,8 @@
 	});
 	function openSti() {
 		$('#sticker').show();
+		$('#getfile').hide();
+		$('#backColor').hide();
 		$("#content")
 		.prepend(
 				"<div id='sti'style='width: 100px;height: 100px'><img src='${path}/images/me.jpg' style='padding=0;width: 100%;height: 100%'/></div>");
@@ -78,11 +82,22 @@
 	}
 	function getfile() {
 		$('#sticker').hide();
+		$('#backColor').hide();
 		$('#getfile').show();
 	}
 	function goSti(name) {
 		$('#content').prepend("<div id='sti'style='width: 100px;height: 100px'><img src='${path}/resources/sticker/"+name+".png' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('#sti').resizable().draggable();
+	}
+	function openBg() {
+		$('#backColor').show();
+		$('#sticker').hide();
+		$('#getfile').hide();
+	}
+	function changeBg() {
+		var color = $('#bgInput').val();
+		alert(color);
+		$('#content').css('background-color',color);
 	}
 	
 </script>
@@ -124,10 +139,10 @@ textarea:focus {
 		<p>
 		<p>
 		<p>
+		<div id="backColor"><input type="color" id="bgInput" onchange="changeBg()"></div>
 		<div id="picture">
 		<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
 			<input type="file" name="name" id="getfile" accept="image/*">
-
 		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
@@ -167,5 +182,13 @@ textarea:focus {
 
 		</div>
 	</div>
+	
+	<!-- Footer -->
+	<div id="footer" style="margin: 50;" align="center">
+		<ul class="copyright" style="list-style: none">
+			<li>mypage</li>
+		</ul>
+	</div>
+	
 </body>
 </html>
