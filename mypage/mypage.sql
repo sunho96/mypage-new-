@@ -181,5 +181,5 @@ CONSTRAINT memAndCataFK2 FOREIGN KEY (diaryCataNum) REFERENCES diaryCatagory(dia
 CONSTRAINT memAndCataPk primary key (memberNum,diaryCataNum)
 );
 
-
-insert into member values(member_seq.nextval, 'senho500@naver.com', '11', '이선호', '태양',010-8385-0498, sysdate,'n'); 
+--0914 추가
+alter table diary drop column content;
