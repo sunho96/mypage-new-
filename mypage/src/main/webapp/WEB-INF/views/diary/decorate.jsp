@@ -19,7 +19,29 @@
 <script type="text/javascript">
 	$(function() {
 		$('#sticker').hide();
-		$('#pictureInput').hide();
+		$('#getfile').hide();
+		
+		var file = document.querySelector('#getfile');
+		
+		file.onchange =function(){
+			var fileList = file.files;
+			//읽기
+			var reader = new FileReader();
+			reader.readAsDataURL(fileList[0]);
+			//로드한 후
+			reader.onload = function() {
+			/* 	document.querySelector('#preview').src=reader.result; */
+				$('#content').prepend("<div id='imgDisp' style='width: 100px; height: 100px'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
+				$('#imgDisp').resizable().draggable();
+				var width=$('#imgDisp').width();
+				var heigth=$('#imgDisp').height();
+				var postion=$('#imgDisp').postion();
+				alert(width);
+				alert(heigth);
+				alert(postion.left);
+				alert(postion.top);
+			}
+		}
 	});
 	function openSti() {
 		$('#sticker').show();
@@ -54,14 +76,15 @@
 		})
 
 	}
-	function openPhoto() {
+	function getfile() {
 		$('#sticker').hide();
-		$('#pictureInput').show();
+		$('#getfile').show();
 	}
 	function goSti(name) {
 		$('#content').prepend("<div id='sti'style='width: 100px;height: 100px'><img src='${path}/resources/sticker/"+name+".png' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('#sti').resizable().draggable();
 	}
+	
 </script>
 <style type="text/css">
 
@@ -96,13 +119,15 @@ textarea:focus {
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
 				onclick="openBg()">background</a></span><span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openPhoto()">photo</a></span>
+				onclick="getfile()">photo</a></span>
 		</div>
 		<p>
 		<p>
 		<p>
 		<div id="picture">
-			<input type="file" name="name" id="pictureInput">
+		<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
+			<input type="file" name="name" id="getfile" accept="image/*">
+
 		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
