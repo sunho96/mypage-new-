@@ -42,7 +42,7 @@ public class MemberController {
 
 	@RequestMapping("main")
 	public String main(HttpSession session, Model model) {
-		int memberNum = (Integer) session.getAttribute("memberNum");
+		int memberNum = (int) session.getAttribute("memberNum");
 		Member member = ms.selectMember(memberNum);
 		model.addAttribute("member",member);
 		return "main";

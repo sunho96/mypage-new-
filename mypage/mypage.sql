@@ -10,6 +10,7 @@ create sequence member_seq start with 1 increment by 1 nocycle nocache;
 create sequence notice_seq start with 1 increment by 1 nocycle nocache;
 create sequence diary_seq start with 1 increment by 1 nocycle nocache;
 create sequence diaryCata_seq start with 1 increment by 1 nocycle nocache;
+create sequence sticker_seq start with 1 increment by 1 nocycle nocache;
 select* from member;
 -- 01. 회원 
 create table member(
@@ -166,9 +167,19 @@ create table picture(
   rotation number
 );
 
+--추가
+insert into diary values(diary_seq.nextval,'test','test',sysdate,sysdate,'n',1,1);
+alter table diaryCatagory add(del char(2));
+insert into member values(member_seq.nextval,'admin','admin','관리자','관리자','010-1111-1111',sysdate,'n');
+
+--17. 멤버카테고리
+create table memAndCata(
+memberNum number ,
+diaryCataNum number,
+CONSTRAINT memAndCataFK1 FOREIGN KEY (memberNum) REFERENCES member(memberNum),
+CONSTRAINT memAndCataFK2 FOREIGN KEY (diaryCataNum) REFERENCES diaryCatagory(diaryCataNum),
+CONSTRAINT memAndCataPk primary key (memberNum,diaryCataNum)
+);
 
 
-
-create sequence member_seq start with 1 increment by 1 nocycle nocache;
-create sequence notice_seq start with 1 increment by 1 nocycle nocache;
 insert into member values(member_seq.nextval, 'senho500@naver.com', '11', '이선호', '태양',010-8385-0498, sysdate,'n'); 
