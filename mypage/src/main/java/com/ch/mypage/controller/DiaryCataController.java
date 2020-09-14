@@ -29,7 +29,7 @@ public class DiaryCataController {
 
 	@RequestMapping("diaryCatagory/insert")
 	public String insert(String name, Model model, HttpSession session, String insertForm) {
-		int memberNum = (int) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
 		DiaryCatagory dc = dcs.selectCata(name); // 중복 체크
 		
 		if (dc == null) { // name 중복 없음

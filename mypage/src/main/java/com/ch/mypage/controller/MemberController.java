@@ -42,7 +42,7 @@ public class MemberController {
 
 	@RequestMapping("main")
 	public String main(HttpSession session, Model model) {
-		int memberNum = (int) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
 		Member member = ms.selectMember(memberNum);
 		model.addAttribute("member",member);
 		return "main";
@@ -83,7 +83,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="memberUpdate_form", produces = "text/html;charset=utf-8")
 	public String memberUpdate_form(Model model, HttpSession session) {
-		int memberNum = (Integer)session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
 		Member member = ms.selectMember(memberNum); // �씫怨� 
 		model.addAttribute("member", member); // 媛믪쓣 �뤌�뿉 ���엯
 		return "member/memberUpdate_form";
@@ -92,9 +92,6 @@ public class MemberController {
 	@RequestMapping(value="memberUpdate", produces = "text/html;charset=utf-8")
 	public String memberUpdate(Member member,Model model) {
 		int result = ms.update(member);
-		System.out.println("member:"+member.getEmail()); // 媛� �뱾�뼱�삤�뒗吏� �솗�씤
-		System.out.println("member:"+member.getPassword());
-		System.out.println("member:"+member.getTel());
 		model.addAttribute("result", result);
 		model.addAttribute("member", member);
 		return "member/memberUpdate";

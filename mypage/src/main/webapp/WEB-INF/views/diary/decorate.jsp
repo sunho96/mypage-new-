@@ -19,6 +19,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('#sticker').hide();
+		$('#pictureInput').hide();
 	});
 	function openSti() {
 		$('#sticker').show();
@@ -52,6 +53,10 @@
 			} */
 		})
 
+	}
+	function openPhoto() {
+		$('#sticker').hide();
+		$('#pictureInput').show();
 	}
 	function goSti(name) {
 		$('#content').prepend("<div id='sti'style='width: 100px;height: 100px'><img src='${path}/resources/sticker/"+name+".png' style='padding=0;width: 100%;height: 100%'/></div>");
@@ -96,6 +101,9 @@ textarea:focus {
 		<p>
 		<p>
 		<p>
+		<div id="picture">
+			<input type="file" name="name" id="pictureInput">
+		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="pill" href="#home">전체</a></li>
