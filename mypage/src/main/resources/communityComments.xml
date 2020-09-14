@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="communityCommentsns">
+	<resultMap type="communityComments" id="communityComments">
+		<result property="commentsNum" column="commentsNum" />
+		<result property="content" column="content" />
+		<result property="ref" column="ref" />
+		<result property="re_step" column="re_step" />
+		<result property="regDate" column="regDate" />
+		<result property="memberNum" column="memberNum" />
+		<result property="communityNum" column="communityNum" />
+	</resultMap>
+
+	<select id="list" parameterType="int" resultType="communityComments">
+		select * from communityComments
+		where communityNum = #{communityNum} 
+		order by regDate desc
+	</select>
+
+
+	<!-- 댓글 -->
+	<insert id="insert" parameterType="hashmap">
+		<selectKey keyProperty="commentsNum" order="BEFORE" resultType="int">
+			select nvl(max(commentsNum),0)+1 from communitycomments
+		</selectKey>
+		insert into communitycomments
+		values (#{commentsNum},#{content},#{commentsNum},0,sysdate,#{memberNum},#{communityNum})
+	</insert> 
+	
+	<!-- 답글 -->
+	
+
+</mapper>

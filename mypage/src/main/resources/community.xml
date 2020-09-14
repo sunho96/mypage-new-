@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="communityns">
+	<resultMap type="community" id="community">
+		<result property="communityNum" column="communityNum" />
+		<result property="shareDate" column="shareDate" />
+		<result property="likeyCount" column="likeyCount" />
+		<result property="diaryNum" column="diaryNum" />
+		<result property="rn" column="rn" />
+		<collection property="diary" resultMap="diary"/>
+	</resultMap>
+	<resultMap type="diary" id="diary">
+		<result property="diaryNum" column="diaryNum" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="regDate" column="regDate" />
+		<result property="updateDate" column="updateDate" />
+		<result property="del" column="del" />
+		<result property="diaryCataNum" column="diaryCataNum" />
+		<result property="memberNum" column="memberNum" />
+	</resultMap>
+	
+
+	<select id="listDefault" resultMap="community">
+		select d.*,c.*
+		from diary d
+			,(select * from (select ROWNUM rn,community.* from 
+									(select * from COMMUNITY order by COMMUNITYNUM desc) community ) order by rn) c
+		where d.DIARYNUM=c.DIARYNUM and rn between 1 and 5
+	</select>
+
+	<select id="addList" parameterType="int" resultMap="community">
+		select d.*,c.*
+		from diary d
+			,(select * from (select ROWNUM rn,community.* from 
+									(select * from COMMUNITY order by COMMUNITYNUM desc) community ) order by rn) c
+		where d.DIARYNUM=c.DIARYNUM and rn between #{startNum} and #{startNum} +4
+	</select>
+</mapper>

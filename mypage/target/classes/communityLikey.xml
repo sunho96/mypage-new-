@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="communityLikeyns">
+	<resultMap type="communityLikey" id="communityLikey">
+		<result property="memberNum" column="memberNum" />
+		<result property="communityNum" column="communityNum" />
+		
+	</resultMap>
+	
+	<select id="select" parameterType="hashmap" resultType="communityLikey">
+		select * from communityLikey
+		where memberNum = #{memberNum} and communityNum = #{communityNum}
+	</select>
+	<select id="likeyCnt" parameterType="int" resultType="int">
+		select count(*) from communityLikey
+		where communityNum = #{communityNum}
+	</select>
+	
+	<insert id="insert" parameterType="hashmap">
+		insert into communityLikey
+		values (#{memberNum},#{communityNum})
+	</insert> 
+	
+	<delete id="delete" parameterType="hashmap">
+		delete from communityLikey
+		where memberNum = #{memberNum} and communityNum = #{communityNum}
+	</delete>
+	
+
+</mapper>

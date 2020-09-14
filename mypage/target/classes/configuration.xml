@@ -12,7 +12,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="accountbook" type="com.ch.mypage.model.AccountBook" />
 		<typeAlias alias="sticker" type="com.ch.mypage.model.Sticker" />
 		<typeAlias alias="memAndCata" type="com.ch.mypage.model.MemAndCata" />
-		
+		<typeAlias alias="community" type="com.ch.mypage.model.Community" />
+		<typeAlias alias="communityLikey" type="com.ch.mypage.model.CommunityLikey" />
+		<typeAlias alias="communityComments" type="com.ch.mypage.model.CommunityComments" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="member.xml" />
@@ -23,5 +25,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="accountbook.xml" />
 		<mapper resource="sticker.xml" />
 		<mapper resource="memAndCata.xml" />
+		<mapper resource="community.xml" />
+		<mapper resource="communityLikey.xml" />
+		<mapper resource="communityComments.xml" />
 	</mappers>
 </configuration>
