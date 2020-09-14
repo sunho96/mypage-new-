@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="member" type="com.ch.mypage.model.Member" />
+		<typeAlias alias="notice" type="com.ch.mypage.model.Notice" />
+		<typeAlias alias="diary" type="com.ch.mypage.model.Diary" />
+		<typeAlias alias="diaryCatagory" type="com.ch.mypage.model.DiaryCatagory" />
+		<typeAlias alias="account" type="com.ch.mypage.model.Account" />
+		<typeAlias alias="accountbook" type="com.ch.mypage.model.AccountBook" />
+		<typeAlias alias="sticker" type="com.ch.mypage.model.Sticker" />
+		<typeAlias alias="memAndCata" type="com.ch.mypage.model.MemAndCata" />
+		
+	</typeAliases>
+	<mappers>
+		<mapper resource="member.xml" />
+		<mapper resource="notice.xml" />
+		<mapper resource="diary.xml" />
+		<mapper resource="diaryCatagory.xml" />
+		<mapper resource="account.xml" />
+		<mapper resource="accountbook.xml" />
+		<mapper resource="sticker.xml" />
+		<mapper resource="memAndCata.xml" />
+	</mappers>
+</configuration>

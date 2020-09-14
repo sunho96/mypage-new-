@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stickerns">
+	<resultMap type="sticker" id="stickerResult">
+		<result column="stickerNum" property="stickerNum"/>	
+		<result column="name" property="name"/>	
+		<result column="groupName" property="groupName"/>	
+	</resultMap>
+	<select id="list" resultMap="stickerResult">
+		select * from sticker order by stickerNum
+	</select>
+	<select id="gNameList" resultMap="stickerResult">
+		select groupName from sticker group by groupName
+	</select>
+</mapper>

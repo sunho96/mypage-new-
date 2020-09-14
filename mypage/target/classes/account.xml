@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountns">
+	<resultMap type="account" id="accountResult">
+		<result property="accountNum" column="accountNum" />
+		<result property="total" column="total" />
+		<result property="bank" column="bank" />
+		<result property="memberNum" column="memberNum" />
+	</resultMap>
+	<select id="AccountList" parameterType="int" resultMap="accountResult">
+		select * from account where memberNum=#{memberNum}
+	</select>
+	<insert id="AccountInsert" parameterType="account">
+		insert into account values(#{accountNum},#{total},#{bank},#{memberNum})
+	</insert>
+	<select id="accountNumChk" parameterType="int" resultType="account">
+		select * from account where accountNum = #{accountNum}
+	</select>
+</mapper>
+
+
+

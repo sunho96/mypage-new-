@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticens">
+	<resultMap type="notice" id="noticeResult">
+		<result property="noticeNum" column="noticeNum"/>
+		<result property="subject" column="subject"/>
+		<result property="content" column="content"/>
+		<result property="regDate" column="regDate"/>
+	</resultMap>
+	<insert id="insert" parameterType="notice">
+		insert into notice values(notice_seq.nextval,#{subject},#{content},sysdate)
+	</insert>
+	<select id="list" resultMap="noticeResult">
+		select * from notice order by noticeNum desc
+	</select>
+	<select id="select" parameterType="int" resultType="notice">
+		select * from notice where noticeNum = #{noticeNum}
+	</select>
+	<update id="update" parameterType="notice">
+		update notice set subject=#{subject}, content=#{content} where noticeNum=#{noticeNum}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from notice where noticeNum=#{noticeNum}
+	</delete>
+</mapper>

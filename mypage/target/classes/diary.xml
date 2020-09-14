@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="diaryns">
+	<resultMap type="diary" id="diaryResult">
+		<result property="diaryNum" column="diaryNum" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="regDate" column="regDate" />
+		<result property="updateDate" column="updateDate" />
+		<result property="del" column="del" />
+		<result property="diaryCataNum" column="diaryCataNum" />
+		<result property="memberNum" column="memberNum" />
+	</resultMap>
+	<insert id="insert" parameterType="diary">
+		insert into diary
+		values(diary_seq.nextval,#{subject},#{content},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum})
+	</insert>
+	<select id="list" parameterType="hashmap" resultMap="diaryResult">
+		select * from diary where memberNum = #{memberNum} order by diaryNum desc
+	</select>
+	<select id="select" parameterType="int" resultType="diary">
+		select * from
+		diary where diaryNum=#{diaryNum}
+	</select>
+	<update id="update" parameterType="diary">
+		update diary set subject =
+		#{subject}, content=#{content}, updateDate=sysdate where
+		diaryNum=#{diaryNum}
+	</update>
+	<update id="delete" parameterType="int">
+		update diary set del='y' where
+		diaryNum=#{diaryNum}
+	</update>
+	<update id="save" parameterType="int">
+		update diary set del='n' where
+		diaryNum=#{diaryNum}
+	</update>
+	<delete id="del" parameterType="int">
+		delete from diary where
+		diaryNum=#{diaryNum}
+	</delete>
+	<select id="typeList" parameterType="hashmap"
+		resultMap="diaryResult">
+		select * from diary where memberNum = #{memberNum} and
+		diaryCataNum=#{diaryCataNum}
+	</select>
+	
+</mapper>

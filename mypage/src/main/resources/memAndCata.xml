@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memAndCatans">
+	<resultMap type="memAndCata" id="memAndCataResult">
+		<result property="memberNum" column="memberNum" />
+		<result property="diaryCataNum" column="diaryCataNum" />
+	</resultMap>
+	<insert id="insertMemAndCata" parameterType="hashmap">
+		insert into memAndCata values(#{memberNum},#{diaryCataNum})
+	</insert>
+	<select id="cataList" parameterType="int" resultMap="memAndCataResult">
+		select memberNum, mc.diaryCatanum, name,del from memAndCata mc, diaryCatagory dc where mc.diaryCataNum= dc.diaryCataNum and memberNum=#{memberNum} order by diaryCataNum
+	</select>
+	<delete id="memAnaCataDel" parameterType="hashmap">
+		delete from memAndCata where memberNum = #{memberNum} and diaryCataNum=#{diaryCataNum}
+	</delete>
+	<select id="selectMemAndCata" parameterType="int" resultType="memAndCata">
+		select * from memAndCata where diaryCataNum=#{diaryCataNum} and memberNum=#{memberNum}
+	</select>
+	<delete id="memAndCataAllDel" parameterType="int">
+		delete from memAndCata where memberNum = #{memberNum}
+	</delete>
+</mapper>

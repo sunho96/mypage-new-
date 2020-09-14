@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountbookns">
+	<resultMap type="accountbook" id="accountbookResult">
+		<result property="abookNum" column="abookNum" />
+		<result property="dealType" column="dealType" />
+		<result property="amount" column="amount" />
+		<result property="accounts" column="accounts" />
+		<result property="category" column="category" />
+		<result property="regDate" column="regDate" />
+		<result property="memo" column="memo" />
+		<result property="accountNum" column="accountNum" />
+	</resultMap>
+	<select id="AccountBookList" parameterType="int" resultMap="accountbookResult">
+		select * from accountbook where accountNum = #{accountNum}
+	</select>
+</mapper>
+
+
+
