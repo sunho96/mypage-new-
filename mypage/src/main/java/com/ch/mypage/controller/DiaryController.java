@@ -24,7 +24,7 @@ public class DiaryController {
 
 	@RequestMapping("diary/insertForm")
 	public String insertForm(Model model,HttpSession session) {
-		int memberNum = (int) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("cataList",cataList);
 		return "diary/insertForm";
@@ -49,7 +49,7 @@ public class DiaryController {
 
 	@RequestMapping("diary/list")
 	public String list(HttpSession session, Model model) {
-		int memberNum = (Integer) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<Diary> list = ds.list(memberNum);
 		List<MemAndCata> cataList=dcs.cataList(memberNum); 
 		model.addAttribute("cataList", cataList);
@@ -87,7 +87,7 @@ public class DiaryController {
 
 	@RequestMapping("diary/trash")
 	public String trash(HttpSession session, Model model) {
-		int memberNum = (Integer) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<Diary> list = ds.list(memberNum);
 		model.addAttribute("list", list);
 		return "diary/trash";

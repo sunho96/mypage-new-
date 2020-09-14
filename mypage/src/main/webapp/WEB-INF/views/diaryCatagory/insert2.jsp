@@ -8,9 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript">
-	alert("insert2에 들어옴.");
-</script>
 <c:if test="${result>0 }">
 	<script type="text/javascript">
 		alert("카테고리 추가 성공");

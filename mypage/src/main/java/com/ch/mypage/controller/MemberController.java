@@ -42,7 +42,8 @@ public class MemberController {
 
 	@RequestMapping("main")
 	public String main(HttpSession session, Model model) {
-		int memberNum = (Integer) session.getAttribute("memberNum");
+		// System.out.println("num = "+session.getAttribute("memberNum"));
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Member member = ms.selectMember(memberNum);
 		model.addAttribute("member",member);
 		return "main";

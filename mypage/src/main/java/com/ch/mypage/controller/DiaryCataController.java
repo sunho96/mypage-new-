@@ -21,7 +21,8 @@ public class DiaryCataController {
 
 	@RequestMapping("diaryCatagory/list")
 	public String list(Model model, HttpSession session) {
-		int memberNum = (Integer) session.getAttribute("memberNum");
+		// System.out.println("memberNum="+session.getAttribute("memberNum"));
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("cataList", cataList);
 		return "diaryCatagory/list";
@@ -29,7 +30,7 @@ public class DiaryCataController {
 
 	@RequestMapping("diaryCatagory/insert")
 	public String insert(String name, Model model, HttpSession session, String insertForm) {
-		int memberNum = (int) session.getAttribute("memberNum");
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		DiaryCatagory dc = dcs.selectCata(name); // 중복 체크
 		
 		if (dc == null) { // name 중복 없음
@@ -68,10 +69,10 @@ public class DiaryCataController {
 	}
 
 	@RequestMapping("diaryCatagory/update")
-	public String update(int memberNum, String name, int diaryCataNum, Model model) {
+	public String update(String name, int diaryCataNum, Model model, HttpSession session) {
 		// select
 		DiaryCatagory dc = dcs.selectCata(name);
-		
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		int result = 0;
 		if (dc == null) {
 			dcs.memAnaCataDel(memberNum, diaryCataNum); 
@@ -88,8 +89,6 @@ public class DiaryCataController {
 				result = -1;
 				model.addAttribute("result", result);
 			}
-
-			
 		}
 		return "diaryCatagory/update";
 

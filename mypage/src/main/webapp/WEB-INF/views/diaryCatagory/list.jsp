@@ -30,7 +30,7 @@
 	function cataUpdate(index) {
 		var name = $('#input_'+index).val();
 		var diaryCataNum= $("#num_"+index).val();
-		location.href="update?memberNum=${memberNum}&name="+name+'&diaryCataNum='+diaryCataNum;
+		location.href="update?name="+name+'&diaryCataNum='+diaryCataNum;
 	}
 	function cataReset() {
 		$(".cataInput").hide();

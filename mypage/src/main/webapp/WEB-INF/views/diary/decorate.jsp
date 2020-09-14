@@ -96,6 +96,9 @@ textarea:focus {
 		<p>
 		<p>
 		<p>
+		<div id="photoDisp">
+			<input type="file" name="name">
+		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="pill" href="#home">전체</a></li>
