@@ -8,16 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${result>0 }">
+<c:if test="${result==1 }">
 	<script type="text/javascript">
 		alert("카테고리 수정 성공");
-		location.href="${path}/diaryCatagory/list";
+		location.href="list";
 	</script>
 </c:if>
 <c:if test="${result==-1 }">
 	<script type="text/javascript">
 		alert("이미 존재하는 카테고리입니다.");
-		location.href="${path}/diaryCatagory/list";
+		location.href="list";
 	</script>
 </c:if>
 <c:if test="${result==0 }">

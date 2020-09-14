@@ -8,9 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${result>0 }">
+<c:if test="${result==1 }">
 	<script type="text/javascript">
-		alert("카테고리 추가 성공");
 		location.href="${path}/main#diaryWrite";
 	</script>
 </c:if>

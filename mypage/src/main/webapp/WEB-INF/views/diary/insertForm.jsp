@@ -32,9 +32,7 @@
 	});
 	function insertCata() {
 		var name = $('#newCata').val();
-		alert(name);
-		location.href ='diaryCatagory/insert?name='+ name +'&insertForm='
-				+ 'insertForm';
+		location.href ='diaryCatagory/insert?name='+ name +'&insertForm='+ 'insertForm';
 	}
 	function cataReset() {
 		$("#inputTd").hide();
@@ -80,9 +78,8 @@
 			<tr>
 				<td id="inputTd"><input type="text" name="name" id="newCata" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2"
 					placeholder="create your catagory" autofocus="autofocus">
-					<div class="input-group-append">
-					<button onclick="insertCata()" class="btn btn-outline-secondary">등록</button>
-					<button onclick="cataReset()" class="btn btn-outline-secondary">취소</button></div></td>
+					<input type="button" onclick="insertCata()" class="btn btn-outline-secondary" value="등록">
+					<input type="button" onclick="insertCata()" class="btn btn-outline-secondary" value="취소"></td>
 			</tr>
 			<tr>
 				<th>subject</th>

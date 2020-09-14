@@ -21,7 +21,6 @@ public class DiaryCataController {
 
 	@RequestMapping("diaryCatagory/list")
 	public String list(Model model, HttpSession session) {
-		// System.out.println("memberNum="+session.getAttribute("memberNum"));
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("cataList", cataList);
@@ -32,25 +31,27 @@ public class DiaryCataController {
 	public String insert(String name, Model model, HttpSession session, String insertForm) {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		DiaryCatagory dc = dcs.selectCata(name); // 중복 체크
-		
+		int result = 0;
 		if (dc == null) { // name 중복 없음
 			dcs.insertCata(name); // catagory insert
 			DiaryCatagory dc2 = dcs.selectCata(name); //memAndCata에 넣을 cataNum 추출
-			int result = dcs.insertMemAndCata(memberNum, dc2.getDiaryCataNum()); // memAndCata insert
-			model.addAttribute("result", result); //1 전송
+			result = dcs.insertMemAndCata(memberNum, dc2.getDiaryCataNum()); // memAndCata insert
+			
 		} else if (dc != null) { // name이 이미 존재할 때
 			MemAndCata mc = dcs.selectMemAndCata(dc.getDiaryCataNum(), memberNum);// member가 name을 사용 중인지 체크
 			if (mc == null) { // memandcata에 값이 없을 대
-				int result = dcs.insertMemAndCata(memberNum, dc.getDiaryCataNum());// membercata에 insert
-				model.addAttribute("result", result);
+				result = dcs.insertMemAndCata(memberNum, dc.getDiaryCataNum());// membercata에 insert
 			} else if (mc != null) { // memandcata에 값이 있을 때 즉, 사용자가 사용중인 catagory일 때
-				int result = -1;
-				model.addAttribute("result", result);
+				result = -1;
 			}
 		}
+		model.addAttribute("result", result); //1 전송
+		System.out.println("result = "+result);
 		if (insertForm == null) {
 			return "diaryCatagory/insert"; //insertForm으로 안 들어올 때
 		} else {
+			System.out.println("insertForm");
+			
 			return "diaryCatagory/insert2"; //insertForm에서 들어올 때
 		}
 	}
@@ -71,13 +72,13 @@ public class DiaryCataController {
 	@RequestMapping("diaryCatagory/update")
 	public String update(String name, int diaryCataNum, Model model, HttpSession session) {
 		// select
-		DiaryCatagory dc = dcs.selectCata(name);
-		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		DiaryCatagory dc = dcs.selectCata(name); //name 중복 체크
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString()); //memAndCata에 넣기 위해
 		int result = 0;
-		if (dc == null) {
-			dcs.memAnaCataDel(memberNum, diaryCataNum); 
-			dcs.insertCata(name); 
-			DiaryCatagory dc2 = dcs.selectCata(name); 
+		if (dc == null) { //중복된 name이 없을 때
+			dcs.memAnaCataDel(memberNum, diaryCataNum); //원래 있던 memAndCata 데이터 삭제
+			dcs.insertCata(name);  //그리고 catagory테이블에 데이터 추가
+			DiaryCatagory dc2 = dcs.selectCata(name);  //memAndCata에 데이터 넣기 위해 카테고리 테이블에서 num select
 			result = dcs.insertMemAndCata(memberNum, dc2.getDiaryCataNum()); 
 			model.addAttribute("result", result);
 		} else { 
