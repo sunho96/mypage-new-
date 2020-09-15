@@ -51,10 +51,10 @@
 		$('#sticker').show();
 		$('#getfile').hide();
 		$('#backColor').hide();
-		$("#content")
+		/* $("#content")
 		.prepend(
 				"<div id='sti'style='width: 100px;height: 100px'><img src='${path}/images/me.jpg' style='padding=0;width: 100%;height: 100%'/></div>");
-		$('#sti').resizable().draggable();
+		$('#sti').resizable().draggable(); */
 	}
 	function openText() {
 		$("#content")
@@ -107,26 +107,31 @@
 		var stiList = [];
 		$('.sti').each(function() {
 			var id = $(this).attr('id');
-			var stiPosi = $(this).postion();
+			var width= $(this).width();	
+			var height= $(this).height();
+			var position = $(this).position();
+			var x = position.left;
+			var y = position.top;
 			var location = {
-					'name' : $(this).id,
-					'width' : $(this).width,
-					'height' : $(this).height,
-					'x' : stiPosi.x,
-					'y' : stiPosi.y
+					'name' : id,
+					'width' : width,
+					'height' :height,
+					'x' : x,
+					'y' : y 
 			}
 			stiList.push(location);
 		});
-		$.ajex({
+		$.ajax({
 			url:"decoLocation",
 			dataType: "json",
-			data : stiList,
+			contentType : "application/json",
+			data : JSON.stringify(stiList),
 			traditional :true,
 			type:"POST",
 			success :function(data){
 				if(data=='성공'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="location/location";
+				 	location.href="${path}/main#diaryList";
 				}
 			}
 		});
