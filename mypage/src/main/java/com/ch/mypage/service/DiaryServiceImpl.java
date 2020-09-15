@@ -61,4 +61,10 @@ public class DiaryServiceImpl implements DiaryService {
 		return dd.typeList(memberNum,diaryCataNum);
 	}
 
+	@Override
+	public int selectDiaryNum() {
+	
+		return dd.selectDiaryNum();
+	}
+
 }

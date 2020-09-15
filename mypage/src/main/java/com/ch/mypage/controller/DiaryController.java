@@ -42,8 +42,7 @@ public class DiaryController {
 	public String decorate(Diary diary,Model model) {
 		List<Sticker> stickerList= ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
-		ds.insert(diary);
-//		Diary diary2 = ds.select(diaryNum);
+//		ds.insert(diary);
 		model.addAttribute("stickerList",stickerList);
 		model.addAttribute("stickerGName",stickerGName);
 		return "diary/decorate";

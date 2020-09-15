@@ -44,5 +44,7 @@
 		select * from diary where memberNum = #{memberNum} and
 		diaryCataNum=#{diaryCataNum}
 	</select>
-	
+	<select id="selectDiaryNum" resultType="integer">
+		select max(diaryNum) from diary
+	</select>
 </mapper>

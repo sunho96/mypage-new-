@@ -22,4 +22,6 @@ public interface DiaryDao {
 
 	List<Diary> typeList(int memberNum, int diaryCataNum);
 
+	int selectDiaryNum();
+
 }

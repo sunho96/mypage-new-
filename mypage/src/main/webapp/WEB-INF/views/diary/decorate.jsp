@@ -103,7 +103,8 @@
 	function pageReload() {
 		location.reload();
 	}
-	function submit() {
+	function submit(num) {
+		alert(num);
 		var stiList = [];
 		$('.sti').each(function() {
 			var id = $(this).attr('id');
@@ -113,8 +114,6 @@
 			var x = position.left;
 			var y = position.top;
 			var location = {
-					'diaryCataNum' : diaryCataNum,
-					'subject' : subject,
 					'name' : id,
 					'width' : width,
 					'height' :height,
@@ -133,7 +132,7 @@
 			success :function(data){
 				if(data=='성공'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="${path}/main#diaryList";
+				 	location.href="${path}/";
 				}
 			}
 		});
@@ -235,7 +234,7 @@ textarea:focus {
 		</div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
-				onclick="submit()">저장</button>
+				onclick="submit(${diaryNum})">저장</button>
 			<button type="button" class="btn btn-outline-success"
 				onclick="pageReload()">초기화</button>
 		</div>
