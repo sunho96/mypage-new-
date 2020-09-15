@@ -8,4 +8,11 @@ public class Sticker {
 	private String name; // 스티커 이름
 	private String groupName; // 그룹 이름
 
+	// 페이징용
+	private int startRow;
+	private int endRow;
+	// 검색용
+	private String search;
+	private String keyword;
+
 }

@@ -16,7 +16,7 @@ public class StickerController {
 	private StickerService ss;
 	@RequestMapping("sticker/list")
 	public String list(Model model) {
-		List<Sticker> stickerList= ss.list();
+		List<Sticker> stickerList= ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
 		model.addAttribute("stickerList",stickerList);
 		model.addAttribute("stickerGName",stickerGName);

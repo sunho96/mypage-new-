@@ -184,4 +184,107 @@ CONSTRAINT memAndCataPk primary key (memberNum,diaryCataNum)
 --0914 추가
 alter table diary drop column content;
 --0915 추가
-  alter table OBJECTPOSITION add(pictureNum number references picture(pictureNum));
+ alter table OBJECTPOSITION add(pictureNum number references picture(pictureNum));
+ 
+ insert into member values(member_seq.nextval,'admin@mypage.com','admin','관리자','관리자',010-0000-0000,sysdate,'n');
+ select * from sticker;
+  insert into sticker values(sticker_seq.nextval,'flower1.png', '꽃');
+insert into sticker values(sticker_seq.nextval,'flower2.png', '꽃');
+insert into sticker values(sticker_seq.nextval,'flower3.png', '꽃');
+insert into sticker values(sticker_seq.nextval,'flower4.png', '꽃');
+insert into sticker values(sticker_seq.nextval,'flower5.png', '꽃');
+
+insert into sticker values(sticker_seq.nextval,'moon1.png', '달');
+insert into sticker values(sticker_seq.nextval,'moon2.png', '달');
+insert into sticker values(sticker_seq.nextval,'moon3.png', '달');
+
+insert into sticker values(sticker_seq.nextval,'bambi1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'jasmin1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'lobstar1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'minimouse1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'minimouse2.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'princess1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'princess2.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'rabit1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'snowwhite1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'stitch1.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'stitch2.png', '디즈니');
+insert into sticker values(sticker_seq.nextval,'stitch3.png', '디즈니');
+
+
+insert into sticker values(sticker_seq.nextval,'memo1.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo2.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo3.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo4.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo5.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo6.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo7.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo8.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo9.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo10.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo11.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo12.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo13.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo14.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo15.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo16.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo17.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo18.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo19.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo20.png', '떡메');
+
+insert into sticker values(sticker_seq.nextval,'memo21.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo22.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo23.png', '떡메');
+insert into sticker values(sticker_seq.nextval,'memo24.png', '떡메');
+
+insert into sticker values(sticker_seq.nextval,'jedi1.png', '스타워즈');
+insert into sticker values(sticker_seq.nextval,'jedi2.png', '스타워즈');
+
+
+-- 스티커 폴더 (적용 x
+insert into sticker values(sticker_seq.nextval,'01.png', '곰');
+insert into sticker values(sticker_seq.nextval,'02.png', '곰');
+insert into sticker values(sticker_seq.nextval,'03.png', '곰');
+insert into sticker values(sticker_seq.nextval,'04.png', '곰');
+
+insert into sticker values(sticker_seq.nextval,'a01.png', '영화');
+insert into sticker values(sticker_seq.nextval,'a02.png', '나비');
+insert into sticker values(sticker_seq.nextval,'a03.png', '스마일');
+insert into sticker values(sticker_seq.nextval,'a04.png', '하트');
+insert into sticker values(sticker_seq.nextval,'a05.png', '리본');
+insert into sticker values(sticker_seq.nextval,'a06.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'a07.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'a08.png', '별');
+insert into sticker values(sticker_seq.nextval,'a09.png', '하트');
+insert into sticker values(sticker_seq.nextval,'a10.png', '무지개');
+insert into sticker values(sticker_seq.nextval,'a11.png', '크레파스');
+
+insert into sticker values(sticker_seq.nextval,'b01.png', '크레파스');
+insert into sticker values(sticker_seq.nextval,'b02.png', '무지개');
+insert into sticker values(sticker_seq.nextval,'b03.png', '나비');
+insert into sticker values(sticker_seq.nextval,'b04.png', '와펜');
+insert into sticker values(sticker_seq.nextval,'b05.png', '와펜');
+insert into sticker values(sticker_seq.nextval,'b06.png', '토끼');
+insert into sticker values(sticker_seq.nextval,'b07.png', '와펜');
+insert into sticker values(sticker_seq.nextval,'b08.png', '테이프');
+
+insert into sticker values(sticker_seq.nextval,'c01.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c02.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c03.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c04.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c05.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c06.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c07.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c08.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c09.png', '테이프');
+insert into sticker values(sticker_seq.nextval,'c10.png', '테이프');
+
+insert into sticker values(sticker_seq.nextval,'cupcake1.png', '케이크');
+insert into sticker values(sticker_seq.nextval,'cupcake2.png', '케이크');
+insert into sticker values(sticker_seq.nextval,'cupcake3.png', '케이크');
+insert into sticker values(sticker_seq.nextval,'cupcake4.png', '케이크');
+
+insert into sticker values(sticker_seq.nextval,'cupid1.png', '천사');
+
+-- d01.png 부터 다시 만들기 메모 

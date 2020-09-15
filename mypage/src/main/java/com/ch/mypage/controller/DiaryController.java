@@ -40,7 +40,7 @@ public class DiaryController {
 	
 	@RequestMapping("diary/decorate")
 	public String decorate(int diaryCataNum, String subject,Model model) {
-		List<Sticker> stickerList= ss.list();
+		List<Sticker> stickerList= ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
 		model.addAttribute("stickerList",stickerList);
 		model.addAttribute("stickerGName",stickerGName);

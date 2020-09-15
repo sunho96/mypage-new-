@@ -88,7 +88,7 @@
 		$('#getfile').show();
 	}
 	function goSti(name) {
-		$('#content').prepend("<div class='sti' id='"+name+"' style='width: 100px;height: 100px'><img src='${path}/resources/sticker/"+name+".png' style='padding=0;width: 100%;height: 100%'/></div>");
+		$('#content').prepend("<div class='sti' id='"+name+"' style='width: 100px;height: 100px'><img src='${path}/img/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
 	function openBg() {
@@ -211,7 +211,7 @@ textarea:focus {
 				<div id="home" class="tab-pane fade in active">
 					<c:forEach items="${stickerList }" var="s">
 						<a onclick="goSti(${s.name})"><img alt=""
-							src="../resources/sticker/${s.name}.png" width="100px"
+							src="${path }/images/stickerImage/${s.name}" width="100px"
 							height="100px"></a>
 					</c:forEach>
 				</div>
@@ -221,7 +221,7 @@ textarea:focus {
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
 								<a onclick="goSti(${s.name})"><img alt=""
-									src="../resources/sticker/${s.name}.png" width="100px"
+									src="${path }/images/stickerImage/${s.name}" width="100px"
 									height="100px"></a>
 							</c:if>
 						</c:forEach>

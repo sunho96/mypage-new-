@@ -1,5 +1,6 @@
 package com.ch.mypage.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -14,14 +15,26 @@ public class StickerDaoImpl implements StickerDao {
 	private SqlSessionTemplate sst;
 
 	@Override
-	public List<Sticker> list() {
+	public List<Sticker> stickerList() {
 		
-		return sst.selectList("stickerns.list");
+		return sst.selectList("stickerns.stickerList");
 	}
 
 	@Override
 	public List<Sticker> gNameList() {
 		
 		return sst.selectList("stickerns.gNameList");
+	}
+
+	@Override
+	public Collection<Sticker> list(Sticker sticker) {
+		// TODO Auto-generated method stub
+		return sst.selectList("stickerns.list",sticker);
+	}
+
+	@Override
+	public int getTotal(Sticker sticker) {
+		// TODO Auto-generated method stub
+		return sst.selectOne("stickerns.getTotal", sticker);
 	}
 }

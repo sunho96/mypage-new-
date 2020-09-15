@@ -9,9 +9,9 @@ insert into member values (5,'b@e.e','123','윤이','이','010-5111-2222',sysdat
 insert into diarycatagory values(1,'test','n');
 
 --다이어리
-insert into diary values (1,'제목1','내용1','2020-01-10','2020-01-10','n',1,1);
-insert into diary values (2,'제목2','내용2','2020-01-11','2020-01-11','n',1,2);
-insert into diary values (3,'제목3','내용3','2020-01-12','2020-01-12','n',1,3);
+insert into diary values (1,'제목1','2020-01-10','2020-01-10','n',1,1);
+insert into diary values (2,'제목2','2020-01-11','2020-01-11','n',1,2);
+insert into diary values (3,'제목3','2020-01-12','2020-01-12','n',1,3);
 insert into diary values (4,'제목4','내용4','2020-01-13','2020-01-13','n',1,4);
 insert into diary values (5,'제목5','내용5','2020-01-14','2020-01-14','n',1,5);
 insert into diary values (6,'제목6','내용6','2020-01-15','2020-01-15','n',1,1);
