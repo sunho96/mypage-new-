@@ -61,9 +61,9 @@ public class MemberController {
 		
 		Member member = ms.select(email);
 		if(member == null) {
-			msg = "�궗�슜媛��뒫";
+			msg = "사용가능";
 		}else {
-			msg = "�궗�슜遺덇�";
+			msg = "사용불가";
 		}
 		return msg;
 	}
