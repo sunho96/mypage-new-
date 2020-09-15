@@ -126,5 +126,10 @@ public class DiaryController {
 		model.addAttribute("y",y);
 		return "diary/location";
 	}
+	@RequestMapping("diary/decoLocation")
+	public String decoLocation() {
+		return null;
+		
+	}
 	
 }

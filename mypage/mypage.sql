@@ -183,3 +183,5 @@ CONSTRAINT memAndCataPk primary key (memberNum,diaryCataNum)
 
 --0914 추가
 alter table diary drop column content;
+--0915 추가
+  alter table OBJECTPOSITION add(pictureNum number references picture(pictureNum));

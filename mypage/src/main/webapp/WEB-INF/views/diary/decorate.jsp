@@ -34,12 +34,12 @@
 			//로드한 후
 			reader.onload = function() {
 			/* 	document.querySelector('#preview').src=reader.result; */
-				$('#content').prepend("<div id='imgDisp' style='width: 100px; height: 100px'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
-				$('#imgDisp').resizable().draggable();
+				$('#content').prepend("<div class='imgDisp' style='width: 100px; height: 100px'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
+				$('.imgDisp').resizable().draggable();
 		/* 		$('#morefile').prepend('<a onclick="morefile()">사진추가하기(click)</a>'); */
-				var width=$('#imgDisp').width();
-				var heigth=$('#imgDisp').height();
-				var postion=$('#imgDisp').postion();
+				var width=$('.imgDisp').width();
+				var heigth=$('.imgDisp').height();
+				var postion=$('.imgDisp').postion();
 				alert(width);
 				alert(heigth);
 				alert(postion.left);
@@ -59,8 +59,8 @@
 	function openText() {
 		$("#content")
 				.prepend(
-						"<div id='textbox' style='width: 100px; height: 100px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
-		$('#textbox').draggable({
+						"<div class='textbox' style='width: 100px; height: 100px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
+		$('.textbox').draggable({
 			snap : true,
 			cursor : "move",
 			delay : 100,
@@ -88,8 +88,8 @@
 		$('#getfile').show();
 	}
 	function goSti(name) {
-		$('#content').prepend("<div id='sti'style='width: 100px;height: 100px'><img src='${path}/resources/sticker/"+name+".png' style='padding=0;width: 100%;height: 100%'/></div>");
-		$('#sti').resizable().draggable();
+		$('#content').prepend("<div class='sti' id='"+name+"' style='width: 100px;height: 100px'><img src='${path}/resources/sticker/"+name+".png' style='padding=0;width: 100%;height: 100%'/></div>");
+		$('.sti').resizable().draggable();
 	}
 	function openBg() {
 		$('#backColor').show();
@@ -100,7 +100,35 @@
 		var color = $('#bgInput').val();
 		$('#content').css('background-color',color);
 	}
-	
+	function pageReload() {
+		location.reload();
+	}
+	function submit() {
+		var stiList = [];
+		$('.sti').each(function() {
+			var id = $(this).attr('id');
+			var stiPosi = $(this).postion();
+			var location = {
+					'name' : $(this).id;
+					'width' : $(this).width,
+					'height' : $(this).height,
+					'x' : stiPosi.x,
+					'y' : stiPosi.y
+			}
+			stiList.push(location);
+		});
+		$.ajex({
+			url:"decoLocation",
+			header:{
+				"Content-Type":"application/json",	//Content-Type 설정
+				"X-HTTP-Method-Override":"POST"},
+			dataType:"text",
+			data:JSON.stringify({				//JSON.stringify()로 데이터를 감싸줍니다.
+				:stiList
+		});
+		});
+		
+	}
 </script>
 <style type="text/css">
 a:link {
@@ -199,7 +227,12 @@ textarea:focus {
 		<div id="content"
 			style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
 		</div>
-		<div style="margin: 30" align="center"><button type="button" class="btn btn-outline-danger">Danger</button></div>
+		<div style="margin: 30" align="center">
+			<button type="button" class="btn btn-outline-success"
+				onclick="submit()">저장</button>
+			<button type="button" class="btn btn-outline-success"
+				onclick="pageReload()">초기화</button>
+		</div>
 	</div>
 
 	<!-- Footer -->
