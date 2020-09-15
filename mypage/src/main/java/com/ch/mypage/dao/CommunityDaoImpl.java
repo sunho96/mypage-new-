@@ -69,20 +69,23 @@ public class CommunityDaoImpl implements CommunityDao {
 	}
 
 	@Override
-	public int insertComment(int memberNum,int communityNum, String text) {
+	public int insertComment(CommunityComments comment) {
 		// TODO Auto-generated method stub
-		Map<String,Object> map= new HashMap<String, Object>();
-		map.put("memberNum", memberNum);
-		map.put("communityNum", communityNum);
-		map.put("content", text);
-		System.out.println("insertComment memberNum : " + memberNum + ", communityNum : " + communityNum + ", content : " + text);
-		return sst.insert("communityCommentsns.insert",map);
+		
+		System.out.println("insertComment memberNum : " + comment.getMemberNum() + ", communityNum : " + comment.getCommunityNum() + ", content : " + comment.getContent());
+		return sst.insert("communityCommentsns.insertComment",comment);
 	}
 
 	@Override
 	public Collection<CommunityComments> commentsList(int communityNum) {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityCommentsns.list",communityNum);
+	}
+
+	@Override
+	public Collection<CommunityLikey> isLikeyList(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectList("communityLikeyns.isLikeyListDefault", memberNum);
 	}
 
 	

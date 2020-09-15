@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ch.mypage.model.Community;
 import com.ch.mypage.model.CommunityComments;
 import com.ch.mypage.model.CommunityLikey;
+import com.ch.mypage.model.Member;
 import com.ch.mypage.service.CommunityService;
 import com.ch.mypage.service.DiaryService;
+import com.ch.mypage.service.MemberService;
 
 @Controller
 public class CommunityController {
@@ -30,6 +32,8 @@ public class CommunityController {
 	private CommunityService cs;
 	@Autowired
 	private DiaryService ds;
+	@Autowired
+	private MemberService ms;
 
 	
 	@RequestMapping("communityHome")
@@ -39,9 +43,12 @@ public class CommunityController {
 		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
 		Collection<Community> list = cs.listDefault();
 		
+		//memberNum이 좋아요 한 리스트
+		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
+		
 		//list 넘기기
 		model.addAttribute("list", list);
-		
+		model.addAttribute("isLikeyList", isLikeyList);
 		return "community/home";
 	}
 
@@ -88,15 +95,19 @@ public class CommunityController {
 	
 	@RequestMapping(value ="writeComment",method = RequestMethod.POST)
 	@ResponseBody
-	public Collection<CommunityComments> writeComment(int communityNum, String text, HttpSession session, Model model) {
+	public CommunityComments writeComment(CommunityComments comment, HttpSession session, Model model) {
 		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
-		
-		int result = cs.insertComment(memberNum,communityNum ,text); 
+		comment.setMemberNum(memberNum);
+		int result = cs.insertComment(comment); 
 		
 		//댓글 최신순으로 가져오기
-		Collection<CommunityComments> list = cs.commentsList(communityNum); 
+		Collection<CommunityComments> list = cs.commentsList(comment.getCommunityNum()); 
 		
-		return list ;
+		//닉네임 가져오기
+		Member member = ms.selectMember(memberNum);
+		comment.setNickName(member.getNickName());
+		
+		return comment ;
 	}
 	
 	

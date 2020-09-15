@@ -38,7 +38,7 @@ $(function() {
 	$(window).scroll(function() { // 스크롤 이벤트 발생시 필요한 변수를 구합니다.
 		var scrollHeight = $(window).scrollTop() + $(window).height();
 		var documentHeight = parseInt($(document).height()* 0.9) ;
-		
+		console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",  $(window).height() : " +  $(window).height());
 		console.log("scrollHeight : " +scrollHeight + ", documentHeight : " + documentHeight);
 		//스크롤의 높이와 문서의 높이가 같고 community에 데이터가 남아있을때
 		if (scrollHeight >= documentHeight && endCommunityChk==false) {

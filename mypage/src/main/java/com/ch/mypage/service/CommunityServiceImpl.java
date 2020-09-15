@@ -52,15 +52,21 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public int insertComment(int memberNum,int communityNum,  String text) {
+	public int insertComment(CommunityComments comment) {
 		// TODO Auto-generated method stub
-		return cd.insertComment(memberNum,communityNum ,text);
+		return cd.insertComment(comment);
 	}
 
 	@Override
 	public Collection<CommunityComments> commentsList(int communityNum) {
 		// TODO Auto-generated method stub
 		return cd.commentsList(communityNum);
+	}
+
+	@Override
+	public Collection<CommunityLikey> isLikeyList(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.isLikeyList(memberNum)	;
 	}
 
 	

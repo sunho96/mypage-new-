@@ -20,9 +20,11 @@ public interface CommunityService {
 
 	int likeyCnt(int communityNum);
 
-	int insertComment(int memberNum,int communityNum, String text);
+	int insertComment(CommunityComments comment);
 
 	Collection<CommunityComments> commentsList(int communityNum);
+
+	Collection<CommunityLikey> isLikeyList(int memberNum);
 
 
 	

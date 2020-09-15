@@ -10,17 +10,25 @@
 		<result property="regDate" column="regDate" />
 		<result property="memberNum" column="memberNum" />
 		<result property="communityNum" column="communityNum" />
+		<result property="nickName" column="nickName" />
+		<result property="shareDate" column="shareDate" />
+		<result property="likeyCount" column="likeyCount" />
+		<result property="diaryNum" column="diaryNum" />
+		<result property="nickName2" column="nickName" />
+
 	</resultMap>
 
 	<select id="list" parameterType="int" resultType="communityComments">
-		select * from communityComments
-		where communityNum = #{communityNum} 
-		order by regDate desc
+		select cc.*,m.nickName 
+		from communityComments cc, member m
+		where cc.memberNum=m.memberNum
+			and communityNum = #{communityNum} 
+		order by cc.regDate desc
 	</select>
 
 
 	<!-- 댓글 -->
-	<insert id="insert" parameterType="hashmap">
+	<insert id="insertComment" parameterType="hashmap">
 		<selectKey keyProperty="commentsNum" order="BEFORE" resultType="int">
 			select nvl(max(commentsNum),0)+1 from communitycomments
 		</selectKey>

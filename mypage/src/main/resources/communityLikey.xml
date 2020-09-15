@@ -17,6 +17,15 @@
 		where communityNum = #{communityNum}
 	</select>
 	
+	<select id="isLikeyListDefault" parameterType="int" resultMap="communityLikey">
+		select cl.*
+		from COMMUNITYLIKEY cl,(select * from (select ROWNUM rn,community.* from 
+									(select * from COMMUNITY order by COMMUNITYNUM desc) community ) order by rn) c
+		where c.communityNum=cl.communityNum
+        	and rn between 1 and 5
+          and memberNum=#{memberNum}
+	</select>
+	
 	<insert id="insert" parameterType="hashmap">
 		insert into communityLikey
 		values (#{memberNum},#{communityNum})

@@ -55,6 +55,15 @@ insert into community values (20,'2020-04-08',0,16);
 insert into community values (21,'2020-04-08',0,13);
 
 --커뮤니티 좋아요
-insert into communitylikey values(1,21);   
+insert into communitylikey values(1,21);
+insert into communitylikey values(2,21);
+insert into communitylikey values(3,21);
+insert into communitylikey values(4,21);
+insert into communitylikey values(1,20);
+insert into communitylikey values(2,20);
+insert into communitylikey values(3,20);
+insert into communitylikey values(4,20);
+insert into communitylikey values(1,5);
+
 --커뮤니티 댓글
 insert into communitycomments values(1,'zzzzzzzzzz',1,0,sysdate,1,21);

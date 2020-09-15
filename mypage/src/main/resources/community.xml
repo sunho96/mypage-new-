@@ -8,12 +8,13 @@
 		<result property="likeyCount" column="likeyCount" />
 		<result property="diaryNum" column="diaryNum" />
 		<result property="rn" column="rn" />
+		<result property="nickName" column="nickName" />
+		<result property="likeyCnt" column="likeyCnt" />
 		<collection property="diary" resultMap="diary"/>
 	</resultMap>
 	<resultMap type="diary" id="diary">
 		<result property="diaryNum" column="diaryNum" />
 		<result property="subject" column="subject" />
-		<result property="content" column="content" />
 		<result property="regDate" column="regDate" />
 		<result property="updateDate" column="updateDate" />
 		<result property="del" column="del" />
@@ -23,18 +24,27 @@
 	
 
 	<select id="listDefault" resultMap="community">
-		select d.*,c.*
-		from diary d
+		select d.*,c.*,m.nickName,nvl(likeyCnt,0) likeyCnt
+		from diary d,member m
 			,(select * from (select ROWNUM rn,community.* from 
 									(select * from COMMUNITY order by COMMUNITYNUM desc) community ) order by rn) c
-		where d.DIARYNUM=c.DIARYNUM and rn between 1 and 5
+			,(select communityNum,count(*) likeyCnt from communitylikey group by communityNum) cl
+		where d.DIARYNUM=c.DIARYNUM
+			and c.communityNum=cl.communityNum(+)
+			and d.memberNum=m.memberNum 
+        	and rn between 1 and 5
 	</select>
 
 	<select id="addList" parameterType="int" resultMap="community">
-		select d.*,c.*
-		from diary d
+		select d.*,c.*,m.nickName,nvl(likeyCnt,0) likeyCnt
+		from diary d,member m
 			,(select * from (select ROWNUM rn,community.* from 
 									(select * from COMMUNITY order by COMMUNITYNUM desc) community ) order by rn) c
-		where d.DIARYNUM=c.DIARYNUM and rn between #{startNum} and #{startNum} +4
+			,(select communityNum,count(*) likeyCnt from communitylikey group by communityNum) cl
+		where d.DIARYNUM=c.DIARYNUM
+			and c.communityNum=cl.communityNum(+)
+			and d.memberNum=m.memberNum  
+			and rn between #{startNum} and #{startNum} +4
+		
 	</select>
 </mapper>
