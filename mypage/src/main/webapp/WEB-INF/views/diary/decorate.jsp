@@ -51,9 +51,9 @@
 		$('#sticker').show();
 		$('#getfile').hide();
 		$('#backColor').hide();
-		 $("#content")
+		/*  $("#content")
 		.prepend(
-				"<div id='sti'style='width: 100px;height: 100px'><img src='${path}/images/me.jpg' style='padding=0;width: 100%;height: 100%'/></div>");
+				"<div id='sti'style='width: 100px;height: 100px'><img src='${path}/images/me.jpg' style='padding=0;width: 100%;height: 100%'/></div>"); */
 		$('#sti').resizable().draggable();
 	}
 	function openText() {
@@ -79,8 +79,7 @@
 			/* resize : function(e, ui) {
 				//some code
 			} */
-		})
-
+		});
 	}
 	function getfile() {
 		$('#sticker').hide();
@@ -88,8 +87,8 @@
 		$('#getfile').show();
 	}
 	function goSti(name) {
-		alert("들어옴")
-		$('#content').prepend("<div class='sti' id='"+name+"' style='width:100px;height:100px'><img src='${path }/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
+		console.log("name="+name);
+		$('#content').prepend("<div class='sti' id='"+name+"' style='width:100px;height:100px'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
 	function openBg() {
@@ -114,6 +113,8 @@
 			var x = position.left;
 			var y = position.top;
 			var location = {
+					'diaryCataNum' : diaryCataNum,
+					'subject' : subject,
 					'name' : id,
 					'width' : width,
 					'height' :height,
@@ -208,7 +209,6 @@ textarea:focus {
 				</c:forEach>
 			</ul>
 			<div class="tab-content">
-
 <%-- 				<div id="home" class="tab-pane fade in active">
 					<c:forEach items="${stickerList }" var="s">
 						<a onclick="goSti(${s.name})"><img alt=""
@@ -216,12 +216,11 @@ textarea:focus {
 							height="100px"></a>
 					</c:forEach>
 				</div> --%>
-
 				<c:forEach items="${stickerGName}" var="g">
-					<div id="${g.groupName }" class="tab-pane fade">
+					<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti(${s.name})"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
+								<a onclick="goSti('${s.name}')"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
 							</c:if>
 						</c:forEach>
 					</div>

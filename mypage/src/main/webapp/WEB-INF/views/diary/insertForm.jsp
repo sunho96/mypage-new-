@@ -51,7 +51,7 @@
 			$('#subject').focus();
 			return false;
 		}
-		location.href = "diary/decorate?diaryCataNum=" + diaryCataNum
+		location.href = "diary/decorate?memberNum=${memberNum}&diaryCataNum=" + diaryCataNum
 				+ "&subject=" + subject;
 	}
 </script>

@@ -39,12 +39,13 @@ public class DiaryController {
 	}
 	
 	@RequestMapping("diary/decorate")
-	public String decorate(int diaryCataNum, String subject,Model model) {
+	public String decorate(Diary diary,Model model) {
 		List<Sticker> stickerList= ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
+		ds.insert(diary);
+//		Diary diary2 = ds.select(diaryNum);
 		model.addAttribute("stickerList",stickerList);
 		model.addAttribute("stickerGName",stickerGName);
-		model.addAttribute("subject",subject);
 		return "diary/decorate";
 	}
 
@@ -137,8 +138,15 @@ public class DiaryController {
 	@RequestMapping("diary/decoLocation")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
+		for (int i = 0; i < stList.size(); i++) {
+			System.out.println(stList.get(i).get("name"));
+			System.out.println(stList.get(i).get("width"));
+			System.out.println(stList.get(i).get("height"));
+			System.out.println(stList.get(i).get("x"));
+			System.out.println(stList.get(i).get("y"));
+		}
 		String msg="성공";
-		System.out.println(stList);
+//		System.out.println(stList);
 		return msg;
 	}
 	

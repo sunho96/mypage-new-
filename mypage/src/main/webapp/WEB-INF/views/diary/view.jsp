@@ -12,7 +12,7 @@
 <table>
 	<tr><td>${diary.regDate }</td></tr>
 	<tr><td>content</td><td></tr>
-	<tr><td><pre>${diary.content }</pre></td></tr>
+<%-- 	<tr><td><pre>${diary.content }</pre></td></tr> --%>
 	
 </table>
 <button onclick="location.href='${path}/main#diaryList'">리스트 가기</button>
