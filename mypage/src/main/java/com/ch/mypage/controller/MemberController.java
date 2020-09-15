@@ -63,9 +63,9 @@ public class MemberController {
 		
 		Member member = ms.select(email);
 		if(member == null) {
-			msg = "�궗�슜媛��뒫";
+			msg = "사용가능";
 		}else {
-			msg = "�궗�슜遺덇�";
+			msg = "사용불가";
 		}
 		return msg;
 	}
@@ -87,8 +87,8 @@ public class MemberController {
 	@RequestMapping(value="memberUpdate_form", produces = "text/html;charset=utf-8")
 	public String memberUpdate_form(Model model, HttpSession session) {
 		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
-		Member member = ms.selectMember(memberNum); // �씫怨� 
-		model.addAttribute("member", member); // 媛믪쓣 �뤌�뿉 ���엯
+		Member member = ms.selectMember(memberNum);
+		model.addAttribute("member", member); 
 		return "member/memberUpdate_form";
 
 	}
