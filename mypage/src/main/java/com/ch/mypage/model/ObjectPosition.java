@@ -14,4 +14,5 @@ public class ObjectPosition {
 	private int diaryNum; // fk다이어리 번호
 	private int stickerNum; // fk스티커 번호
 	private int font; // fk폰트 번호
+	private int pictireNum;//사진 번호
 }

@@ -109,7 +109,7 @@
 			var id = $(this).attr('id');
 			var stiPosi = $(this).postion();
 			var location = {
-					'name' : $(this).id;
+					'name' : $(this).id,
 					'width' : $(this).width,
 					'height' : $(this).height,
 					'x' : stiPosi.x,
@@ -119,13 +119,16 @@
 		});
 		$.ajex({
 			url:"decoLocation",
-			header:{
-				"Content-Type":"application/json",	//Content-Type 설정
-				"X-HTTP-Method-Override":"POST"},
-			dataType:"text",
-			data:JSON.stringify({				//JSON.stringify()로 데이터를 감싸줍니다.
-				:stiList
-		});
+			dataType: "json",
+			data : stiList,
+			traditional :true,
+			type:"POST",
+			success :function(data){
+				if(data=='성공'){
+				 	alert("다이어리 입력 성공");
+				 	location.href="location/location";
+				}
+			}
 		});
 		
 	}

@@ -5,7 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ch.mypage.model.Diary;
 import com.ch.mypage.model.MemAndCata;
 import com.ch.mypage.model.Sticker;
@@ -126,10 +129,10 @@ public class DiaryController {
 		model.addAttribute("y",y);
 		return "diary/location";
 	}
-	@RequestMapping("diary/decoLocation")
-	public String decoLocation() {
-		return null;
-		
-	}
+//	@RequestMapping("diary/decoLocation")
+//	@ResponseBody
+//	public String decoLocation(@RequestBody List) {
+//		return null;
+//	}
 	
 }

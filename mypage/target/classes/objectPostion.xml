@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="opns">
+	<resultMap type="objectPosition" id="objectPositionResult">
+		<result property="objectPosNum" column="objectPosNum" />
+		<result property="width" column="width" />
+		<result property="height" column="height" />
+		<result property="x" column="x" />
+		<result property="y" column="y" />
+		<result property="rotation" column="rotation" />
+		<result property="diaryNum" column="diaryNum" />
+		<result property="stickerNum" column="stickerNum" />
+		<result property="font" column="font" />
+		<result property="pictureNum" column="pictureNum" />
+		<result property="textboxNum" column="textboxNum" />
+	</resultMap>
+</mapper>
