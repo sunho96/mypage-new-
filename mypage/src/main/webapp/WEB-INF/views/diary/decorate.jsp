@@ -51,10 +51,10 @@
 		$('#sticker').show();
 		$('#getfile').hide();
 		$('#backColor').hide();
-		/* $("#content")
+		 $("#content")
 		.prepend(
 				"<div id='sti'style='width: 100px;height: 100px'><img src='${path}/images/me.jpg' style='padding=0;width: 100%;height: 100%'/></div>");
-		$('#sti').resizable().draggable(); */
+		$('#sti').resizable().draggable();
 	}
 	function openText() {
 		$("#content")
@@ -88,7 +88,8 @@
 		$('#getfile').show();
 	}
 	function goSti(name) {
-		$('#content').prepend("<div class='sti' id='"+name+"' style='width: 100px;height: 100px'><img src='${path}/img/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
+		alert("들어옴")
+		$('#content').prepend("<div class='sti' id='"+name+"' style='width:100px;height:100px'><img src='${path }/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
 	function openBg() {
@@ -201,28 +202,26 @@ textarea:focus {
 		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
-				<li class="active"><a data-toggle="pill" href="#home">전체</a></li>
+<!-- 				<li class="active"><a data-toggle="pill" href="#home">전체</a></li> -->
 				<c:forEach items="${stickerGName}" var="g">
 					<li><a data-toggle="pill" href="#${g.groupName }">${g.groupName}</a></li>
 				</c:forEach>
 			</ul>
 			<div class="tab-content">
 
-				<div id="home" class="tab-pane fade in active">
+<%-- 				<div id="home" class="tab-pane fade in active">
 					<c:forEach items="${stickerList }" var="s">
 						<a onclick="goSti(${s.name})"><img alt=""
 							src="${path }/images/stickerImage/${s.name}" width="100px"
 							height="100px"></a>
 					</c:forEach>
-				</div>
+				</div> --%>
 
 				<c:forEach items="${stickerGName}" var="g">
 					<div id="${g.groupName }" class="tab-pane fade">
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti(${s.name})"><img alt=""
-									src="${path }/images/stickerImage/${s.name}" width="100px"
-									height="100px"></a>
+								<a onclick="goSti(${s.name})"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
 							</c:if>
 						</c:forEach>
 					</div>

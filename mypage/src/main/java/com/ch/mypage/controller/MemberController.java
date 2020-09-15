@@ -26,14 +26,16 @@ public class MemberController {
 	public String login(Member member, Model model, HttpSession session) {
 		int result = 0;
 		Member mem = ms.select(member.getEmail());
-		if (mem == null) { // �씠硫붿씪�씠 寃��깋�씠 �븞�맂 寃쎌슦
+		if (mem == null) { //아이디 틀림
 			result = -1;
-		} else {// �씠硫붿씪�씠 寃��깋�맂 寃쎌슦
-			if (mem.getPassword().equals(member.getPassword())) { // 鍮꾨�踰덊샇源뚯� 留욌뒗 寃쎌슦
+		} else { //아이디 있음
+			if (mem.getPassword().equals(member.getPassword())) {  //패스워드 확인
 				result = 1;
-				//�꽭�뀡
 				session.setAttribute("memberNum", mem.getMemberNum());
 				model.addAttribute("member", member);
+				if(member.getEmail().equals("admin@mypage.com")) {
+					return "admin/adminMain";
+				}
 			}
 		}
 		model.addAttribute("result", result);

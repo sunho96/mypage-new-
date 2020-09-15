@@ -13,12 +13,14 @@
 			<c:choose>
 				<c:when test="${loginUser.email == 'admin@mypage.com' }">
 					<script type="text/javascript">
+						alert("mainheader");
 						location.href = "admin/adminMain"
 					</script>
 				</c:when>
 
 				<c:when test="${loginUser.email != 'admin@mypage.com' }">
 					<script type="text/javascript">
+					alert("mainheader2");
 						location.href = "main"
 					</script>
 				</c:when>
