@@ -7,17 +7,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript">
+	 $(function(){
+		$("#stickerSearch").load("sticker/stickerSearch/pageNum/1");
+		
+	}); 
+</script>
 </head>
 <body>
 
-	<input type="hidden" name="hashName" value="${hashName}">
-		<div class="container" align="center">	
-			해시 입력
-			<input class="form-control form-control-lg" type="text"
-				placeholder="#Hashtag" autofocus="autofocus" required="required" name="hashName"> 
- <input type="submit" value="확인">	
-		</div>
+<!-- 스티커 그룹 검색 -->
+<div id="stickerSearch">		
+</div>
 
+
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 
 
 

@@ -7,24 +7,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript">
+	function stikerLoad() {
+		var keyword = $('#st').val();
+		if (!keyword) {
+			alert('키워드 입력후에 실행하시오');
+			$('#st').focus();
+			return false;
+		}
+		$.post("${path}/sticker/stickerSearch", "keyword="+keyword, function(data) {
+			$('#stikerImage').html(data);
+		});
+	}
+
+</script>
 </head>
 <body>
 	<div class="container" align="center">
 		<c:set var="stickerNum" value="${no }"></c:set>
-	<a href="../../../main">메인돌아가기</a>
-
 
 		<!-- 검색 -->
-		<form action="${path}/sticker/stickerSearch/pageNum/1">
-			 <input type="text" name="keyword" value="${sticker.keyword}">
-			<input type="submit" value="확인">
-		</form>
+		<tr>
+		<th>스티커를 검색하세요.</th>
+		</tr>
+<%-- 		<form action="${path}/sticker/stickerSearch/pageNum/1"> --%>
+			<input type="text" class="form-control form-control-lg" name="keyword" value="${sticker.keyword}" id="st">
+			<input type="button" onclick="stikerLoad()" value="확인">
+<!-- 		</form> -->
 	</div>
 
-
+<div id="stikerImage"></div>
 
 	<!-- 이미지 출력 테스트 -->
-
+<%-- 
 	<div align="center">
 		<c:set var="stickerNum" value="${no }"></c:set>
 		<c:if test="${empty list }">
@@ -40,7 +56,7 @@
 
 			</c:forEach>
 		</c:if>
-	</div>
+	</div> --%>
 
 
 </body>

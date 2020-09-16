@@ -19,11 +19,6 @@ public class StickerSearchController {
 	@Autowired
 	private StickerService ss;
 	
-	@RequestMapping("/sticker/stickerSearch")
-	public String initList() {
-		return "redirect:/sticker/stickerSearch/pageNum/1";
-	}
-	
 	// 스티커 검색 
 		@RequestMapping("/sticker/stickerSearch/pageNum/{pageNum}")
 		public String stickerSearch(@PathVariable String pageNum,Sticker sticker, Model model){
@@ -48,5 +43,28 @@ public class StickerSearchController {
 			model.addAttribute("sticker1", sticker); // 화면 입력 
 			return "sticker/stickerSearch";
 		}	
+		
+		// 이미지 출력 
+		@RequestMapping("/sticker/stickerSearch")
+		public String stickerSearch1(Sticker sticker, Model model){
+			int currentPage = 1;
+			int rowPerPage  = 5;
+			int total = ss.getTotal(sticker); 
+			int startRow = (currentPage - 1) * rowPerPage + 1;
+			int endRow = startRow + rowPerPage - 1;
+			int no = total - startRow + 1; // 페이지별 시작번호
+			sticker.setStartRow(startRow);
+			sticker.setEndRow(endRow);
+			
+			Collection<Sticker> list = ss.list(sticker);
+			
+			PagingBean pb = new PagingBean(currentPage,rowPerPage,total); 
+			model.addAttribute("list", list); // 가져온 것
+			model.addAttribute("no", no);
+			model.addAttribute("pb", pb);
+			model.addAttribute("sticker1", sticker); // 화면 입력 
+			return "sticker/stickerImage";
+		}	
+
 
 }

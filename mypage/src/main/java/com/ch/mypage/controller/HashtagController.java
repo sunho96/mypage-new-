@@ -15,6 +15,9 @@ private HashtagService hs;
 public String hashTag() {
 	return "hash/hashTag";
 }
-	
-	
+
+@RequestMapping("hash/hashInsertForm")
+public String hashInsertForm() {
+ return "hash/hashInsertForm";
+	}
 }
