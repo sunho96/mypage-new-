@@ -60,7 +60,7 @@ public class CommunityController {
 
 	@RequestMapping(value = "addCoummunityList", method = RequestMethod.POST)
 	@ResponseBody
-	public Collection<Community> addCoummunityList(int startNum) {
+	public Collection<Community> addCoummunityList(int startNum , HttpSession session) {
 		Collection<Community> list = cs.addList(startNum);		
 		
 		//@ResponseBody로 리턴하면 spring에서 허용된 형식의 데이터를 반환
@@ -106,9 +106,6 @@ public class CommunityController {
 		comment.setMemberNum(memberNum);
 		int result = cs.insertComment(comment); 
 		
-		//댓글 최신순으로 가져오기
-		Collection<CommunityComments> list = cs.commentsList(comment.getCommunityNum()); 
-		
 		//닉네임 가져오기
 		Member member = ms.selectMember(memberNum);
 		comment.setNickName(member.getNickName());
@@ -119,6 +116,7 @@ public class CommunityController {
 	@RequestMapping (value="selectCommentList",method = RequestMethod.POST)	
 	@ResponseBody
 	public Collection<CommunityComments> selectCommentList (int communityNum ){
+		//댓글 최신순으로 가져오기
 		Collection<CommunityComments> commentList = cs.commentsList(communityNum);
 		
 		return commentList;

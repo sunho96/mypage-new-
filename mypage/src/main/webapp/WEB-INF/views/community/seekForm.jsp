@@ -41,14 +41,13 @@
 						<!-- Thumbnails -->
 							<section class="thumbnails">
 								<!--div 안에 하나씩 넣을때마다 세로로 늘어남  -->
-								<div style="background: green;" id="col1">
-									
+								<div  id="col1">
 								</div>
-								<div style="background: pink;" id="col2">
-									
+								
+								<div id="col2">
 								</div>
-								<div style="background: red;" id="col3">
-									
+								
+								<div id="col3">
 								</div>
 							</section>
 

@@ -62,7 +62,7 @@
 			
 		$(window).scroll(function() { // 스크롤 이벤트 발생 시 필요한 변수를 구합니다.
 			var scrollHeight = $(window).scrollTop() + $(window).height();	//갑자기 window.height() 값이 이상해짐 ...너무큼
-			var documentHeight = parseInt($(document).height()* 0.9) ;
+			var documentHeight = $(document).height() ;
 			
 			console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",  $(window).height() : " +  $(window).height());
 			console.log("scrollHeight : " +scrollHeight + ", documentHeight : " + documentHeight);
@@ -78,14 +78,15 @@
 						
 					//communityList테이블에 추가해주기
 	                $.each(values, function( index, value ) {	
-	                    $('<div class="content"><div class="top">'
+	                	
+ 	                    $('<div class="content"><div class="top">'
 	    					+ '<img alt="" src="images/icons/profile-48px.png">닉네임 : ' + value.nickName + ', 커뮤니티번호 : ' + value.communityNum +'<label>더보기</label></div>'
 	    					+ '<div class="middle"><img alt="" src="images/test1.png"></div>'
 	    					+ '<div class="bottom"><div class="bottom-btn">'
 	    					+ '<label onclick="likey(' + value.communityNum + ')" id="likeyBtn_'+ value.communityNum + '">좋아요버튼</label><label>댓글쓰기버튼</label><label>공유버튼 </label></div>'
 	    					+ '<div class="bottom-likeyCnt"><span id="likeyCnt_'+value.communityNum+'">좋아요  ' +value.likeyCount + '개</span></div></div></div>'
 	  						).appendTo('.homeCommunityContainer');
-	   	            });
+ 	   	            });
 					startNum +=5;
 
 				});
@@ -146,8 +147,13 @@
 	//댓글 모두 보기 
 	function commentViewAll(communityNum) {
 		$.post("selectCommentList","communityNum="+communityNum,function(values){
+			$("#testComment_" +communityNum ).empty();
+			
+			//Collection 전용 foreach문(for..of)
 			for (let comment of values) {
 				console.log("댓글 모두보기" + comment.content);
+				$("<span><b> " + comment.nickName + "</b> " + comment.content + "</span><br>").appendTo("#testComment_"+communityNum);
+				
 			}
 			
 		});
@@ -162,7 +168,7 @@
 	<div class="homeCommunityContainer container" style="background: #EAEAEA;">
 		<c:forEach var="com" items="${list }" varStatus="i" >
 			<div class="thumbnail" >
-				<div class="top caption " style="background: white;">
+				<div class="top caption " >
 					<img alt="" src="images/icons/profile-48px.png" >
 					<b>${com.nickName }</b>
 				</div>
