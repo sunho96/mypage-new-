@@ -15,4 +15,7 @@
 		<result property="pictureNum" column="pictureNum" />
 		<result property="textboxNum" column="textboxNum" />
 	</resultMap>
+	<insert id="insert" parameterType="objectPosition">
+		insert into objectPosition values (op_seq.nextval,#{width},#{height},#{x},#{y},0,0,#{stickerNum},0,0,0)
+	</insert>
 </mapper>

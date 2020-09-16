@@ -87,7 +87,6 @@
 		$('#getfile').show();
 	}
 	function goSti(num,name) {
-		alert("stikerNum="+num)
 		console.log("name="+name);
 		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();

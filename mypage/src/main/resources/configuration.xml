@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="communityLikey" type="com.ch.mypage.model.CommunityLikey" />
 		<typeAlias alias="communityComments" type="com.ch.mypage.model.CommunityComments" />
 		<typeAlias alias="hashtag" type="com.ch.mypage.model.Hashtag"/>
+		<typeAlias alias="objectPosition" type="com.ch.mypage.model.objectPosition"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="member.xml" />
@@ -30,5 +31,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="communityLikey.xml" />
 		<mapper resource="communityComments.xml" />
 		<mapper	resource="hashtag.xml" />
+		<mapper	resource="objectPosition.xml" />
 	</mappers>
 </configuration>

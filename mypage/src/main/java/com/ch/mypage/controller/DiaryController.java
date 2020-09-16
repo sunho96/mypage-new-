@@ -141,19 +141,29 @@ public class DiaryController {
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
 		ObjectPosition op = new ObjectPosition();
-		
+		int result=0; String msg="";
 		for (int i = 0; i < stList.size(); i++) {
 			System.out.println("x="+stList.get(i).get("x"));
 			System.out.println("y="+stList.get(i).get("y"));
 			op.setWidth((int) stList.get(i).get("width"));
 			op.setHeight((int) stList.get(i).get("height"));
-			op.setX((Object)stList.get(i).get("x"));
+			
+			if(stList.get(i).get("x") instanceof Integer) {
+				op.setX((int) stList.get(i).get("x"));
+			}else if (stList.get(i).get("x") instanceof Double) {
+				op.setX((double) stList.get(i).get("x"));
+			}
 			op.setY((int)stList.get(i).get("y"));
 			op.setStickerNum((int)stList.get(i).get("id"));
 //			System.out.println(stList.get(i).get("id"));
-		//	int result = os.insert(op);
+			result = os.insert(op);
+			System.out.println("op result="+result);
 		}
-		String msg="성공";
+		if(result==1) {
+			msg="성공";
+		}else {
+			msg="실패";
+		}	
 //		System.out.println(stList);
 		return msg;
 	}
