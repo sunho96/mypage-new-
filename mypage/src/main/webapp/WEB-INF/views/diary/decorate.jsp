@@ -103,7 +103,7 @@
 	function pageReload() {
 		location.reload();
 	}
-	function submit(num,sub) {
+	function submit(num) {
 		var stiList = [];
 		$('.sti').each(function() {
 			var id = parseInt($(this).attr('id'),10);
@@ -131,7 +131,7 @@
 			success :function(data){
 				if(data=='성공'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="${path}/";
+				 	location.href= "main#diaryList";
 				}
 			}
 		});
@@ -233,9 +233,9 @@ textarea:focus {
 		</div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
-				onclick="submit(${diary.diaryCataNum},${diary.subject })">저장</button>
-			<button type="button" class="btn btn-outline-success"
-				onclick="pageReload()">초기화</button>
+				onclick="submit(${diaryNum})">저장</button>
+			<!-- <button type="button" class="btn btn-outline-success"
+				onclick="pageReload()">초기화</button> -->
 		</div>
 	</div>
 

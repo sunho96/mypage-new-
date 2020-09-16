@@ -1,5 +1,7 @@
 package com.ch.mypage.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,11 @@ public class OpDaoImpl implements OpDao {
 	public int insert(ObjectPosition op) {
 		
 		return sst.insert("opns.insert",op);
+	}
+
+	@Override
+	public List<ObjectPosition> opList(int diaryNum) {
+	
+		return sst.selectList("opns.opList",diaryNum);
 	}
 }

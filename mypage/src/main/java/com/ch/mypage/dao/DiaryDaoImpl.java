@@ -71,4 +71,10 @@ public class DiaryDaoImpl implements DiaryDao {
 		return sst.selectOne("diaryns.selectDiaryNum");
 	}
 
+	@Override
+	public int insertSelect(Diary diary) {
+		sst.insert("diaryns.insertSelect",diary);
+		return sst.selectOne("diaryns.selectKey1");
+	}
+
 }

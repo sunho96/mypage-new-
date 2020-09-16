@@ -47,4 +47,11 @@
 	<select id="selectDiaryNum" resultType="integer">
 		select max(diaryNum) from diary
 	</select>
+	<insert id="insertSelect" parameterType="diary">
+		insert into diary
+		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum})
+	</insert>
+	<select id="selectKey1" resultType="integer">
+		select max(diaryNum) from diary
+	</select>
 </mapper>

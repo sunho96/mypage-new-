@@ -1,5 +1,7 @@
 package com.ch.mypage.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,11 @@ public class OpServiceImpl implements OpService {
 	public int insert(ObjectPosition op) {
 	
 		return od.insert(op);
+	}
+
+	@Override
+	public List<ObjectPosition> opList(int diaryNum) {
+		
+		return od.opList(diaryNum);
 	}
 }

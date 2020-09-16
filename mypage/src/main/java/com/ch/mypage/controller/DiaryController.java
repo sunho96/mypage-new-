@@ -43,11 +43,11 @@ public class DiaryController {
 	public String decorate(Diary diary,Model model) {
 		List<Sticker> stickerList= ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
-		System.out.println("제목:"+diary.getSubject());
-		System.out.println("카테고리:"+diary.getDiaryCataNum());
+		int diaryNum = ds.insertSelect(diary);
+		System.out.println("diaryNum="+diaryNum);
 		model.addAttribute("stickerList",stickerList);
 		model.addAttribute("stickerGName",stickerGName);
-		model.addAttribute("diary",diary);
+		model.addAttribute("diaryNum",diaryNum);
 		return "diary/decorate";
 	}
 
@@ -71,7 +71,9 @@ public class DiaryController {
 	@RequestMapping("diary/view")
 	public String view(int diaryNum, Model model) {
 		Diary diary = ds.select(diaryNum);
+		List<ObjectPosition> positionList = os.opList(diaryNum);
 		model.addAttribute("diary", diary);
+		model.addAttribute("positionList",positionList);
 		return "diary/view";
 	}
 
@@ -137,17 +139,14 @@ public class DiaryController {
 		model.addAttribute("y",y);
 		return "diary/location";
 	}
-	@RequestMapping("diary/decoLocation")
+	@RequestMapping(value="diary/decoLocation", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
 		ObjectPosition op = new ObjectPosition();
 		int result=0; String msg="";
 		for (int i = 0; i < stList.size(); i++) {
-			System.out.println("x="+stList.get(i).get("x"));
-			System.out.println("y="+stList.get(i).get("y"));
 			op.setWidth((int) stList.get(i).get("width"));
-			op.setHeight((int) stList.get(i).get("height"));
-			
+			op.setHeight((int) stList.get(i).get("height"));	
 			if(stList.get(i).get("x") instanceof Integer) {
 				op.setX((int) stList.get(i).get("x"));
 			}else if (stList.get(i).get("x") instanceof Double) {
@@ -160,9 +159,9 @@ public class DiaryController {
 			System.out.println("op result="+result);
 		}
 		if(result==1) {
-			msg="성공";
+			msg="1";
 		}else {
-			msg="실패";
+			msg="0";
 		}	
 //		System.out.println(stList);
 		return msg;

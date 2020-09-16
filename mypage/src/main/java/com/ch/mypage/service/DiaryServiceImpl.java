@@ -67,4 +67,10 @@ public class DiaryServiceImpl implements DiaryService {
 		return dd.selectDiaryNum();
 	}
 
+	@Override
+	public int insertSelect(Diary diary) {
+		
+		return dd.insertSelect(diary);
+	}
+
 }

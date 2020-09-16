@@ -24,4 +24,6 @@ public interface DiaryService {
 
 	int selectDiaryNum();
 
+	int insertSelect(Diary diary);
+
 }
