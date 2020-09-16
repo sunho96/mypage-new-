@@ -1,5 +1,6 @@
 package com.ch.mypage.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,22 +33,22 @@ public class DiaryController {
 	private OpService os;
 
 	@RequestMapping("diary/insertForm")
-	public String insertForm(Model model,HttpSession session) {
+	public String insertForm(Model model, HttpSession session) {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
-		model.addAttribute("cataList",cataList);
+		model.addAttribute("cataList", cataList);
 		return "diary/insertForm";
 	}
-	
+
 	@RequestMapping("diary/decorate")
-	public String decorate(Diary diary,Model model) {
-		List<Sticker> stickerList= ss.stickerList();
+	public String decorate(Diary diary, Model model) {
+		List<Sticker> stickerList = ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
 		int diaryNum = ds.insertSelect(diary);
-		System.out.println("diaryNum="+diaryNum);
-		model.addAttribute("stickerList",stickerList);
-		model.addAttribute("stickerGName",stickerGName);
-		model.addAttribute("diaryNum",diaryNum);
+		System.out.println("diaryNum=" + diaryNum);
+		model.addAttribute("stickerList", stickerList);
+		model.addAttribute("stickerGName", stickerGName);
+		model.addAttribute("diaryNum", diaryNum);
 		return "diary/decorate";
 	}
 
@@ -62,7 +63,7 @@ public class DiaryController {
 	public String list(HttpSession session, Model model) {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<Diary> list = ds.list(memberNum);
-		List<MemAndCata> cataList=dcs.cataList(memberNum); 
+		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("cataList", cataList);
 		model.addAttribute("list", list);
 		return "diary/list";
@@ -71,9 +72,20 @@ public class DiaryController {
 	@RequestMapping("diary/view")
 	public String view(int diaryNum, Model model) {
 		Diary diary = ds.select(diaryNum);
-		List<ObjectPosition> positionList = os.opList(diaryNum);
+		List<ObjectPosition> opList = os.opList(diaryNum);
+		System.out.println(opList.size());
+		List<Integer> stiList = new ArrayList<Integer>();
+		for (int i = 0; i < opList.size(); i++) {
+			stiList.add(opList.get(i).getStickerNum());
+//			System.out.println("stickerNum=" + opList.get(i).getStickerNum());
+		}
+		if(stiList.size()!=0) {
+			List<Sticker> opStickerList= ss.opStickerList(stiList);
+			model.addAttribute("opStickerList", opStickerList);
+		}		
 		model.addAttribute("diary", diary);
-		model.addAttribute("positionList",positionList);
+		model.addAttribute("opList", opList);
+		
 		return "diary/view";
 	}
 
@@ -125,46 +137,56 @@ public class DiaryController {
 	public String typeList(int memberNum, int diaryCataNum, Model model) {
 		List<Diary> typeList = ds.typeList(memberNum, diaryCataNum);
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
-		model.addAttribute("diaryCataNum",diaryCataNum);
+		model.addAttribute("diaryCataNum", diaryCataNum);
 		model.addAttribute("cataList", cataList);
 		model.addAttribute("typeList", typeList);
 		return "diary/typeList";
 	}
 
 	@RequestMapping("diary/location")
-	public String location(int width, int height, int x,int y,Model model) {
-		model.addAttribute("width",width);
-		model.addAttribute("height",height);
-		model.addAttribute("x",x);
-		model.addAttribute("y",y);
+	public String location(int width, int height, int x, int y, Model model) {
+		model.addAttribute("width", width);
+		model.addAttribute("height", height);
+		model.addAttribute("x", x);
+		model.addAttribute("y", y);
 		return "diary/location";
 	}
-	@RequestMapping(value="diary/decoLocation", produces = "text/html;charset=utf-8")
+
+	@RequestMapping(value = "diary/decoLocation", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
 		ObjectPosition op = new ObjectPosition();
-		int result=0; String msg="";
+		int result = 0;
+		String msg = "";
 		for (int i = 0; i < stList.size(); i++) {
 			op.setWidth((int) stList.get(i).get("width"));
-			op.setHeight((int) stList.get(i).get("height"));	
-			if(stList.get(i).get("x") instanceof Integer) {
+			op.setHeight((int) stList.get(i).get("height"));
+			if (stList.get(i).get("x") instanceof Integer) {
 				op.setX((int) stList.get(i).get("x"));
-			}else if (stList.get(i).get("x") instanceof Double) {
+			} else if (stList.get(i).get("x") instanceof Double) {
 				op.setX((double) stList.get(i).get("x"));
 			}
-			op.setY((int)stList.get(i).get("y"));
-			op.setStickerNum((int)stList.get(i).get("id"));
+			op.setY((int) stList.get(i).get("y"));
+			op.setStickerNum((int) stList.get(i).get("id"));
 //			System.out.println(stList.get(i).get("id"));
 			result = os.insert(op);
-			System.out.println("op result="+result);
+			System.out.println("op result=" + result);
 		}
-		if(result==1) {
-			msg="1";
-		}else {
-			msg="0";
-		}	
+		if (result == 1) {
+			msg = "1";
+		} else {
+			msg = "0";
+		}
 //		System.out.println(stList);
 		return msg;
 	}
-	
+
+	@RequestMapping("diary/allDel")
+	public String allDel(int memberNum, Model model) {
+		int result = ds.allDel(memberNum);
+		model.addAttribute("result", result);
+		return "diary/del";
+
+	}
+
 }

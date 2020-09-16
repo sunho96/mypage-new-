@@ -36,4 +36,10 @@ public class StickerServiceImpl implements StickerService {
 		// TODO Auto-generated method stub
 		return sd.getTotal(sticker);
 	}
+
+	@Override
+	public List<Sticker> opStickerList(List<Integer> stiList) {
+		
+		return sd.opStickerList(stiList);
+	}
 }

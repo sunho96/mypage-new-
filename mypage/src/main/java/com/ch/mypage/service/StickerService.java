@@ -15,5 +15,7 @@ public interface StickerService {
 
 	int getTotal(Sticker sticker);
 
+	List<Sticker> opStickerList(List<Integer> stiList);
+
 
 }

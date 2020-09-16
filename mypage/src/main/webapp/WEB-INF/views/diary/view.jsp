@@ -6,32 +6,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h2>${diary.subject }</h2>
-	<table>
-		<tr>
-			<td>${diary.regDate }</td>
-		</tr>
-		<tr>
-			<td>content</td>
-			<td>
-		</tr>
-		<tr>
-			<td>
-				<div class="container" align="center" style="margin-top: 20px">
-					<div id="content"
-						style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
-					</div>
-					<div style="margin: 30" align="center"></div>
-				</div>
-			</td>
-		</tr>
+	<div id="mainCcontainer" align="center">
+		<h2>"${diary.subject }"</h2>
+		<h5>${diary.regDate }</h5>
+		<div class="container" align="center" style="margin-top: 20px">
 
-	</table>
-	<button onclick="location.href='${path}/main#diaryList'">리스트
-		가기</button>
-	<button onclick="location.href='updateForm?diaryNum=${diary.diaryNum}'">수정하기</button>
-	<button onclick="location.href='delete?diaryNum=${diary.diaryNum}'">삭제하기</button>
+			<div id="content"
+				style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
+				<c:forEach items="${opList }" var="op">
+					<c:forEach items="${opStickerList }" var="s">
+						<c:if test="${op.stickerNum==s.stickerNum }">
+							<div style="height: ${op.height }; width: ${op.width}">
+								<img alt="" src="${path }/images/stickerImage/${s.name}"
+									style="padding: 0; width: 100%; height: 100%; left: ${op.x}; top:${op.y};">
+							</div>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+			</div>
+		</div>
+		<button onclick="location.href='${path}/main#diaryList'"
+			class="btn btn-outline-success">리스트 가기</button>
+		<button
+			onclick="location.href='updateForm?diaryNum=${diary.diaryNum}'"
+			class="btn btn-outline-success">수정하기</button>
+		<button onclick="location.href='delete?diaryNum=${diary.diaryNum}'"
+			class="btn btn-outline-success">삭제하기</button>
+	</div>
+
+
 </body>
 </html>

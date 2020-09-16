@@ -19,9 +19,7 @@
 		insert into objectPosition
 		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,94,#{stickerNum},null,null,null)
 	</insert>
-	<!-- <select id="opList" resultMap="objectPositionResult"
-		parameterType="diaryNum">
-		select * from objectPosition where diaryNum =
-		#{diaryNum}
-	</select> -->
+	<select id="opList" resultMap="objectPositionResult" parameterType="int">
+		select * from objectPosition where diaryNum = #{diaryNum}
+	</select>
 </mapper>

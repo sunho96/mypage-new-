@@ -37,4 +37,10 @@ public class StickerDaoImpl implements StickerDao {
 		// TODO Auto-generated method stub
 		return sst.selectOne("stickerns.getTotal", sticker);
 	}
+
+	@Override
+	public List<Sticker> opStickerList(List<Integer> stiList) {
+		
+		return sst.selectList("stickerns.opStickerList",stiList);
+	}
 }

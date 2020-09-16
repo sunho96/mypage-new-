@@ -15,4 +15,6 @@ public interface StickerDao {
 	Collection<Sticker> list(Sticker sticker);
 
 	int getTotal(Sticker sticker);
+
+	List<Sticker> opStickerList(List<Integer> stiList);
 }

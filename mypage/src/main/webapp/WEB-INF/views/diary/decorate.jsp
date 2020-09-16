@@ -134,8 +134,7 @@
 				 	location.href= "main#diaryList";
 				}
 			}
-		});
-		
+		});	
 	}
 </script>
 <style type="text/css">

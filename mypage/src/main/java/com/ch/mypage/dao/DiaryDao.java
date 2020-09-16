@@ -26,4 +26,6 @@ public interface DiaryDao {
 
 	int insertSelect(Diary diary);
 
+	int allDel(int memberNum);
+
 }

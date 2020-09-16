@@ -54,4 +54,7 @@
 	<select id="selectKey1" resultType="integer">
 		select max(diaryNum) from diary
 	</select>
+	<delete id="allDel" parameterType="int">
+		delete from diary where memberNum =#{memberNum} and del ='y'
+	</delete>
 </mapper>

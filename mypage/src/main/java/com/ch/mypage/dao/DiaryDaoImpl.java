@@ -77,4 +77,10 @@ public class DiaryDaoImpl implements DiaryDao {
 		return sst.selectOne("diaryns.selectKey1");
 	}
 
+	@Override
+	public int allDel(int memberNum) {
+		
+		return sst.delete("diaryns.allDel",memberNum);
+	}
+
 }

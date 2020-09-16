@@ -25,7 +25,7 @@
 <body>
 	<div class="container">
 		<p>
-		<a href="diaryCatagory/allDel">전체삭제</a>
+		<a href="diary/allDel?memberNum=${memberNum }">전체삭제</a>
 		<table class="table">
 			<thead>
 				<tr>

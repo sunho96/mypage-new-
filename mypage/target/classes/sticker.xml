@@ -27,4 +27,10 @@
 		</if>
 		  order by groupName
 	</select>
+	<select id="opStickerList" resultMap="stickerResult">
+		select * from sticker where stickerNum in 
+		<foreach collection="list" item="stiList" open="(" separator="," close=")">
+			#{stiList}
+		</foreach>
+	</select>
 </mapper>
