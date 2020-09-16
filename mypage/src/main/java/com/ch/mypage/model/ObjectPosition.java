@@ -8,7 +8,7 @@ public class ObjectPosition {
 	private int objectPosNum; // 위치 번호
 	private int width; // 가로크기
 	private int height; // 세로 크기
-	private int x; // x좌표
+	private Object x; // x좌표
 	private int y; // y좌표
 	private int rotation; // 회전값
 	private int diaryNum; // fk다이어리 번호

@@ -86,9 +86,10 @@
 		$('#backColor').hide();
 		$('#getfile').show();
 	}
-	function goSti(name) {
+	function goSti(num,name) {
+		alert("stikerNum="+num)
 		console.log("name="+name);
-		$('#content').prepend("<div class='sti' id='"+name+"' style='width:100px;height:100px'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
+		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
 	function openBg() {
@@ -103,18 +104,17 @@
 	function pageReload() {
 		location.reload();
 	}
-	function submit(num) {
-		alert(num);
+	function submit(num,sub) {
 		var stiList = [];
 		$('.sti').each(function() {
-			var id = $(this).attr('id');
+			var id = parseInt($(this).attr('id'),10);
 			var width= $(this).width();	
 			var height= $(this).height();
 			var position = $(this).position();
-			var x = position.left;
-			var y = position.top;
+			var x = parseFloat(position.left);
+			var y = parseFloat(position.top);
 			var location = {
-					'name' : id,
+					'id' : id,
 					'width' : width,
 					'height' :height,
 					'x' : x,
@@ -178,7 +178,7 @@ textarea:focus {
 				Page</span></a>
 	</div>
 	<div style="margin-bottom: 30px; font-family: 'Lilly'; font-size: 25px"
-		align="center">"${subject }"</div>
+		align="center">"${diary.subject }"</div>
 	<div class="container" align="center">
 		<div>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
@@ -219,7 +219,7 @@ textarea:focus {
 					<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti('${s.name}')"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
+								<a onclick="goSti(${s.stickerNum },'${s.name}')"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -234,7 +234,7 @@ textarea:focus {
 		</div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
-				onclick="submit(${diaryNum})">저장</button>
+				onclick="submit(${diary.diaryCataNum},${diary.subject })">저장</button>
 			<button type="button" class="btn btn-outline-success"
 				onclick="pageReload()">초기화</button>
 		</div>

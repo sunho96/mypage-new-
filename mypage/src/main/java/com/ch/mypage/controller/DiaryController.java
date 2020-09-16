@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.mypage.model.Diary;
@@ -19,6 +17,7 @@ import com.ch.mypage.model.ObjectPosition;
 import com.ch.mypage.model.Sticker;
 import com.ch.mypage.service.DiaryCataService;
 import com.ch.mypage.service.DiaryService;
+import com.ch.mypage.service.OpService;
 import com.ch.mypage.service.StickerService;
 
 @Controller
@@ -29,6 +28,8 @@ public class DiaryController {
 	private DiaryCataService dcs;
 	@Autowired
 	private StickerService ss;
+	@Autowired
+	private OpService os;
 
 	@RequestMapping("diary/insertForm")
 	public String insertForm(Model model,HttpSession session) {
@@ -42,9 +43,11 @@ public class DiaryController {
 	public String decorate(Diary diary,Model model) {
 		List<Sticker> stickerList= ss.stickerList();
 		List<Sticker> stickerGName = ss.gNameList();
-//		ds.insert(diary);
+		System.out.println("제목:"+diary.getSubject());
+		System.out.println("카테고리:"+diary.getDiaryCataNum());
 		model.addAttribute("stickerList",stickerList);
 		model.addAttribute("stickerGName",stickerGName);
+		model.addAttribute("diary",diary);
 		return "diary/decorate";
 	}
 
@@ -137,12 +140,18 @@ public class DiaryController {
 	@RequestMapping("diary/decoLocation")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
+		ObjectPosition op = new ObjectPosition();
+		
 		for (int i = 0; i < stList.size(); i++) {
-			System.out.println(stList.get(i).get("name"));
-			System.out.println(stList.get(i).get("width"));
-			System.out.println(stList.get(i).get("height"));
-			System.out.println(stList.get(i).get("x"));
-			System.out.println(stList.get(i).get("y"));
+			System.out.println("x="+stList.get(i).get("x"));
+			System.out.println("y="+stList.get(i).get("y"));
+			op.setWidth((int) stList.get(i).get("width"));
+			op.setHeight((int) stList.get(i).get("height"));
+			op.setX((Object)stList.get(i).get("x"));
+			op.setY((int)stList.get(i).get("y"));
+			op.setStickerNum((int)stList.get(i).get("id"));
+//			System.out.println(stList.get(i).get("id"));
+		//	int result = os.insert(op);
 		}
 		String msg="성공";
 //		System.out.println(stList);
