@@ -16,21 +16,11 @@ import com.ch.mypage.service.OpService;
 public class OpController {
 	@Autowired
 	private OpService os;
-	@RequestMapping("diary/position")
-	@ResponseBody
-	public String decoLocation(@RequestBody List<Map> stList) {
-		for (int i = 0; i < stList.size(); i++) {
-			ObjectPosition op  = new ObjectPosition();
-			/* op.get */
-			System.out.println(stList.get(i).get("name"));
-			System.out.println(stList.get(i).get("width"));
-			System.out.println(stList.get(i).get("height"));
-			System.out.println(stList.get(i).get("x"));
-			System.out.println(stList.get(i).get("y"));
-		}
-		String msg="성공";
-		System.out.println(stList);
-		return msg;
-	}
+	/*
+	 * @RequestMapping("op/position") public String postion(List<>) {
+	 * 
+	 * }
+	 */
+	
 
 }

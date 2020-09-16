@@ -18,15 +18,14 @@
 		<h2>"${diary.subject }"</h2>
 		<h5>${diary.regDate }</h5>
 		<div class="container" align="center" style="margin-top: 20px">
-
 			<div id="content"
 				style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
 				<c:forEach items="${opList }" var="op">
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
-							<div style="height: ${op.height }; width: ${op.width}">
+							<div>
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
-									style="padding: 0; width: 100%; height: 100%; left: ${op.x}; top:${op.y};">
+									style="height: ${op.height}; width: ${op.width}; left: ${op.x}; top:${op.y};">
 							</div>
 						</c:if>
 					</c:forEach>
@@ -41,7 +40,5 @@
 		<button onclick="location.href='delete?diaryNum=${diary.diaryNum}'"
 			class="btn btn-outline-success">삭제하기</button>
 	</div>
-
-
 </body>
 </html>

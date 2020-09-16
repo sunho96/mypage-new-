@@ -103,16 +103,17 @@
 	function pageReload() {
 		location.reload();
 	}
-	function submit(num) {
+	function submt(num) {
 		var stiList = [];
 		$('.sti').each(function() {
 			var id = parseInt($(this).attr('id'),10);
 			var width= $(this).width();	
 			var height= $(this).height();
 			var position = $(this).position();
-			var x = parseFloat(position.left);
-			var y = parseFloat(position.top);
+			var x = position.left;
+			var y = position.top;
 			var location = {
+					'num':num,
 					'id' : id,
 					'width' : width,
 					'height' :height,
@@ -121,17 +122,25 @@
 			}
 			stiList.push(location);
 		});
+		var textboxList = [];
+		$('.textbox').each(function() {
+			var content = $(this).val();
+			textboxList.push(content);
+		});
+		
 		$.ajax({
 			url:"decoLocation",
 			dataType: "json",
 			contentType : "application/json",
-			data : JSON.stringify(stiList),
-			traditional :true,
+			data : JSON.stringify(stiList)
+/* 			traditional :true, */
 			type:"POST",
 			success :function(data){
-				if(data=='성공'){
+				alert(data);
+				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href= "main#diaryList";
+				 	location.href= "op/position?contentList=textboxList";
+				 	
 				}
 			}
 		});	
@@ -232,7 +241,7 @@ textarea:focus {
 		</div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
-				onclick="submit(${diaryNum})">저장</button>
+				onclick="submt(${diaryNum})">저장</button>
 			<!-- <button type="button" class="btn btn-outline-success"
 				onclick="pageReload()">초기화</button> -->
 		</div>

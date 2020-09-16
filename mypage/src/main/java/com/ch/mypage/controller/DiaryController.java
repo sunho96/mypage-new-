@@ -79,13 +79,13 @@ public class DiaryController {
 			stiList.add(opList.get(i).getStickerNum());
 //			System.out.println("stickerNum=" + opList.get(i).getStickerNum());
 		}
-		if(stiList.size()!=0) {
-			List<Sticker> opStickerList= ss.opStickerList(stiList);
+		if (stiList.size() != 0) {
+			List<Sticker> opStickerList = ss.opStickerList(stiList);
 			model.addAttribute("opStickerList", opStickerList);
-		}		
+		}
 		model.addAttribute("diary", diary);
 		model.addAttribute("opList", opList);
-		
+
 		return "diary/view";
 	}
 
@@ -154,39 +154,46 @@ public class DiaryController {
 
 	@RequestMapping(value = "diary/decoLocation", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String decoLocation(@RequestBody List<Map> stList) {
+	public String decoLocation(@RequestBody List<Map> stList,@RequestBody List<Map> textboxList) {
 		ObjectPosition op = new ObjectPosition();
 		int result = 0;
 		String msg = "";
 		for (int i = 0; i < stList.size(); i++) {
-			op.setWidth((int) stList.get(i).get("width"));
-			op.setHeight((int) stList.get(i).get("height"));
+			if (stList.get(i).get("width") instanceof Integer) {
+				op.setWidth((int) stList.get(i).get("width"));
+			} else if (stList.get(i).get("x") instanceof Double) {
+				op.setWidth((double) stList.get(i).get("width"));
+			}
+			if (stList.get(i).get("height") instanceof Integer) {
+				op.setHeight((int) stList.get(i).get("height"));
+			} else if (stList.get(i).get("height") instanceof Double) {
+				op.setHeight((double) stList.get(i).get("height"));
+			}
 			if (stList.get(i).get("x") instanceof Integer) {
 				op.setX((int) stList.get(i).get("x"));
 			} else if (stList.get(i).get("x") instanceof Double) {
 				op.setX((double) stList.get(i).get("x"));
 			}
-			op.setY((int) stList.get(i).get("y"));
+			if (stList.get(i).get("y") instanceof Integer) {
+				op.setY((int) stList.get(i).get("y"));
+			} else if (stList.get(i).get("y") instanceof Double) {
+				op.setY((double) stList.get(i).get("y"));
+			}
 			op.setStickerNum((int) stList.get(i).get("id"));
-//			System.out.println(stList.get(i).get("id"));
+			op.setDiaryNum((int) stList.get(i).get("num"));
 			result = os.insert(op);
-			System.out.println("op result=" + result);
 		}
 		if (result == 1) {
 			msg = "1";
 		} else {
 			msg = "0";
 		}
-//		System.out.println(stList);
 		return msg;
 	}
-
 	@RequestMapping("diary/allDel")
 	public String allDel(int memberNum, Model model) {
 		int result = ds.allDel(memberNum);
 		model.addAttribute("result", result);
 		return "diary/del";
-
 	}
-
 }
