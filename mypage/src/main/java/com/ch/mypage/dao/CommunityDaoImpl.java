@@ -23,7 +23,13 @@ public class CommunityDaoImpl implements CommunityDao {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityns.listDefault");
 	}
-
+	@Override
+	public Collection<Community> listDefault(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectList("communityns.selectListDefault", memberNum);
+	}
+	
+	
 	@Override
 	public Collection<Community> addList(int startNum) {
 		// TODO Auto-generated method stub
@@ -89,6 +95,8 @@ public class CommunityDaoImpl implements CommunityDao {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityCommentsns.list",communityNum);
 	}
+
+	
 
 
 	

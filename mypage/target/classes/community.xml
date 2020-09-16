@@ -47,4 +47,8 @@
 			and rn between #{startNum} and #{startNum} +4
 		
 	</select>
+	
+	<select id="selectListDefault" parameterType="int" resultMap="community">
+		
+	</select>
 </mapper>

@@ -163,7 +163,6 @@
 </head>
 <body>
 	<%@ include file="communityNav.jsp" %>
-	세션 memberNum : ${memberNum }<br>
 	
 	<div class="homeCommunityContainer container" style="background: #EAEAEA;">
 		<c:forEach var="com" items="${list }" varStatus="i" >

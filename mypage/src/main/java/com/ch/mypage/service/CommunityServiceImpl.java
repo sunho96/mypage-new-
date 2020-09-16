@@ -70,6 +70,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return cd.commentsList(communityNum);
 	}
 
+	@Override
+	public Collection<Community> listDefault(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.listDefault(memberNum);
+	}
+
 
 	
 

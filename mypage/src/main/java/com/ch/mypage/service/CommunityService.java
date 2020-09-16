@@ -26,6 +26,8 @@ public interface CommunityService {
 
 	Collection<CommunityLikey> isLikeyList(int memberNum);
 
+	Collection<Community> listDefault(int memberNum);
+
 
 	
 

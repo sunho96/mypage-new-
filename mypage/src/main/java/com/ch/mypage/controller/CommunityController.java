@@ -122,5 +122,16 @@ public class CommunityController {
 		return commentList;
 	}
 	
+	@RequestMapping("communityProfile")
+	public String communityProfile(Model model, HttpSession session) {
+		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
+		
+		Collection<Community> commList = cs.listDefault(memberNum);
+		
+		model.addAttribute("commList", commList);
+		
+		return "community/profile";
+		
+	}
 	
 }
