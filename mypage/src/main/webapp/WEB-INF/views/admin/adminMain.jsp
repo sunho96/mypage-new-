@@ -32,8 +32,8 @@ $(function(){
 	</div>
 	<div align="right">
 		<a href="logout" style="color: white;">로그아웃 </a> <a
-			href="memberUpdate_form" style="color: white;">회원정보수정</a> <a
-			href="sticker/stickerSearch" style="color: white;">스티커 검색(임시)</a>
+			href="memberUpdate_form" style="color: white;">회원정보수정</a>
+		
 
 	</div>
 	<!-- Wrapper-->
