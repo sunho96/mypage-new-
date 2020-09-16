@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.mypage.model.ObjectPosition;
+import com.ch.mypage.model.Textbox;
 import com.ch.mypage.service.OpService;
 
 @Controller
 public class OpController {
 	@Autowired
 	private OpService os;
-	/*
-	 * @RequestMapping("op/position") public String postion(List<>) {
-	 * 
-	 * }
-	 */
+	@RequestMapping("op/position")
+	public String postion(List<Textbox> textboxList) {
+		return null;
+	}
 	
 
 }
