@@ -27,6 +27,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return cd.addList(startNum);
 	}
 
+	//좋아요
 	@Override
 	public CommunityLikey selectLikey(int memberNum, int communityNum) {
 		// TODO Auto-generated method stub
@@ -50,7 +51,13 @@ public class CommunityServiceImpl implements CommunityService {
 		// TODO Auto-generated method stub
 		return cd.likeyCnt(communityNum);
 	}
+	@Override
+	public Collection<CommunityLikey> isLikeyList(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.isLikeyList(memberNum)	;
+	}
 
+	//댓글
 	@Override
 	public int insertComment(CommunityComments comment) {
 		// TODO Auto-generated method stub
@@ -63,11 +70,6 @@ public class CommunityServiceImpl implements CommunityService {
 		return cd.commentsList(communityNum);
 	}
 
-	@Override
-	public Collection<CommunityLikey> isLikeyList(int memberNum) {
-		// TODO Auto-generated method stub
-		return cd.isLikeyList(memberNum)	;
-	}
 
 	
 

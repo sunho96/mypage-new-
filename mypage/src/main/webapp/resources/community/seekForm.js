@@ -25,8 +25,8 @@ $(function() {
         	var minIndex = isMinIndex(cHeight);
         	
         	//게시물 추가
-        	$('<a href="/mypage/images/trash.png">'
-				+'<img src="/mypage/images/trash.png" alt="" />'
+        	$('<a href="/mypage/resources/community/images/temp'+(index+1) +'.jpg">'
+				+'<img src="/mypage/resources/community/images/temp'+(index+1) +'.jpg" alt="" />'
 				+'<h3>좋아요 '+value.likeyCount +'개 </h3>'
 				+'<h3>rn '+value.rn+'</h3>'
 				+'</a>').appendTo('#col'+ minIndex);

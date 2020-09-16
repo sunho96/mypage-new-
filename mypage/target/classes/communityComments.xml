@@ -11,11 +11,6 @@
 		<result property="memberNum" column="memberNum" />
 		<result property="communityNum" column="communityNum" />
 		<result property="nickName" column="nickName" />
-		<result property="shareDate" column="shareDate" />
-		<result property="likeyCount" column="likeyCount" />
-		<result property="diaryNum" column="diaryNum" />
-		<result property="nickName2" column="nickName" />
-
 	</resultMap>
 
 	<select id="list" parameterType="int" resultType="communityComments">

@@ -32,6 +32,7 @@ public class CommunityDaoImpl implements CommunityDao {
 		
 	}
 
+	//좋아요
 	@Override
 	public CommunityLikey selectLikey(int memberNum, int communityNum) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -67,7 +68,13 @@ public class CommunityDaoImpl implements CommunityDao {
 		// TODO Auto-generated method stub
 		return sst.selectOne("communityLikeyns.likeyCnt", communityNum);
 	}
+	@Override
+	public Collection<CommunityLikey> isLikeyList(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectList("communityLikeyns.isLikeyListDefault", memberNum);
+	}
 
+	//댓글
 	@Override
 	public int insertComment(CommunityComments comment) {
 		// TODO Auto-generated method stub
@@ -76,17 +83,13 @@ public class CommunityDaoImpl implements CommunityDao {
 		return sst.insert("communityCommentsns.insertComment",comment);
 	}
 
+
 	@Override
 	public Collection<CommunityComments> commentsList(int communityNum) {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityCommentsns.list",communityNum);
 	}
 
-	@Override
-	public Collection<CommunityLikey> isLikeyList(int memberNum) {
-		// TODO Auto-generated method stub
-		return sst.selectList("communityLikeyns.isLikeyListDefault", memberNum);
-	}
 
 	
 }

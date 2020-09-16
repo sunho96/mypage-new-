@@ -16,9 +16,6 @@ public class CommunityComments {
 	
 	//member하고 조인용
 	private String nickName;
-	// 	Community
-	private Date shareDate; //  공유 날짜 
-	private int likeyCount;
-	private int diaryNum; // fk 다이어리 번호
-	private String nickName2;
+
+	
 }

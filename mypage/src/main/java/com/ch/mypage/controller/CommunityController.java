@@ -46,6 +46,12 @@ public class CommunityController {
 		//memberNum이 좋아요 한 리스트
 		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
 		
+		//게시물별 댓글 리스트
+		for (Community community : list) {
+			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
+		}
+		System.out.println(list.toString());
+		
 		//list 넘기기
 		model.addAttribute("list", list);
 		model.addAttribute("isLikeyList", isLikeyList);
@@ -108,6 +114,14 @@ public class CommunityController {
 		comment.setNickName(member.getNickName());
 		
 		return comment ;
+	}
+	
+	@RequestMapping (value="selectCommentList",method = RequestMethod.POST)	
+	@ResponseBody
+	public Collection<CommunityComments> selectCommentList (int communityNum ){
+		Collection<CommunityComments> commentList = cs.commentsList(communityNum);
+		
+		return commentList;
 	}
 	
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../member/sessionChk.jsp"%>
 <!DOCTYPE HTML>
 <html>
@@ -8,19 +9,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	.content {
-		width : 1000px;
-		border: 1px solid;
+	div .thumbnail{
+		padding: 0px;
+		margin-bottom: 40px;
+
+	}
+	div .top{
+		padding-top: 10px;
 		padding-bottom: 10px;
 	}
+	div .bottom-likeyCnt{
+		margin-bottom: 10px;
+	}
+	.content {
+		width : 800px;
+		/* border: 1px solid; */
+		padding-bottom: 40px;
+	}
 	
-	.bottom svg {
+	.caption svg {
 		margin-right: 10px;
-		margin-left: 10px;
 		font-size: 40px;
 	}
 	.defaultHeart{
-		color:#FFA7A7;
+		color:#FFC6C6;
 	}
 	.likeyHeart{
 		color: #FF3636;
@@ -118,7 +130,7 @@
 		text = $("#comment_"+communityNum).val();
 		
 		$.post("writeComment","communityNum=" + communityNum + "&content=" + text,function(value){
-			$("<span><b> " + value.nickName + "</b>, " + value.content + "</span><br>").appendTo("#testComment_"+communityNum);
+			$("<span><b> " + value.nickName + "</b> " + value.content + "</span><br>").appendTo("#testComment_"+communityNum);
 			$("#comment_"+communityNum).val('');
 		});
 		
@@ -131,44 +143,56 @@
 		$("#comment_"+communityNum).focus();
 	}
 	
+	//댓글 모두 보기 
+	function commentViewAll(communityNum) {
+		$.post("selectCommentList","communityNum="+communityNum,function(values){
+			for (let comment of values) {
+				console.log("댓글 모두보기" + comment.content);
+			}
+			
+		});
+	}
+	
 </script>
 </head>
 <body>
 	<%@ include file="communityNav.jsp" %>
 	세션 memberNum : ${memberNum }<br>
 	
-	<div class="homeCommunityContainer">
-		<c:forEach var="com" items="${list }" >
-			<div class="content">
-				<div class="top" style="background: aqua;">
-					<img alt="" src="images/icons/profile-48px.png">
-					<b>${com.nickName }</b> 커뮤니티번호 : ${com.communityNum }
-					
+	<div class="homeCommunityContainer container" style="background: #EAEAEA;">
+		<c:forEach var="com" items="${list }" varStatus="i" >
+			<div class="thumbnail" >
+				<div class="top caption " style="background: white;">
+					<img alt="" src="images/icons/profile-48px.png" >
+					<b>${com.nickName }</b>
 				</div>
 				
-				<div class="middle" style="background: green;">
-					<img alt="" src="images/trash.png">
+				<img alt="" src="resources/community/images/temp${i.index+1}.jpg">
+				<div class="middle caption " >
 				</div>
-				<div class="bottom">
-					<div class="bottom-btn" style="background: yellow;">
+				
+				<div class="bottom caption ">
+					<div class="bottom-btn" >
 						<svg onclick="likey(${com.communityNum})" id="likeyBtn_${com.communityNum}"  width="1em" height="1em" viewBox="0 0 16 16" class="defaultHeart bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   							<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 						</svg>
 						<svg  onclick="focusComment(${com.communityNum})"  width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   							<path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
 						</svg>
-						
-						
-						
 					</div>
-					<div class="bottom-likeyCnt" style="background: pink" >
+					
+					<div class="bottom-likeyCnt" >
 						<span class="likeyCnt" id="likeyCnt_${com.communityNum }">좋아요 ${ com.likeyCnt}개</span><br>
-						<div id="testComment_${com.communityNum }" style="background: gray;"></div>
-						댓글이 2개 이상이면 댓글x개 모두보기 나옴<br>
-						댓글은 최신 2개
+						<c:if test="${fn:length(com.commentsList) > 2}"> <span onclick="commentViewAll(${com.communityNum})">댓글 ${fn:length(com.commentsList)}개 모두보기 </span></c:if>
 					</div>
-					<div class="write-comment row" style="background: fuchsia;">
-						<div class="col-sm-6">
+					<div id="testComment_${com.communityNum }">
+						<c:forEach items="${com.commentsList }" var="commentsList" begin="0" end="${fn:length(com.commentsList) >= 1 ? 1 : fn:length(com.commentsList) }" >
+							<span><b>${commentsList.nickName}</b> ${commentsList.content }</span><br>
+						</c:forEach>
+					</div>
+					
+					<div class="write-comment"  >
+						<div class="col">
 							<div class="input-group">
 								<input class="form-control input-lg" type="text" id="comment_${com.communityNum}" onkeyup="commentKeyUp(${com.communityNum})" > 
 								<span class="input-group-btn">

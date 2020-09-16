@@ -69,7 +69,7 @@
 			<script src="/mypage/resources/community/gridLayout/assets/js/jquery.poptrox.min.js"></script>
 			<script src="/mypage/resources/community/gridLayout/assets/js/gridMain.js"></script>
 			<script src="/mypage/resources/community/gridLayout/assets/js/skel.min.js"></script>
-			<script src="/mypage/resources/community/community.js"></script>
+			<script src="/mypage/resources/community/seekForm.js"></script>
 			
 		
 	</body>

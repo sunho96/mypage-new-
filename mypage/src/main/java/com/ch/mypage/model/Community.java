@@ -17,6 +17,7 @@ public class Community {
 	//조인용
 	private String nickName;
 	private Diary diary;
+	private Collection<CommunityComments> commentsList;
 	private int likeyCnt;
 	/* fk: 다이어리 번호 
 	 * diaryNum number REFERENCES diary(diaryNum)
