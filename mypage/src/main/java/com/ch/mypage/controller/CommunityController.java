@@ -1,6 +1,5 @@
 package com.ch.mypage.controller;
 
-
 import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.mypage.model.Community;
@@ -35,24 +35,30 @@ public class CommunityController {
 	@Autowired
 	private MemberService ms;
 
-	
 	@RequestMapping("communityHome")
 	public String home(Model model, HttpSession session) {
-		//테스트용 세션
-		session.setAttribute("memberNum","1");
-		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
+		// 테스트용 세션
+		int memberNum;
+		if(session.getAttribute("memberNum") == null) {
+				session.setAttribute("memberNum", "1");
+				memberNum = 1;
+		}else {
+			memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		}
+		
+		
+		//게시물 리스트
 		Collection<Community> list = cs.listDefault();
-		
-		//memberNum이 좋아요 한 리스트
+
+		// memberNum이 좋아요 한 리스트
 		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
-		
-		//게시물별 댓글 리스트
+
+		// 게시물별 댓글 리스트
 		for (Community community : list) {
 			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
 		}
-		System.out.println(list.toString());
-		
-		//list 넘기기
+
+		// list 넘기기
 		model.addAttribute("list", list);
 		model.addAttribute("isLikeyList", isLikeyList);
 		return "community/home";
@@ -60,78 +66,143 @@ public class CommunityController {
 
 	@RequestMapping(value = "addCoummunityList", method = RequestMethod.POST)
 	@ResponseBody
-	public Collection<Community> addCoummunityList(int startNum , HttpSession session) {
-		Collection<Community> list = cs.addList(startNum);		
-		
-		//@ResponseBody로 리턴하면 spring에서 허용된 형식의 데이터를 반환
-		//								 혀용된 형식의 데이터가 아니면 json으로 반환하는듯 
+	public Collection<Community> addCoummunityList(int startNum) {
+		Collection<Community> list = cs.addList(startNum);
+
+		// @ResponseBody로 리턴하면 spring에서 허용된 형식의 데이터를 반환
+		// 혀용된 형식의 데이터가 아니면 json으로 반환하는듯
 		return list;
 	}
-	
+
 	@RequestMapping("communitySeek")
 	public String communitySeek(Model model) {
-		Collection<Community> list = cs.listDefault();		
+		Collection<Community> list = cs.listDefault();
 		model.addAttribute("list", list);
 		return "community/seekForm";
 	}
-	
-	//좋아요버튼 클릭시
-	@RequestMapping(value="communityLikey", method=RequestMethod.POST)
+
+	// 좋아요버튼 클릭시
+	@RequestMapping(value = "communityLikey", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Integer> communityLikey(int communityNum, Model model, HttpSession session) {
-		int result= 0;
-		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
-		Map<String, Integer>  map = new HashMap<String, Integer>();
-		
-		//좋아요 했는지 여부에 따라 추가 or 삭제함
+		int result = 0;
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		Map<String, Integer> map = new HashMap<String, Integer>();
+
+		// 좋아요 했는지 여부에 따라 추가 or 삭제함
 		CommunityLikey likeyChk = cs.selectLikey(memberNum, communityNum);
-		if(likeyChk == null) {
-			result = cs.insertLikey(memberNum,communityNum);
-		}else {
-			result = -cs.deleteLikey(memberNum,communityNum);
+		if (likeyChk == null) {
+			result = cs.insertLikey(memberNum, communityNum);
+		} else {
+			result = -cs.deleteLikey(memberNum, communityNum);
 		}
-		
-		//좋아요개수 검색
+
+		// 좋아요개수 검색
 		int likeyCnt = cs.likeyCnt(communityNum);
-		
+
 		map.put("result", result);
 		map.put("likeyCnt", likeyCnt);
 		return map;
 	}
-	
-	@RequestMapping(value ="writeComment",method = RequestMethod.POST)
+
+	@RequestMapping(value = "writeComment", method = RequestMethod.POST)
 	@ResponseBody
 	public CommunityComments writeComment(CommunityComments comment, HttpSession session, Model model) {
-		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		comment.setMemberNum(memberNum);
-		int result = cs.insertComment(comment); 
-		
-		//닉네임 가져오기
+		int result = cs.insertComment(comment);
+
+		// 닉네임 가져오기
 		Member member = ms.selectMember(memberNum);
 		comment.setNickName(member.getNickName());
-		
-		return comment ;
+
+		return comment;
 	}
-	
-	@RequestMapping (value="selectCommentList",method = RequestMethod.POST)	
+
+	@RequestMapping(value = "selectCommentList", method = RequestMethod.POST)
 	@ResponseBody
-	public Collection<CommunityComments> selectCommentList (int communityNum ){
-		//댓글 최신순으로 가져오기
+	public Collection<CommunityComments> selectCommentList(int communityNum) {
+		// 댓글 최신순으로 가져오기
 		Collection<CommunityComments> commentList = cs.commentsList(communityNum);
-		
+
 		return commentList;
 	}
-	
+
 	@RequestMapping("communityProfile")
-	public String communityProfile(Model model, HttpSession session) {
-		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
-		
-		Collection<Community> commList = cs.listDefault(memberNum);
-		
-		model.addAttribute("commList", commList);
-		
+	public String communityProfile(@RequestParam int memberNum, Model model, HttpSession session) {
+
+		// member의 정보
+		Member member = ms.selectMember(memberNum);
+		int sharedCount = cs.sharedCount(memberNum); // 공유한 게시물수
+
+		model.addAttribute("member", member);
+		model.addAttribute("sharedCount", sharedCount);
+
 		return "community/profile";
-		
+
+	}
+
+	@RequestMapping("community/iSharedContents")
+	public String iSharedContents(HttpSession session, Model model) {
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+
+		// 작성한 게시글 리스트
+		Collection<Community> commList = cs.listDefault(memberNum);
+
+		// 게시물별 댓글 리스트
+		for (Community community : commList) {
+			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
+		}
+
+		// memberNum이 좋아요 한 리스트
+		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
+
+		model.addAttribute("commList", commList);
+		model.addAttribute("isLikeyList", isLikeyList);
+		return "community/iSharedContents";
 	}
 	
+	@RequestMapping("community/iLikeyContents")
+	public String iLikeyContents(HttpSession session, Model model) {
+		int memberNum =Integer.parseInt(session.getAttribute("memberNum").toString());
+		
+		// 작성한 게시글 리스트
+		Collection<Community> commList = cs.myLikeyListDefault(memberNum);
+		
+		// 게시물별 댓글 리스트
+		for (Community community : commList) {
+			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
+		}
+		
+		// memberNum이 좋아요 한 리스트
+		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
+		
+		model.addAttribute("commList", commList);
+		model.addAttribute("isLikeyList", isLikeyList);
+		return "community/iLikeyContents";
+	}
+	
+	@RequestMapping(value="community/sharedCancel", method = RequestMethod.POST)
+	@ResponseBody
+	public int sharedCancel(int communityNum,HttpSession session){
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		Community community = cs.select(communityNum);
+		int result = 0;
+		
+		System.out.println("community : " + community);
+		if(memberNum == community.getDiary().getMemberNum()) {
+			System.out.println("member 값이 동일하다");
+			//커뮤니티를 참조하는 데이터들 삭제
+			cs.deleteLikey(communityNum);
+			cs.deleteComments(communityNum);
+			cs.deleteHashAndCom(communityNum);
+			
+			//커뮤니티 데이터 삭제
+			result = cs.deleteCommunity(communityNum);
+			
+		}
+		
+		return result;
+	}
+
 }

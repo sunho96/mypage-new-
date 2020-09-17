@@ -35,6 +35,10 @@
 		delete from communityLikey
 		where memberNum = #{memberNum} and communityNum = #{communityNum}
 	</delete>
+	<delete id="deleteComm" parameterType="int">
+		delete from communityLikey
+		where communityNum=#{communityNum}
+	</delete>
 	
 
 </mapper>

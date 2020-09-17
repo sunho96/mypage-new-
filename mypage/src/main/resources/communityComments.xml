@@ -20,7 +20,10 @@
 			and communityNum = #{communityNum} 
 		order by cc.regDate desc
 	</select>
-
+	<delete id="deleteComm" parameterType="int">
+		delete from communityComments
+		where communityNum =#{communityNum}
+	</delete>
 
 	<!-- 댓글 -->
 	<insert id="insertComment" parameterType="hashmap">

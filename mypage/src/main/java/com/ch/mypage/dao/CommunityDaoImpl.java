@@ -19,6 +19,11 @@ public class CommunityDaoImpl implements CommunityDao {
 	private SqlSessionTemplate sst;
 
 	@Override
+	public Community select(int communityNum) {
+		// TODO Auto-generated method stub
+		return sst.selectOne("communityns.select",communityNum);
+	}
+	@Override
 	public Collection<Community> listDefault() {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityns.listDefault");
@@ -33,11 +38,27 @@ public class CommunityDaoImpl implements CommunityDao {
 	@Override
 	public Collection<Community> addList(int startNum) {
 		// TODO Auto-generated method stub
-		System.out.println("startNum = " + startNum);
 		return sst.selectList("communityns.addList",startNum);
 		
 	}
-
+	@Override
+	public int sharedCount(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectOne("communityns.sharedCount",memberNum);
+	}
+	@Override
+	public Collection<Community> myLikeyListDefault(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectList("communityns.myLikeyListDefault",memberNum);
+	}
+	@Override
+	public int deleteCommunity(int communityNum) {
+		// TODO Auto-generated method stub
+		return sst.delete("communityns.deleteCommunity", communityNum);
+	}
+	
+	
+	
 	//좋아요
 	@Override
 	public CommunityLikey selectLikey(int memberNum, int communityNum) {
@@ -68,6 +89,11 @@ public class CommunityDaoImpl implements CommunityDao {
 		
 		return sst.delete("communityLikeyns.delete",map);
 	}
+	@Override
+	public void deleteLikey(int communityNum) {
+		// TODO Auto-generated method stub
+		sst.delete("communityLikeyns.deleteComm", communityNum);
+	}
 
 	@Override
 	public int likeyCnt(int communityNum) {
@@ -79,7 +105,10 @@ public class CommunityDaoImpl implements CommunityDao {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityLikeyns.isLikeyListDefault", memberNum);
 	}
-
+	
+	
+	
+	
 	//댓글
 	@Override
 	public int insertComment(CommunityComments comment) {
@@ -95,6 +124,24 @@ public class CommunityDaoImpl implements CommunityDao {
 		// TODO Auto-generated method stub
 		return sst.selectList("communityCommentsns.list",communityNum);
 	}
+	@Override
+	public void deleteComments(int communityNum) {
+		// TODO Auto-generated method stub
+		sst.delete("communityCommentsns.deleteComm", communityNum);
+	}
+	
+	
+	
+	//해시앤커뮤니티
+	@Override
+	public void deleteHashAndCom(int communityNum) {
+		// TODO Auto-generated method stub
+		sst.delete("hashAndCommns.deleteComm", communityNum);
+	}
+	
+	
+	
+	
 
 	
 
