@@ -19,47 +19,40 @@
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <!--resizable -->
 <script type="text/javascript">
+
+$(function() {
+	$('#inputTd').hide();
+	$('#diaryCatagory').change(function() {
+		var dc = $('#diaryCatagory').val();
+		if (dc == 'makeCata') {
+			$('#select').hide();
+			$('#inputTd').show();
+			$('#newCata').focus();
+		}
+	});
+});
+function insertCata() {
+	var name = $('#newCata').val();
+	location.href ='diaryCatagory/insert?name='+ name +'&insertForm='+ 'insertForm';
+}
+function cataReset() {
+	$("#inputTd").hide();
+	$("#select").show();
+}
+	
 	$(function() {
 		$('#sticker').hide();
-		$('#getfile').hide();
 		$('#backColor').hide();
-		
-		var file = document.querySelector('#getfile');
-		
-		file.onchange =function(){
-			var fileList = file.files;
-			//읽기
-			var reader = new FileReader();
-			reader.readAsDataURL(fileList[0]);
-			//로드한 후
-			reader.onload = function() {
-			/* 	document.querySelector('#preview').src=reader.result; */
-				$('#content').prepend("<div class='imgDisp' style='width: 100px; height: 100px'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
-				$('.imgDisp').resizable().draggable();
-		/* 		$('#morefile').prepend('<a onclick="morefile()">사진추가하기(click)</a>'); */
-				var width=$('.imgDisp').width();
-				var heigth=$('.imgDisp').height();
-				var postion=$('.imgDisp').postion();
-				alert(width);
-				alert(heigth);
-				alert(postion.left);
-				alert(postion.top);
-			}
-		}
 	});
 	function openSti() {
 		$('#sticker').show();
-		$('#getfile').hide();
 		$('#backColor').hide();
-		/*  $("#content")
-		.prepend(
-				"<div id='sti'style='width: 100px;height: 100px'><img src='${path}/images/me.jpg' style='padding=0;width: 100%;height: 100%'/></div>"); */
 		$('#sti').resizable().draggable();
 	}
 	function openText() {
 		$("#content")
 				.prepend(
-						"<div id='textbox' style='style='width: 10px; height: 10px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
+						"<div id='textbox' style='width: 100px; height: 100px;'><textarea style='width:100%; height:100%;padding:0; border: none;'id='text' name='content'>textbox</textarea><div>");
 		$('#textbox').draggable({
 			snap : true,
 			cursor : "move",
@@ -81,11 +74,6 @@
 			} */
 		});
 	}
-	function getfile() {
-		$('#sticker').hide();
-		$('#backColor').hide();
-		$('#getfile').show();
-	}
 	function goSti(num,name) {
 		console.log("name="+name);
 		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
@@ -94,18 +82,19 @@
 	function openBg() {
 		$('#backColor').show();
 		$('#sticker').hide();
-		$('#getfile').hide();
-	}
-	function changeBg() {
-		var color = $('#bgInput').val();
-		$('#content').css('background-color',color);
 	}
 	function bg() {
 		var bg=$('#bgInput').val();
-		alert(bg);
+		$('#content').css('background-color',bg);
 	}
 	function submt(num) {
 		var stList = [];
+		var diary =  {
+				subject:$('#subject').val(),
+				diaryCataNum:$('#diaryCataNum').val(),
+				bgColor : $('#bgColor').val(),
+				content : $('#content').val()
+		};
 		$('.sti').each(function() {
 			var id = parseInt($(this).attr('id'),10);
 			var width= $(this).width();	
@@ -113,20 +102,21 @@
 			var position = $(this).position();
 			var x = position.left;
 			var y = position.top;
+
 			var location = {
 					'num':num,
 					'id' : id,
 					'width' : width,
 					'height' :height,
 					'x' : x,
-					'y' : y 
+					'y' : y,
+					'diary':diary
 			}
 			stList.push(location);
 		});
-		var content = $('#textbox').val()+"";
-		var colorNum = $('#bgInput').val()+"";
+		console.log(typeof stList);
 		$.ajax({
-			url:"decoLocation",
+			url:"diary/decoLocation",
 			dataType: "json",
 			contentType : "application/json",
 			data : JSON.stringify(stList),
@@ -139,6 +129,9 @@
 				}
 			}
 		});	
+	/* 	$.post("diary/decoLocation","stList="+stList,function(data){
+			alert("다이어리 입력 성공");
+		}) */
 	}
 
 </script>
@@ -170,38 +163,59 @@ textarea {
 textarea:focus {
 	outline: none;
 }
+tr{
+font-weight: bold;
+}
 </style>
 </head>
 <body>
-	<div id="logo" align="center"
-		style="margin-top: 10px; margin-bottom: 30px">
-		<a href="${path }/main"><span
-			style="font-family: 'Dynalight'; font-size: 50px; color: black">My
-				Page</span></a>
-	</div>
-	<div style="margin-bottom: 30px; font-family: 'Lilly'; font-size: 25px"
-		align="center">"${diary.subject }"</div>
-	<div class="container" align="center">
+	<table class="center"
+		style="margin: auto; width: 50em; text-align: center;">
+		<tr>
+			<tr>
+			<td id="select"><select name="diaryCataNum" id="diaryCatagory" style="width: 100; border: thin;">
+					<option disabled="disabled" selected="selected">select
+						catagory</option>
+					<c:forEach var="c" items="${cataList }">
+						<c:if test="${c.del !='y' }">
+							<option value="${c.diaryCataNum }">${c.name }</option>
+						</c:if>
+					</c:forEach>
+					<option value="makeCata">카테고리 만들기</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td id="inputTd"><input type="text" name="name" id="newCata"
+				class="form-control" aria-label="Recipient's username"
+				aria-describedby="basic-addon2" placeholder="create your catagory"
+				autofocus="autofocus"> <input type="button"
+				onclick="insertCata()" class="btn btn-outline-secondary" value="등록">
+				<input type="button" onclick="cataReset()"
+				class="btn btn-outline-secondary" value="취소"></td>
+		</tr>
+		<tr>
+			<td><input class="form-control" aria-label="Recipient's username"
+				aria-describedby="basic-addon2" 
+				autofocus="autofocus" name="subject" 
+				id="subject" style="border: thin;" placeholder="제목을 압력하세요"></td>
+		</tr>
+	</table>
+	<div class="container" align="center" style="margin-top: 30">
 		<div>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
 				onclick="openSti()">sticker</a></span><span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
 				onclick="openText()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openBg()">background</a></span><span style="font-size: 20px">ㅣ</span>
-			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="getfile()">photo</a></span>
+				onclick="openBg()">background</a></span>
 		</div>
 		<p>
 		<p>
 		<p>
 		<div id="backColor">
-			<input type="color" class="bgInput" id="bgInput" onchange="changeBg()"> 
-			<button class="bgInput" onclick="bg()" class="btn btn-outline-success">적용</button>
-		</div>
-		<div id="picture">
-			<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
-			<input type="file" name="name" id="getfile" accept="image/*">
+			<input type="color" class="bgInput" id="bgInput">
+			<button class="bgInput" onclick="bg()"
+				class="btn btn-outline-success">적용</button>
 		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
@@ -210,12 +224,13 @@ textarea:focus {
 				</c:forEach>
 			</ul>
 			<div class="tab-content">
-
 				<c:forEach items="${stickerGName}" var="g">
 					<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti(${s.stickerNum },'${s.name}')"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
+								<a onclick="goSti(${s.stickerNum },'${s.name}')"><img
+									src="${path }/images/stickerImage/${s.name}" width="100px"
+									height="100px"></a>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -231,8 +246,6 @@ textarea:focus {
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
 				onclick="submt(${diaryNum})">저장</button>
-			<!-- <button type="button" class="btn btn-outline-success"
-				onclick="pageReload()">초기화</button> -->
 		</div>
 	</div>
 

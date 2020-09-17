@@ -23,8 +23,6 @@ public class StickerSearchController {
 		@RequestMapping("/sticker/stickerSearch/pageNum/{pageNum}")
 		public String stickerSearch(@PathVariable String pageNum,Sticker sticker, Model model){
 			if (pageNum == null || pageNum.equals("")) pageNum = "1";
-			System.out.println("pageNum="+pageNum);
-
 			int currentPage = Integer.parseInt(pageNum);
 			int rowPerPage  = 5;
 			int total = ss.getTotal(sticker); 

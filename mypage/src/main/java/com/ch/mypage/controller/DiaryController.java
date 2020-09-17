@@ -41,7 +41,7 @@ public class DiaryController {
 		List<Sticker> stickerGName = ss.gNameList();
 		model.addAttribute("stickerList", stickerList);
 		model.addAttribute("stickerGName", stickerGName);
-		return "diary/insertForm3";
+		return "diary/decoInsertForm";
 	}
 
 	@RequestMapping("diary/decorate")
@@ -163,7 +163,7 @@ public class DiaryController {
 	@RequestMapping(value = "diary/decoLocation", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
-		
+//		System.out.println("diary="+diary.getBgColor());
 		//,@RequestParam List<Map> textboxList
 //		System.out.println("size="+textboxList.size());
 		ObjectPosition op = new ObjectPosition();

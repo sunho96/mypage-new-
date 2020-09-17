@@ -39,21 +39,6 @@
 		$("#select").show();
 	}
 
-/* 	function goDeco() {
-		var diaryCataNum = $('#diaryCatagory').val();
-		if (diaryCataNum == null) {
-			alert("카테고리를 선택해주세요.");
-			return false;
-		}
-		var subject = $('#subject').val();
-		if (subject == "") {
-			alert("제목을 입력해주세요.");
-			$('#subject').focus();
-			return false;
-		}
-		location.href = "diary/decorate?memberNum=${memberNum}&diaryCataNum=" + diaryCataNum
-				+ "&subject=" + subject;
-	} */
 	$(function() {
 		$('#sticker').hide();
 		$('#backColor').hide();
