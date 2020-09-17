@@ -125,22 +125,29 @@
 		var textboxList = [];
 		$('.textbox').each(function() {
 			var content = $(this).val();
-			textboxList.push(content);
-		});	
-		$.ajax({
-			url:"decoLocation",
-			dataType: "json",
-			contentType : "application/json",
-			data : JSON.stringify(stList),
-			type:"POST",
-			success :function(data){
+			var width= $(this).width();	
+			var height= $(this).height();
+			var position = $(this).position();
+			var x = position.left;
+			var y = position.top;
+			var location ={
+					'num':num,
+					'width' : width,
+					'height' :height,
+					'x' : x,
+					'y' : y 
+			}
+			textboxList.push(location);
+		});
+		$.post("decoLocation","stList="+stList+"&textboxList="+textboxList,
+			function(data){
 				alert(data);
 				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href= "${path}/main#diaryList";
+				 	location.href= "main#diaryList";
+				 	
 				}
-			}
-		});	
+	});	
 	}
 </script>
 <style type="text/css">
@@ -174,6 +181,7 @@ textarea:focus {
 </style>
 </head>
 <body>
+	<h2></h2>
 	<div id="logo" align="center"
 		style="margin-top: 10px; margin-bottom: 30px">
 		<a href="${path }/main"><span
@@ -197,8 +205,7 @@ textarea:focus {
 		<p>
 		<p>
 		<div id="backColor">
-			<input type="color" class="bgInput" id="bgInput" onchange="changeBg()"> 
-			<button class="bgInput" onclick="" class="btn btn-outline-success">적용</button>
+			<input type="color" id="bgInput" onchange="changeBg()">
 		</div>
 		<div id="picture">
 			<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
@@ -206,17 +213,26 @@ textarea:focus {
 		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
+				<!-- 				<li class="active"><a data-toggle="pill" href="#home">전체</a></li> -->
 				<c:forEach items="${stickerGName}" var="g">
 					<li><a data-toggle="pill" href="#${g.groupName }">${g.groupName}</a></li>
 				</c:forEach>
 			</ul>
 			<div class="tab-content">
-
+				<%-- 				<div id="home" class="tab-pane fade in active">
+					<c:forEach items="${stickerList }" var="s">
+						<a onclick="goSti(${s.name})"><img alt=""
+							src="${path }/images/stickerImage/${s.name}" width="100px"
+							height="100px"></a>
+					</c:forEach>
+				</div> --%>
 				<c:forEach items="${stickerGName}" var="g">
 					<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
 						<c:forEach items="${stickerList }" var="s">
 							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti(${s.stickerNum },'${s.name}')"><img src="${path }/images/stickerImage/${s.name}" width="100px" height="100px"></a>
+								<a onclick="goSti(${s.stickerNum },'${s.name}')"><img
+									src="${path }/images/stickerImage/${s.name}" width="100px"
+									height="100px"></a>
 							</c:if>
 						</c:forEach>
 					</div>

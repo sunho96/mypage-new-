@@ -23,16 +23,19 @@
 	}
 	
 </script>
+<style type="text/css">
+
+</style>
 </head>
 <body>
 
 	<div class="container">
-		<ul class="nav nav-tabs">		
-				<li><a data-toggle="tab" href="" onclick="all()">all</a></li>
+		<ul class="nav nav-tabs">
+			<li><a data-toggle="tab" href="" onclick="all()">all</a></li>
 			<c:forEach var="c" items="${cataList }">
 				<c:if test="${diaryCataNum == c.diaryCataNum }">
 					<li class="active"><a data-toggle="tab" href="${c.name }">${c.name }</a></li>
-				</c:if>			
+				</c:if>
 				<c:if test="${diaryCataNum != c.diaryCataNum }">
 					<li><a data-toggle="tab" href="${c.name }"
 						onclick="cata(${c.diaryCataNum})">${c.name }</a></li>
@@ -67,7 +70,9 @@
 				</tbody>
 			</table>
 		</div>
-		<div align="right"><a href="../main#diaryList">다이어리 가기</a></div>
+		<div align="right">
+			<a href="../main#diaryList">다이어리 가기</a>
+		</div>
 	</div>
 
 </body>

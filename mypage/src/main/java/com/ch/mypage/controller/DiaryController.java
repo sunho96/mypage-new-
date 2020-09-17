@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.mypage.model.Diary;
@@ -135,14 +136,16 @@ public class DiaryController {
 
 	@RequestMapping("diary/typeList")
 	public String typeList(int memberNum, int diaryCataNum, Model model) {
+		System.out.println("왔다");
 		List<Diary> typeList = ds.typeList(memberNum, diaryCataNum);
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("diaryCataNum", diaryCataNum);
 		model.addAttribute("cataList", cataList);
 		model.addAttribute("typeList", typeList);
+		model.addAttribute("m","tList");
 		return "diary/typeList";
 	}
-
+///main#diaryList?memberNum="+memberNum+"&diaryCataNum="+diaryCataNum
 	@RequestMapping("diary/location")
 	public String location(int width, int height, int x, int y, Model model) {
 		model.addAttribute("width", width);
@@ -154,7 +157,10 @@ public class DiaryController {
 
 	@RequestMapping(value = "diary/decoLocation", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String decoLocation(@RequestBody List<Map> stList,@RequestBody List<Map> textboxList) {
+	public String decoLocation(@RequestBody List<Map> stList) {
+		
+		//,@RequestParam List<Map> textboxList
+//		System.out.println("size="+textboxList.size());
 		ObjectPosition op = new ObjectPosition();
 		int result = 0;
 		String msg = "";

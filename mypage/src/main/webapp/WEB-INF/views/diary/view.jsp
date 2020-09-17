@@ -25,7 +25,7 @@
 						<c:if test="${op.stickerNum==s.stickerNum }">
 							<div>
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
-									style="height: ${op.height}; width: ${op.width}; left: ${op.x}; top:${op.y};">
+									style="height: ${op.height}; width: ${op.width}; left: 300; top:${op.y};">
 							</div>
 						</c:if>
 					</c:forEach>
