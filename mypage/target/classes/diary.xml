@@ -10,13 +10,17 @@
 		<result property="del" column="del" />
 		<result property="diaryCataNum" column="diaryCataNum" />
 		<result property="memberNum" column="memberNum" />
+		<result property="content" column="content" />
+		<result property="bgColor" column="bgColor" />
 	</resultMap>
 	<insert id="insert" parameterType="diary">
 		insert into diary
-		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum})
+		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum},#{content},#{bgColor})
 	</insert>
-	<select id="list" parameterType="hashmap" resultMap="diaryResult">
-		select * from diary where memberNum = #{memberNum} order by diaryNum desc
+	<select id="list" parameterType="hashmap"
+		resultMap="diaryResult">
+		select * from diary where memberNum = #{memberNum} order by
+		diaryNum desc
 	</select>
 	<select id="select" parameterType="int" resultType="diary">
 		select * from
@@ -45,16 +49,19 @@
 		diaryCataNum=#{diaryCataNum}
 	</select>
 	<select id="selectDiaryNum" resultType="integer">
-		select max(diaryNum) from diary
+		select max(diaryNum) from
+		diary
 	</select>
 	<insert id="insertSelect" parameterType="diary">
 		insert into diary
-		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum})
+		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum},#{content},#{bgColor})
 	</insert>
 	<select id="selectKey1" resultType="integer">
-		select max(diaryNum) from diary
+		select max(diaryNum) from
+		diary
 	</select>
 	<delete id="allDel" parameterType="int">
-		delete from diary where memberNum =#{memberNum} and del ='y'
+		delete from diary where
+		memberNum =#{memberNum} and del ='y'
 	</delete>
 </mapper>

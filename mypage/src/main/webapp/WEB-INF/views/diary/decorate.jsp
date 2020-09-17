@@ -59,8 +59,8 @@
 	function openText() {
 		$("#content")
 				.prepend(
-						"<div id='textbox' style='style='margin: 0px; width: 525px; height: 678px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
-		$('.textbox').draggable({
+						"<div id='textbox' style='style='width: 10px; height: 10px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
+		$('#textbox').draggable({
 			snap : true,
 			cursor : "move",
 			delay : 100,
@@ -123,13 +123,8 @@
 			}
 			stList.push(location);
 		});
-/* 		var textboxList = [];
-		$('.textbox').each(function() {
-			var content = $(this).val();
-			textboxList.push(content);
-		});	 */
 		var content = $('#textbox').val()+"";
-		var colorNum = $('#bgInput').val();
+		var colorNum = $('#bgInput').val()+"";
 		$.ajax({
 			url:"decoLocation",
 			dataType: "json",

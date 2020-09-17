@@ -16,8 +16,5 @@ create table communityComments(
     memberNum number references member(memberNum),
     communityNum number references community(communityNum)
 );
---20.배경 컬러
-create table bgColor(
-      colorNum number,
-      diaryNum number references diary(diaryNum)
-    );
+
+alter table diary add(bgcolor VARCHAR2(20));

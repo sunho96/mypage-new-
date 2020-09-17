@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.mypage.model.Diary;
@@ -38,7 +37,11 @@ public class DiaryController {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("cataList", cataList);
-		return "diary/insertForm";
+		List<Sticker> stickerList = ss.stickerList();
+		List<Sticker> stickerGName = ss.gNameList();
+		model.addAttribute("stickerList", stickerList);
+		model.addAttribute("stickerGName", stickerGName);
+		return "diary/insertForm3";
 	}
 
 	@RequestMapping("diary/decorate")
@@ -55,6 +58,7 @@ public class DiaryController {
 
 	@RequestMapping("diary/insert")
 	public String insert(Diary diary, Model model) {
+		System.out.println("여기 들어오나..");
 		int result = ds.insert(diary);
 		model.addAttribute("result", result);
 		return "diary/insert";
@@ -154,6 +158,7 @@ public class DiaryController {
 		model.addAttribute("y", y);
 		return "diary/location";
 	}
+
 
 	@RequestMapping(value = "diary/decoLocation", produces = "text/html;charset=utf-8")
 	@ResponseBody
