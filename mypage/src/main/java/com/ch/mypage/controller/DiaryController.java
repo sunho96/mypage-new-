@@ -166,10 +166,14 @@ public class DiaryController {
 //		System.out.println("diary="+diary.getBgColor());
 		//,@RequestParam List<Map> textboxList
 //		System.out.println("size="+textboxList.size());
+		Diary d = new Diary();
 		ObjectPosition op = new ObjectPosition();
+		System.out.println(stList);
 		int result = 0;
 		String msg = "";
 		for (int i = 0; i < stList.size(); i++) {
+			d.setSubject((String) stList.get(i).get("subject"));
+//			d.setDiaryCataNum(diaryCataNum);
 			if (stList.get(i).get("width") instanceof Integer) {
 				op.setWidth((int) stList.get(i).get("width"));
 			} else if (stList.get(i).get("x") instanceof Double) {

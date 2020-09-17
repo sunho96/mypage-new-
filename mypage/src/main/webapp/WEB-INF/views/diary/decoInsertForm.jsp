@@ -87,7 +87,7 @@ function cataReset() {
 		var bg=$('#bgInput').val();
 		$('#content').css('background-color',bg);
 	}
-	function submt(num) {
+	function submt() {
 		var stList = [];
 		var diary =  {
 				subject:$('#subject').val(),
@@ -104,16 +104,18 @@ function cataReset() {
 			var y = position.top;
 
 			var location = {
-					'num':num,
 					'id' : id,
 					'width' : width,
 					'height' :height,
 					'x' : x,
-					'y' : y,
-					'diary':diary
+					'y' : y
 			}
+			alert(id);
+			stList.push(diary);
 			stList.push(location);
+			
 		});
+		
 		console.log(typeof stList);
 		$.ajax({
 			url:"diary/decoLocation",
@@ -133,7 +135,6 @@ function cataReset() {
 			alert("다이어리 입력 성공");
 		}) */
 	}
-
 </script>
 <style type="text/css">
 a:link {
@@ -173,7 +174,7 @@ font-weight: bold;
 		style="margin: auto; width: 50em; text-align: center;">
 		<tr>
 			<tr>
-			<td id="select"><select name="diaryCataNum" id="diaryCatagory" style="width: 100; border: thin;">
+			<td id="select"><select name="diaryCataNum" id="diaryCataNum" style="width: 100; border: thin;">
 					<option disabled="disabled" selected="selected">select
 						catagory</option>
 					<c:forEach var="c" items="${cataList }">
