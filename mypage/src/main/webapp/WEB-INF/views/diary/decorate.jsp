@@ -59,7 +59,7 @@
 	function openText() {
 		$("#content")
 				.prepend(
-						"<div class='textbox' style='width: 100px; height: 100px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
+						"<div id='textbox' style='style='margin: 0px; width: 525px; height: 678px;'><textarea style='width: 100%; height: 100%; padding:0; border: none;'id='text'>Some text</textarea><div>");
 		$('.textbox').draggable({
 			snap : true,
 			cursor : "move",
@@ -100,8 +100,9 @@
 		var color = $('#bgInput').val();
 		$('#content').css('background-color',color);
 	}
-	function pageReload() {
-		location.reload();
+	function bg() {
+		var bg=$('#bgInput').val();
+		alert(bg);
 	}
 	function submt(num) {
 		var stList = [];
@@ -122,11 +123,13 @@
 			}
 			stList.push(location);
 		});
-		var textboxList = [];
+/* 		var textboxList = [];
 		$('.textbox').each(function() {
 			var content = $(this).val();
 			textboxList.push(content);
-		});	
+		});	 */
+		var content = $('#textbox').val()+"";
+		var colorNum = $('#bgInput').val();
 		$.ajax({
 			url:"decoLocation",
 			dataType: "json",
@@ -137,11 +140,12 @@
 				alert(data);
 				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href= "${path}/main#diaryList";
+				 	location.href="content?colorNum="+colorNum+"&content="+content;
 				}
 			}
 		});	
 	}
+
 </script>
 <style type="text/css">
 a:link {
@@ -198,7 +202,7 @@ textarea:focus {
 		<p>
 		<div id="backColor">
 			<input type="color" class="bgInput" id="bgInput" onchange="changeBg()"> 
-			<button class="bgInput" onclick="" class="btn btn-outline-success">적용</button>
+			<button class="bgInput" onclick="bg()" class="btn btn-outline-success">적용</button>
 		</div>
 		<div id="picture">
 			<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->

@@ -202,4 +202,10 @@ public class DiaryController {
 		model.addAttribute("result", result);
 		return "diary/del";
 	}
+	@RequestMapping("diary/content")
+	public String content(int colorNum, String content) {
+		System.out.println("들어왔음");
+		return "diary/content";
+		
+	}
 }
