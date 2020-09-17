@@ -76,6 +76,48 @@ public class CommunityServiceImpl implements CommunityService {
 		return cd.listDefault(memberNum);
 	}
 
+	@Override
+	public int sharedCount(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.sharedCount(memberNum);
+	}
+
+	@Override
+	public Collection<Community> myLikeyListDefault(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.myLikeyListDefault(memberNum);
+	}
+
+	@Override
+	public Community select(int communityNum) {
+		// TODO Auto-generated method stub
+		return cd.select(communityNum);
+	}
+
+	@Override
+	public void deleteLikey(int communityNum) {
+		// TODO Auto-generated method stub
+		cd.deleteLikey(communityNum);
+	}
+
+	@Override
+	public void deleteComments(int communityNum) {
+		// TODO Auto-generated method stub
+		cd.deleteComments(communityNum);
+	}
+
+	@Override
+	public void deleteHashAndCom(int communityNum) {
+		// TODO Auto-generated method stub
+		cd.deleteHashAndCom(communityNum);
+	}
+
+	@Override
+	public int deleteCommunity(int communityNum) {
+		// TODO Auto-generated method stub
+		return cd.deleteCommunity(communityNum);
+	}
+
 
 	
 

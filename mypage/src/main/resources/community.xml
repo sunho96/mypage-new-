@@ -5,7 +5,6 @@
 	<resultMap type="community" id="community">
 		<result property="communityNum" column="communityNum" />
 		<result property="shareDate" column="shareDate" />
-		<result property="likeyCount" column="likeyCount" />
 		<result property="diaryNum" column="diaryNum" />
 		<result property="rn" column="rn" />
 		<result property="nickName" column="nickName" />
@@ -23,6 +22,11 @@
 	</resultMap>
 	
 
+	<select id="select" parameterType="int" resultType="community">
+		select d.*,c.* from diary d, community c 
+		where d.DIARYNUM = c.DIARYNUM
+  			and communityNum=#{communityNum}
+	</select>
 	<select id="listDefault" resultMap="community">
 		select d.*,c.*,m.nickName,nvl(likeyCnt,0) likeyCnt
 		from diary d,member m
@@ -49,6 +53,37 @@
 	</select>
 	
 	<select id="selectListDefault" parameterType="int" resultMap="community">
-		
+		select comm.*,m.nickName,nvl(likeyCnt,0) likeyCnt
+		from member m
+    		,(select * from (select ROWNUM rn,com.* from (	select d.*,c.communityNum,c.sharedate from diary d, community c
+        	                                          		where d.DIARYNUM = c.DIARYNUM and MEMBERNUM=#{memberNum}
+            	                                      		order by COMMUNITYNUM desc) com)
+      		  order by rn) comm
+    		,(select communityNum,count(*) likeyCnt from communitylikey group by communityNum) cl
+		where comm.communityNum=cl.communityNum(+)
+			and comm.memberNum=m.memberNum 
 	</select>
+	
+	<select id="sharedCount" parameterType="int" resultType="int">
+		select count(*) from community c, diary d
+		where c.DIARYNUM = d.DIARYNUM
+  			and memberNum = #{memberNum}
+	</select>
+	
+	<select id="myLikeyListDefault" parameterType="int" resultMap="community">
+		select comm.*,m.nickName,nvl(likeyCnt,0) likeyCnt
+		from member m
+    		,(select * from (select ROWNUM rn,com.* from (select d.*,c.communityNum,c.sharedate from diary d, community c
+		                                                  where d.DIARYNUM = c.DIARYNUM and c.COMMUNITYNUM in ( select COMMUNITYNUM from COMMUNITYLIKEY 
+		                                                                                                        where memberNum = #{memberNum})
+		                                                  order by COMMUNITYNUM desc) com)
+		      order by rn) comm
+		    ,(select communityNum,count(*) likeyCnt from communitylikey group by communityNum) cl
+		where comm.communityNum=cl.communityNum(+)
+			and comm.memberNum=m.memberNum 
+	</select>
+	<delete id="deleteCommunity" parameterType="int">
+		delete from community 
+		where communityNum = #{communityNum}
+	</delete>
 </mapper>

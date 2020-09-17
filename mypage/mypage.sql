@@ -183,10 +183,31 @@ CONSTRAINT memAndCataFK2 FOREIGN KEY (diaryCataNum) REFERENCES diaryCatagory(dia
 CONSTRAINT memAndCataPk primary key (memberNum,diaryCataNum)
 );
 
+--0827 상필 
+--18. 커뮤니티 좋아요
+create table communityLikey(
+    memberNum number references member(memberNum),
+    communityNum number references community(communityNum),
+    primary key(memberNum,communityNum)
+);
+
+--19. 커뮤티니 댓글
+create table communityComments(
+    commentsNum number primary key,
+    content varchar2(500) not null,
+    ref number not null, --그룹
+    re_step number not null, --그룹 내 순서
+    regDate date not null,
+    memberNum number references member(memberNum),
+    communityNum number references community(communityNum)
+);
+
 --0914 추가
 alter table diary drop column content;
 --0915 추가
  alter table OBJECTPOSITION add(pictureNum number references picture(pictureNum));
+--0917 추가
+alter table community drop column likeycount;
  
  insert into member values(member_seq.nextval,'admin@mypage.com','admin','관리자','관리자',010-0000-0000,sysdate,'n');
  select * from sticker;
@@ -290,3 +311,4 @@ insert into sticker values(sticker_seq.nextval,'cupcake4.png', '케이크');
 insert into sticker values(sticker_seq.nextval,'cupid1.png', '천사');
 
 -- d01.png 부터 다시 만들기 메모 
+select * from diary;

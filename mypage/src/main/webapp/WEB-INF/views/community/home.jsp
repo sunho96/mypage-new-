@@ -161,10 +161,10 @@
 	
 </script>
 </head>
-<body>
+<body style="background: #F6F6F6;" >
 	<%@ include file="communityNav.jsp" %>
-	
-	<div class="homeCommunityContainer container" style="background: #EAEAEA;">
+	memberNum = ${memberNum }
+	<div class="homeCommunityContainer container" >
 		<c:forEach var="com" items="${list }" varStatus="i" >
 			<div class="thumbnail" >
 				<div class="top caption " >

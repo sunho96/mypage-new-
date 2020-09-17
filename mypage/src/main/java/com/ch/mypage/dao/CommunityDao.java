@@ -28,6 +28,20 @@ public interface CommunityDao {
 
 	Collection<Community> listDefault(int memberNum);
 
+	int sharedCount(int memberNum);
+
+	Collection<Community> myLikeyListDefault(int memberNum);
+
+	Community select(int communityNum);
+
+	void deleteLikey(int communityNum);
+
+	void deleteComments(int communityNum);
+
+	void deleteHashAndCom(int communityNum);
+
+	int deleteCommunity(int communityNum);
+
 
 	
 }
