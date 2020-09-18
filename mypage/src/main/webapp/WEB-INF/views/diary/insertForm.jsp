@@ -76,7 +76,7 @@ function cataReset() {
 	}
 	function goSti(num,name) {
 		console.log("name="+name);
-		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
+		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px; position:absolute;'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
 	function openBg() {
@@ -96,9 +96,9 @@ function cataReset() {
 				content : $('#text').val()
 		};
 		stList.push(diary);
-		alert("diary bgColor="+diary.bgColor);
+		/* alert("diary bgColor="+diary.bgColor);
 		alert("diary diaryCataNum="+diary.diaryCataNum);
-		alert("diary content="+diary.content);
+		alert("diary content="+diary.content); */
 		$('.sti').each(function() {
 			var id = parseInt($(this).attr('id'),10);
 			var width= $(this).width();	
@@ -114,12 +114,13 @@ function cataReset() {
 					'x' : x,
 					'y' : y
 			}
-			alert(id);
-			
+			alert(location.x);
+			alert(location.y);
 			stList.push(location);			
 		});
+
 		
-		console.log(typeof stList);
+		/* console.log(typeof stList); */
 		$.ajax({
 			url:"diary/decorate",
 			dataType: "json",
@@ -130,7 +131,7 @@ function cataReset() {
 				alert(data);
 				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="main#dairyList";
+				 	location.href="main";
 				}
 			}
 		});	
@@ -244,7 +245,7 @@ font-weight: bold;
 
 	<div class="container" align="center" style="margin-top: 20px">
 		<div id="content"
-			style="width: 40em; height: 50em; background-color: seashell; overflow: hidden;">
+			style="width: 40em; height: 50em; background-color: seashell; overflow: hidden; position: relative;">
 		</div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"

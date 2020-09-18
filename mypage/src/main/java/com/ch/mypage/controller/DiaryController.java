@@ -43,18 +43,6 @@ public class DiaryController {
 		model.addAttribute("stickerGName", stickerGName);
 		return "diary/insertForm";
 	}
-//
-//	@RequestMapping("diary/decorate")
-//	public String decorate(Diary diary, Model model) {
-//		List<Sticker> stickerList = ss.stickerList();
-//		List<Sticker> stickerGName = ss.gNameList();
-//		int diaryNum = ds.insertSelect(diary);
-//		System.out.println("diaryNum=" + diaryNum);
-//		model.addAttribute("stickerList", stickerList);
-//		model.addAttribute("stickerGName", stickerGName);
-//		model.addAttribute("diaryNum", diaryNum);
-//		return "diary/decorate";
-//	}
 
 	@RequestMapping("diary/insert")
 	public String insert(Diary diary, Model model) {
@@ -78,11 +66,9 @@ public class DiaryController {
 	public String view(int diaryNum, Model model) {
 		Diary diary = ds.select(diaryNum);
 		List<ObjectPosition> opList = os.opList(diaryNum);
-		System.out.println(opList.size());
 		List<Integer> stiList = new ArrayList<Integer>();
 		for (int i = 0; i < opList.size(); i++) {
-			stiList.add(opList.get(i).getStickerNum());
-//			System.out.println("stickerNum=" + opList.get(i).getStickerNum());
+			stiList.add(opList.get(i).getStickerNum());			
 		}
 		if (stiList.size() != 0) {
 			List<Sticker> opStickerList = ss.opStickerList(stiList);
@@ -140,15 +126,15 @@ public class DiaryController {
 
 	@RequestMapping("diary/typeList")
 	public String typeList(int memberNum, int diaryCataNum, Model model) {
-		System.out.println("왔다");
 		List<Diary> typeList = ds.typeList(memberNum, diaryCataNum);
 		List<MemAndCata> cataList = dcs.cataList(memberNum);
 		model.addAttribute("diaryCataNum", diaryCataNum);
 		model.addAttribute("cataList", cataList);
 		model.addAttribute("typeList", typeList);
-		model.addAttribute("m","tList");
+		model.addAttribute("m", "tList");
 		return "diary/typeList";
 	}
+
 ///main#diaryList?memberNum="+memberNum+"&diaryCataNum="+diaryCataNum
 	@RequestMapping("diary/location")
 	public String location(int width, int height, int x, int y, Model model) {
@@ -159,45 +145,53 @@ public class DiaryController {
 		return "diary/location";
 	}
 
-
 	@RequestMapping(value = "diary/decorate", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String decoLocation(@RequestBody List<Map> stList) {
-//		System.out.println("diary="+diary.getBgColor());
-		//,@RequestParam List<Map> textboxList
-//		System.out.println("size="+textboxList.size());
+	public String decoLocation(@RequestBody List<Map> stList, HttpSession session) {
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Diary d = new Diary();
 		ObjectPosition op = new ObjectPosition();
+		int diaryNum = 0;
 		System.out.println(stList);
 		int result = 0;
 		String msg = "";
 		for (int i = 0; i < stList.size(); i++) {
-			d.setSubject((String) stList.get(i).get("subject"));
-//			d.setDiaryCataNum(diaryCataNum);
-			if (stList.get(i).get("width") instanceof Integer) {
-				op.setWidth((int) stList.get(i).get("width"));
-			} else if (stList.get(i).get("x") instanceof Double) {
-				op.setWidth((double) stList.get(i).get("width"));
+			if (i == 0) {
+				d.setSubject((String) stList.get(i).get("subject"));
+				d.setDiaryCataNum(Integer.parseInt((String) stList.get(i).get("diaryCataNum")));
+				d.setBgColor((String) stList.get(i).get("bgColor"));
+				d.setContent((String) stList.get(i).get("content"));
+				d.setMemberNum(memberNum);
+				diaryNum = ds.insertSelect(d);
+			} else if (i > 0) {
+				System.out.println("stickerNum=" + stList.get(i).get("stickerNum"));
+				op.setStickerNum((int) stList.get(i).get("stickerNum"));
+				if (stList.get(i).get("width") instanceof Integer) {
+					op.setWidth((int) stList.get(i).get("width"));
+				} else if (stList.get(i).get("x") instanceof Double) {
+					op.setWidth((double) stList.get(i).get("width"));
+				}
+				if (stList.get(i).get("height") instanceof Integer) {
+					op.setHeight((int) stList.get(i).get("height"));
+				} else if (stList.get(i).get("height") instanceof Double) {
+					op.setHeight((double) stList.get(i).get("height"));
+				}
+				if (stList.get(i).get("x") instanceof Integer) {
+					op.setX((int) stList.get(i).get("x"));
+				} else if (stList.get(i).get("x") instanceof Double) {
+					op.setX((double) stList.get(i).get("x"));
+				}
+				if (stList.get(i).get("y") instanceof Integer) {
+					op.setY((int) stList.get(i).get("y"));
+				} else if (stList.get(i).get("y") instanceof Double) {
+					op.setY((double) stList.get(i).get("y"));
+				}
+				op.setDiaryNum(diaryNum);
+
+				// op.setStickerNum((int) stList.get(i).get("stickerNum"));
+				/* op.setDiaryNum((int) stList.get(i).get("num")); */
+				result = os.insert(op);
 			}
-			if (stList.get(i).get("height") instanceof Integer) {
-				op.setHeight((int) stList.get(i).get("height"));
-			} else if (stList.get(i).get("height") instanceof Double) {
-				op.setHeight((double) stList.get(i).get("height"));
-			}
-			if (stList.get(i).get("x") instanceof Integer) {
-				op.setX((int) stList.get(i).get("x"));
-			} else if (stList.get(i).get("x") instanceof Double) {
-				op.setX((double) stList.get(i).get("x"));
-			}
-			if (stList.get(i).get("y") instanceof Integer) {
-				op.setY((int) stList.get(i).get("y"));
-			} else if (stList.get(i).get("y") instanceof Double) {
-				op.setY((double) stList.get(i).get("y"));
-			}
-			op.setStickerNum((int) stList.get(i).get("stickerNum"));
-			//op.setStickerNum((int) stList.get(i).get("stickerNum"));
-			/* op.setDiaryNum((int) stList.get(i).get("num")); */
-			//result = os.insert(op);
 		}
 		if (result == 1) {
 			msg = "1";
@@ -206,16 +200,18 @@ public class DiaryController {
 		}
 		return msg;
 	}
+
 	@RequestMapping("diary/allDel")
 	public String allDel(int memberNum, Model model) {
 		int result = ds.allDel(memberNum);
 		model.addAttribute("result", result);
 		return "diary/del";
 	}
+
 	@RequestMapping("diary/content")
 	public String content(int colorNum, String content) {
 		System.out.println("들어왔음");
 		return "diary/content";
-		
+
 	}
 }

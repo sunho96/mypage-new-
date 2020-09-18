@@ -41,15 +41,11 @@
 		</div>
 
 
-
-	<!--===============================================================================================-->
-	<script src="table/vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
+<!-- 
+	<script src="table/vendor/jquery/jquery-3.2.1.min.js"></script>	
 	<script src="table/vendor/bootstrap/js/popper.js"></script>
 	<script src="table/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
 	<script src="table/vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
 	<script src="table/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
 		$('.js-pscroll').each(function() {
@@ -60,8 +56,7 @@
 			})
 		});
 	</script>
-	<!--===============================================================================================-->
-	<script src="table/js/main.js"></script>
+	<script src="table/js/main.js"></script> --> -->
 
 </body>
 </html>

@@ -8,6 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="logo" align="center"
+		style="margin-top: 10px; margin-bottom: 30px">
+		<a href="${path }/main"><span
+			style="font-family: 'Dynalight'; font-size: 50px; color: black">My
+				Page</span></a>
+	</div>
 <table>
 	<tr><th>제목</th><td>${notice.subject }</td></tr>
 	<tr><th>게시일</th><td>${notice.regDate }</td></tr>

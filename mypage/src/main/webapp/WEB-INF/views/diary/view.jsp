@@ -45,23 +45,23 @@ a:hover {
 	<div id="mainCcontainer" align="center">
 		<h2>"${diary.subject }"</h2>
 		<h5>${diary.regDate }</h5>
-		<div class="container" align="center" style="margin-top: 20px">
+		<div class="container" align="center" style="width: 40em; height: 50em;">
 			<div id="content"
-				style="width: 40em; height: 50em; background-color: ${diary.bgColor}; overflow: hidden; border-radius: 10px;">
-				<pre>${diary.content }</pre>
+				style="width: 40em; height: 50em; background-color: ${diary.bgColor};  border-radius: 10px; position:relative;">
+				${diary.content }
 				<c:forEach items="${opList }" var="op">
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
 							<div>
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
-									style="height: ${op.height}; width: ${op.width}; left: 300; top:${op.y};">
+									style="height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute;">
 							</div>
 						</c:if>
 					</c:forEach>
 				</c:forEach>
 			</div>
 		</div>
-		<div style="margin: 30">
+		<div style="margin-top: 30">
 		<button onclick="location.href='${path}/main#diaryList'"
 			class="btn btn-outline-success">리스트 가기</button>
 		<button

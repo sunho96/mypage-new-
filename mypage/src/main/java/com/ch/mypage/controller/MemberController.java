@@ -48,6 +48,7 @@ public class MemberController {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Member member = ms.selectMember(memberNum);
 		model.addAttribute("member",member);
+		
 		return "main";
 	}
 	@RequestMapping("logout")
