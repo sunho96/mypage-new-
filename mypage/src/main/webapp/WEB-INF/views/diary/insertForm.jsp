@@ -97,6 +97,10 @@ function cataReset() {
 		var fontColor=$('#fontColor').val();
 		$('#text').css('color',fontColor);
 	}
+	function fontWeight() {
+		var fontWeight=$('#fontWeight').val();
+		$('#text').css('font-weight',fontWeight);
+	}
 	function submt() {
 		/* 값 넣었는 지 체크 */
 		diaryCataNum = $('#cataNum').val();
@@ -140,9 +144,7 @@ function cataReset() {
 			alert(location.x);
 			alert(location.y);
 			allList.push(location);			
-		});
-
-		
+		});		
 		/* console.log(typeof List); */
 		$.ajax({
 			url:"diary/decorate",
@@ -254,16 +256,23 @@ textarea:focus {
 			<button class="bgInput" onclick="bg()"
 				class="btn btn-outline-success">적용</button>
 		</div>
-		<div id="font">
-			<select id="fontSize" onchange="fontSize(${i })" class="form-control"
-				style="width: 100">
-				<option selected="selected" disabled="disabled">font size</option>
-				<c:forEach var="i" begin="10" end="80">
-					<option value="${i }">${i }</option>
-				</c:forEach>
-			</select>
-			<input type="color" id="fontColor"><button onclick="fnt()"
-				class="btn btn-outline-success">적용</button>
+		<div id="font" style="widows: 80%">
+			<div style="width: 20%">
+				<select id="fontSize" onchange="fontSize(${i })"
+					class="form-control" >
+					<option selected="selected" disabled="disabled">font size</option>
+					<c:forEach var="i" begin="10" end="80">
+						<option value="${i }">${i }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div style="width: 20%">
+				<input type="color" id="fontColor">
+				<button onclick="fnt()" class="btn btn-outline-success">적용</button>
+			</div>
+			<div style="width: 20%">
+				<input type="range" id="fontWeight" onmousemove="fontWeight()" min="100" max="500" step="10">
+			</div>
 		</div>
 		<div id="sticker">
 			<ul class="nav nav-pills">
