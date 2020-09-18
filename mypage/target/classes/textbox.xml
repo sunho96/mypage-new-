@@ -15,4 +15,10 @@
 	<select id="selectNum" resultType="int">
 		select max(textboxNum) from textbox
 	</select>
+	<select id="opTxtList" resultMap="textboxResult">
+		select * from textbox where textboxNum in
+		<foreach collection="list" item="txtList" open="(" separator="," close=")">
+			#{txtList}
+		</foreach>
+	</select>
 </mapper>

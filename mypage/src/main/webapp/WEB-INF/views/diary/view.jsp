@@ -63,6 +63,7 @@ a:hover {
 									style="height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute;">
 							</div>
 						</c:if>
+						
 					</c:forEach>
 				</c:forEach>
 			</div>

@@ -71,12 +71,18 @@ public class DiaryController {
 		Diary diary = ds.select(diaryNum);
 		List<ObjectPosition> opList = os.opList(diaryNum);
 		List<Integer> stiList = new ArrayList<Integer>();
+		List<Integer> txtList = new ArrayList<Integer>();
 		for (int i = 0; i < opList.size(); i++) {
-			stiList.add(opList.get(i).getStickerNum());			
+			stiList.add(opList.get(i).getStickerNum());	
+			txtList.add(opList.get(i).getTextboxNum());
 		}
 		if (stiList.size() != 0) {
 			List<Sticker> opStickerList = ss.opStickerList(stiList);
 			model.addAttribute("opStickerList", opStickerList);
+		}
+		if(txtList.size() !=0) {
+			List<Textbox> opTxtList = ts.opTxtList(txtList);
+			model.addAttribute("opTxtList",opTxtList);
 		}
 		model.addAttribute("diary", diary);
 		model.addAttribute("opList", opList);
