@@ -25,4 +25,12 @@ public class OpDaoImpl implements OpDao {
 	
 		return sst.selectList("opns.opList",diaryNum);
 	}
+
+	@Override
+	public int insertTxt(ObjectPosition op) {
+		
+		return sst.insert("opns.insertTxt",op);
+	}
+
+
 }

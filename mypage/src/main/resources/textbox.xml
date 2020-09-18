@@ -5,5 +5,14 @@
 	<resultMap type="textbox" id="textboxResult">
 		<result property="textboxNum" column="textboxNum" />
 		<result property="content" column="content" />
+		<result property="fntSize" column="fntSize" />
+		<result property="fntColor" column="fntColor" />
+		<result property="fntWeight" column="fntWeight" />
 	</resultMap>
+	<insert id="insert" parameterType="textbox">
+		insert into textbox values(textbox_seq.nextval,#{content},#{fntSize},#{fntColor},#{fntWeight})
+	</insert>
+	<select id="selectNum" resultType="int">
+		select max(textboxNum) from textbox
+	</select>
 </mapper>

@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="communityComments" type="com.ch.mypage.model.CommunityComments" />
 		<typeAlias alias="hashtag" type="com.ch.mypage.model.Hashtag"/>
 		<typeAlias alias="objectPosition" type="com.ch.mypage.model.ObjectPosition"/>
+		<typeAlias alias="textbox" type="com.ch.mypage.model.Textbox"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="member.xml" />
@@ -32,5 +33,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="communityComments.xml" />
 		<mapper	resource="hashtag.xml" />
 		<mapper	resource="objectPosition.xml" />
+		<mapper	resource="textbox.xml" />
 	</mappers>
 </configuration>

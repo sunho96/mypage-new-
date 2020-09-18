@@ -10,4 +10,6 @@ public interface OpService {
 
 	List<ObjectPosition> opList(int diaryNum);
 
+	int insertTxt(ObjectPosition op);
+
 }

@@ -22,9 +22,9 @@
 
 $(function() {
 	$('#inputTd').hide();
-	$('#font').hide();
-	$('#diaryCatagory').change(function() {
-		var dc = $('#diaryCatagory').val();
+
+	$('#cataNum').change(function() {
+		var dc = $('#cataNum').val();
 		if (dc == 'makeCata') {
 			$('#select').hide();
 			$('#inputTd').show();
@@ -44,17 +44,22 @@ function cataReset() {
 	$(function() {
 		$('#sticker').hide();
 		$('#backColor').hide();
+		$('#font').hide();
 	});
 	function openSti() {
 		$('#sticker').show();
 		$('#backColor').hide();
+		$('#font').hide();
 		$('#sti').resizable().draggable();
+		$('#font').hide();
 	}
 	function openText() {
 		$('#font').show();
+		$('#sticker').hide();
+		$('#backColor').hide();
 		$("#content")
 				.prepend(
-						"<div class='textbox' style='width: 100px; height: 100px;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' id='text' placeholder='textbox'></textarea><div>");
+						"<div class='textbox' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
 		$('.textbox').draggable({
 			snap : true,
 			cursor : "move",
@@ -84,6 +89,7 @@ function cataReset() {
 	function openBg() {
 		$('#backColor').show();
 		$('#sticker').hide();
+		$('#font').hide();
 	}
 	function bg() {
 		var bg=$('#bgColor').val();
@@ -91,15 +97,15 @@ function cataReset() {
 	}
 	function fontSize() {
 		var i=$('#fontSize').val();
-		$('#text').css("font-size", i);
+		$('.text').css("font-size", i);
 	}
 	function fnt() {
 		var fontColor=$('#fontColor').val();
-		$('#text').css('color',fontColor);
+		$('.text').css('color',fontColor);
 	}
 	function fntWeight() {
 		var fontWeight=$('#fontWeight').val();
-		$('#text').css('font-weight',fontWeight);
+		$('.text').css('font-weight',fontWeight);
 	}
 	function submt() {
 		/* 값 넣었는 지 체크 */
@@ -120,7 +126,7 @@ function cataReset() {
 				subject:$('#subject').val(),
 				diaryCataNum:$('#cataNum').val(),
 				bgColor : $('#bgColor').val(),
-				content : $('#text').val()
+				/* content : $('#text').val() */
 		};
 		allList.push(diary);
 		/* alert("diary bgColor="+diary.bgColor);
@@ -134,14 +140,47 @@ function cataReset() {
 			var x = position.left;
 			var y = position.top;
 			var location = {
+					'st' : 'st',
 					'stickerNum' : id,
-					'width' : width,
-					'height' :height,
-					'x' : x,
-					'y' : y
+					'stWidth' : width,
+					'stHeight' :height,
+					'stX' : x,
+					'stY' : y
 			}
 			allList.push(location);			
-		});		
+		});
+		
+		$('.text').each(function(){
+			var width= $('.textbox').width();	
+			var height= $('.textbox').height();
+			var position = $('.textbox').position();
+			var x = position.left;
+			var y = position.top;
+			var content = $(this).val();
+			var fontSize =  $(this).css('font-size');
+			var fontColor =  $(this).css('color');
+			var fonWeight =  $(this).css('font-weight');
+			/* alert(width);
+			alert(height);
+			alert(x);
+			alert(y);
+			alert(content); */
+/* 			alert(fontSize);
+			alert(fontColor);
+			alert(fonWeight); */
+			var textLocation = {
+					'txt' : 'txt',
+					'txtWidth' : width,
+					'txtHeight' :height,
+					'txtX' : x,
+					'txtY' : y,
+					'content' : content,
+					'fntSize':fontSize,
+					'fntColor':fontColor,
+					'fntWeight':fonWeight
+			}
+			allList.push(textLocation);
+		})
 		/* console.log(typeof List); */
 		$.ajax({
 			url:"diary/decorate",

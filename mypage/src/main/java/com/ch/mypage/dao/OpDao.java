@@ -10,4 +10,8 @@ public interface OpDao {
 
 	List<ObjectPosition> opList(int diaryNum);
 
+	int insertTxt(ObjectPosition op);
+
+
+
 }

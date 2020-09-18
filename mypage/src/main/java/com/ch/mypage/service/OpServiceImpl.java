@@ -25,4 +25,10 @@ public class OpServiceImpl implements OpService {
 		
 		return od.opList(diaryNum);
 	}
+
+	@Override
+	public int insertTxt(ObjectPosition op) {
+		
+		return od.insertTxt(op);
+	}
 }

@@ -13,7 +13,6 @@ public class ObjectPosition {
 	private int rotation; // 회전값
 	private int diaryNum; // fk다이어리 번호
 	private int stickerNum; // fk스티커 번호
-	private int font; // fk폰트 번호
 	private int pictureNum;//사진 번호
 	private int textboxNum;
 }

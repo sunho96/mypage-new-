@@ -16,10 +16,12 @@ import com.ch.mypage.model.Diary;
 import com.ch.mypage.model.MemAndCata;
 import com.ch.mypage.model.ObjectPosition;
 import com.ch.mypage.model.Sticker;
+import com.ch.mypage.model.Textbox;
 import com.ch.mypage.service.DiaryCataService;
 import com.ch.mypage.service.DiaryService;
 import com.ch.mypage.service.OpService;
 import com.ch.mypage.service.StickerService;
+import com.ch.mypage.service.TxtService;
 
 @Controller
 public class DiaryController {
@@ -31,6 +33,8 @@ public class DiaryController {
 	private StickerService ss;
 	@Autowired
 	private OpService os;
+	@Autowired
+	private TxtService ts;
 
 	@RequestMapping("diary/insertForm")
 	public String insertForm(Model model, HttpSession session) {
@@ -134,8 +138,6 @@ public class DiaryController {
 		model.addAttribute("m", "tList");
 		return "diary/typeList";
 	}
-
-///main#diaryList?memberNum="+memberNum+"&diaryCataNum="+diaryCataNum
 	@RequestMapping("diary/location")
 	public String location(int width, int height, int x, int y, Model model) {
 		model.addAttribute("width", width);
@@ -148,9 +150,11 @@ public class DiaryController {
 	@RequestMapping(value = "diary/decorate", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> allList, HttpSession session) {
+		System.out.println("controller 들어옴");
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Diary d = new Diary();
 		ObjectPosition op = new ObjectPosition();
+		Textbox t = new Textbox();
 		int diaryNum = 0;
 		System.out.println(allList);
 		int result = 0;
@@ -160,37 +164,70 @@ public class DiaryController {
 				d.setSubject((String) allList.get(i).get("subject"));
 				d.setDiaryCataNum(Integer.parseInt((String) allList.get(i).get("diaryCataNum")));
 				d.setBgColor((String) allList.get(i).get("bgColor"));
-				d.setContent((String) allList.get(i).get("content"));
 				d.setMemberNum(memberNum);
 				diaryNum = ds.insertSelect(d);
 			} else if (i > 0) {
-				System.out.println("stickerNum=" + allList.get(i).get("stickerNum"));
-				op.setStickerNum((int) allList.get(i).get("stickerNum"));
-				if (allList.get(i).get("width") instanceof Integer) {
-					op.setWidth((int) allList.get(i).get("width"));
-				} else if (allList.get(i).get("x") instanceof Double) {
-					op.setWidth((double) allList.get(i).get("width"));
-				}
-				if (allList.get(i).get("height") instanceof Integer) {
-					op.setHeight((int) allList.get(i).get("height"));
-				} else if (allList.get(i).get("height") instanceof Double) {
-					op.setHeight((double) allList.get(i).get("height"));
-				}
-				if (allList.get(i).get("x") instanceof Integer) {
-					op.setX((int) allList.get(i).get("x"));
-				} else if (allList.get(i).get("x") instanceof Double) {
-					op.setX((double) allList.get(i).get("x"));
-				}
-				if (allList.get(i).get("y") instanceof Integer) {
-					op.setY((int) allList.get(i).get("y"));
-				} else if (allList.get(i).get("y") instanceof Double) {
-					op.setY((double) allList.get(i).get("y"));
-				}
-				op.setDiaryNum(diaryNum);
-
-				// op.setStickerNum((int) allList.get(i).get("stickerNum"));
-				/* op.setDiaryNum((int) allList.get(i).get("num")); */
-				result = os.insert(op);
+				if(allList.get(i).containsKey("st")) {
+					op.setStickerNum((int) allList.get(i).get("stickerNum"));
+					if (allList.get(i).get("stWidth") instanceof Integer) {
+						op.setWidth((int) allList.get(i).get("stWidth"));
+					} else if (allList.get(i).get("stWidth") instanceof Double) {
+						op.setWidth((double) allList.get(i).get("stWidth"));
+					}
+					if (allList.get(i).get("stHeight") instanceof Integer) {
+						op.setHeight((int) allList.get(i).get("stHeight"));
+					} else if (allList.get(i).get("stHeight") instanceof Double) {
+						op.setHeight((double) allList.get(i).get("stHeight"));
+					}
+					if (allList.get(i).get("stX") instanceof Integer) {
+						op.setX((int) allList.get(i).get("stX"));
+					} else if (allList.get(i).get("stX") instanceof Double) {
+						op.setX((double) allList.get(i).get("stX"));
+					}
+					if (allList.get(i).get("stY") instanceof Integer) {
+						op.setY((int) allList.get(i).get("stY"));
+					} else if (allList.get(i).get("stY") instanceof Double) {
+						op.setY((double) allList.get(i).get("stY"));
+					}
+					op.setDiaryNum(diaryNum);
+					result = os.insert(op);
+					System.out.println("스티커 result="+result);
+				}else if(allList.get(i).containsKey("txt")) {
+					System.out.println("몇번들어오지,,?"+i);
+					ObjectPosition op2 = new ObjectPosition();
+					t.setContent((String) allList.get(i).get("content"));
+					t.setFntSize((String)(allList.get(i).get("fntSize")));
+					t.setFntColor((String) allList.get(i).get("fntColor"));
+					t.setFntWeight(Integer.parseInt((String) allList.get(i).get("fntWeight")));
+					int textboxNum = ts.insert(t);
+					if(textboxNum != 0) {
+						if (allList.get(i).get("txtWidth") instanceof Integer) {
+							op2.setWidth((int) allList.get(i).get("txtWidth"));
+						} else if (allList.get(i).get("txtWidth") instanceof Double) {
+							op2.setWidth((double) allList.get(i).get("txtWidth"));
+						}
+						if (allList.get(i).get("txtHeight") instanceof Integer) {
+							op2.setHeight((int) allList.get(i).get("txtHeight"));
+						} else if (allList.get(i).get("txtHeight") instanceof Double) {
+							op2.setHeight((double) allList.get(i).get("txtHeight"));
+						}
+						if (allList.get(i).get("txtX") instanceof Integer) {
+							op2.setX((int) allList.get(i).get("txtX"));
+						} else if (allList.get(i).get("txtX") instanceof Double) {
+							op2.setX((double) allList.get(i).get("txtX"));
+						}
+						if (allList.get(i).get("txtY") instanceof Integer) {
+							op2.setY((int) allList.get(i).get("txtY"));
+						} else if (allList.get(i).get("txtY") instanceof Double) {
+							op2.setY((double) allList.get(i).get("txtY"));
+						}
+						op2.setTextboxNum(textboxNum);
+						op2.setDiaryNum(diaryNum);
+						result =os.insertTxt(op2);
+						System.out.println("텍스트 result="+result);
+					}
+			
+				}			
 			}
 		}
 		if (result == 1) {

@@ -16,9 +16,13 @@
 	</resultMap>
 	<insert id="insert" parameterType="objectPosition">
 		insert into objectPosition
-		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,${diaryNum},#{stickerNum},null,null)
+		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,#{diaryNum},#{stickerNum},null,null)
 	</insert>
 	<select id="opList" resultMap="objectPositionResult" parameterType="int">
 		select * from objectPosition where diaryNum = #{diaryNum}
 	</select>
+	<insert id="insertTxt" parameterType="objectPosition">
+	insert into objectPosition
+		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,#{diaryNum},null,null,#{textboxNum})
+	</insert>
 </mapper>
