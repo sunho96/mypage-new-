@@ -22,7 +22,7 @@
 	</resultMap>
 	
 
-	<select id="select" parameterType="int" resultType="community">
+	<select id="select" parameterType="int" resultMap="community">
 		select d.*,c.* from diary d, community c 
 		where d.DIARYNUM = c.DIARYNUM
   			and communityNum=#{communityNum}

@@ -34,15 +34,14 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		$("#shared").load("community/iSharedContents");
+		$("#shared").load("community/iSharedContents?memberNum=${member.memberNum}");
 	});
 	function loadContents(value) {
-		console.log("value: " + value);
 		if (value=="shared"){
-			$("#shared").load("community/iSharedContents");
+			$("#shared").load("community/iSharedContents?memberNum=${member.memberNum}");
 		}
 		else if (value=="likey"){
-			$("#likey").load("community/iLikeyContents");
+			$("#likey").load("community/iLikeyContents?memberNum=${member.memberNum}");
 		}
 		else if (value=="tag"){
 			$("#tag").load("community/iTaggedContents");
@@ -66,7 +65,9 @@
 		
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#shared" onclick="loadContents('shared')">게시물</a></li>
-			<li><a data-toggle="tab" href="#likey" onclick="loadContents('likey')">좋아요</a></li>
+			<c:if test="${memberNum == member.memberNum }">
+				<li><a data-toggle="tab" href="#likey" onclick="loadContents('likey')">좋아요</a></li>
+			</c:if>
 			<li><a data-toggle="tab" href="#tag" onclick="loadContents('tag')">태그됨</a></li>
 		</ul>
 		<div class="tab-content">

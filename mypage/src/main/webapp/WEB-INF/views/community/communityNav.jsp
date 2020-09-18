@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="main">
-      	<img alt="" src="images/logo_black.png" height="100%;">
+      	<img alt="" src="/mypage/images/logo_black.png" height="100%;">
       </a>
     </div>
     <ul class="nav navbar-nav">

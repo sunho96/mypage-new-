@@ -20,7 +20,8 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public Community select(int communityNum) {
-		// TODO Auto-generated method stub
+//		Community com = sst.selectOne("communityns.select",communityNum);
+//		com.setDiary(sst.selectOne());
 		return sst.selectOne("communityns.select",communityNum);
 	}
 	@Override

@@ -10,7 +10,12 @@
 <title>Insert title here</title>
 
 <script type="text/javascript">
-	
+	$(function() {
+		<c:forEach items="${commList}"  var="com">
+			console.log("com : ${com }");
+			$("#content_${com.communityNum }").load("diary/loadDiaryContent?diaryNum=${com.diary.diaryNum}");
+		</c:forEach>
+	});
 
 
 	//좋아요 버튼 누를때
@@ -31,13 +36,16 @@
 <br>
 	<div class="row">
 		<c:forEach items="${commList }" var="com" varStatus="i">
+		
 			<div class="col-sm-4" id="div_${com.communityNum }">
 				<div class="thumbnail">
 					<div class="caption" >
 						<img alt="" src="images/icons/profile-48px.png" >
-						<b>${com.nickName }</b>
+						<a href="communityProfile?memberNum=${com.diary.memberNum}"><b>${com.nickName }</b></a>
 					</div>
-					<img alt="" src="resources/community/images/temp${i.index+1}.jpg">
+					<div id="content_${com.communityNum }">
+						컨텐츠 위치
+					</div>
 					
 					<div class="caption" align="center">
 						작성자 : ${com.nickName }

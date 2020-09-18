@@ -24,12 +24,15 @@ $(function() {
         	cHeight = [$("#col1").height(),$("#col2").height(),$("#col3").height()];
         	var minIndex = isMinIndex(cHeight);
         	
-        	//게시물 추가
+        	$('<div id="content_'+value.communityNum +'">컨텐츠 위치</div>').appendTo('#col'+ minIndex);
+        	$("#content_"+value.communityNum).load("diary/loadDiaryContent?diaryNum="+value.diary.diaryNum);
+			
+        	/*//게시물 추가
         	$('<a href="/mypage/resources/community/images/temp'+(index+1) +'.jpg">'
 				+'<img src="/mypage/resources/community/images/temp'+(index+1) +'.jpg" alt="" />'
 				+'<h3>좋아요 '+value.likeyCount +'개 </h3>'
 				+'<h3>rn '+value.rn+'</h3>'
-				+'</a>').appendTo('#col'+ minIndex);
+				+'</a>').appendTo('#col'+ minIndex);*/
         	
         });
 		startNum +=5;

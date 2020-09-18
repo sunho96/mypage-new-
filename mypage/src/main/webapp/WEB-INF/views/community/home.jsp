@@ -58,6 +58,11 @@
 		<c:forEach items="${isLikeyList}" var="item">
 			$("#likeyBtn_${item.communityNum}").addClass("likeyHeart");
 		</c:forEach>
+		
+		<c:forEach items="${list}"  var="com">
+			console.log("diaryNum : ${com.diary.diaryNum}");
+			$("#content_${com.communityNum }").load("diary/loadDiaryContent?diaryNum=${com.diary.diaryNum}");
+		</c:forEach>
 			
 			
 		$(window).scroll(function() { // 스크롤 이벤트 발생 시 필요한 변수를 구합니다.
@@ -131,7 +136,21 @@
 		text = $("#comment_"+communityNum).val();
 		
 		$.post("writeComment","communityNum=" + communityNum + "&content=" + text,function(value){
-			$("<span><b> " + value.nickName + "</b> " + value.content + "</span><br>").appendTo("#testComment_"+communityNum);
+			//댓글추가
+			$('<div><a href="communityProfile?memberNum='+value.memberNum+'"><b>'+value.nickName+'</b></a> '+value.content +'</div>').prependTo("#testComment_"+communityNum);
+			
+			var cLen = $("#testComment_"+communityNum).children().length;	//자식 수
+			var cHiddenLen = $("#testComment_"+communityNum).children("div:hidden").length //숨겨진자식 수 
+			//댓글5개 이상 숨기기
+			if(cLen> 4 && cHiddenLen !=0){
+				console.log("cLen : " + cLen);
+				$("#testComment_"+communityNum).children("div:gt(3)").css("display","none");
+			}
+			//댓글 5개면 더보기버튼 추가
+			if(cLen ==5){
+				$(' <a href="javascript:commentViewAll('+communityNum+')">댓글 모두보기 </a>').appendTo("#bottom-cnt-"+communityNum);
+			}
+			
 			$("#comment_"+communityNum).val('');
 		});
 		
@@ -144,24 +163,25 @@
 		$("#comment_"+communityNum).focus();
 	}
 	
+	
 	//댓글 모두 보기 
-	function commentViewAll(communityNum) {
-		$.post("selectCommentList","communityNum="+communityNum,function(values){
-			$("#testComment_" +communityNum ).empty();
-			
-			//Collection 전용 foreach문(for..of)
-			for (let comment of values) {
-				console.log("댓글 모두보기" + comment.content);
-				$("<span><b> " + comment.nickName + "</b> " + comment.content + "</span><br>").appendTo("#testComment_"+communityNum);
-				
-			}
-			
-		});
+	function commentViewAll(communityNum,f) {
+		//토글이 실행될때마다 더보기 <-> 숨기기 버뀌게 하려고했는데 실패 
+		var cHiddenLen = $("#testComment_"+communityNum).children("div:hidden").length //숨겨진자식 수
+		$("#testComment_"+communityNum).children("div:gt(3)").slideToggle();
+		
+		
+		if(cHiddenLen == 0 ){
+			$("#commentToggle_"+communityNum).text("댓글 모두보기");
+		}else{
+			$("#commentToggle_"+communityNum).text("댓글 숨기기");
+		}
 	}
 	
 </script>
 </head>
 <body style="background: #F6F6F6;" >
+	<a href="community/testView">리스트뷰 테스트</a>
 	<%@ include file="communityNav.jsp" %>
 	memberNum = ${memberNum }
 	<div class="homeCommunityContainer container" >
@@ -169,10 +189,12 @@
 			<div class="thumbnail" >
 				<div class="top caption " >
 					<img alt="" src="images/icons/profile-48px.png" >
-					<b>${com.nickName }</b>
+					<a href="communityProfile?memberNum=${com.diary.memberNum}"><b>${com.nickName }</b></a>  
 				</div>
 				
-				<img alt="" src="resources/community/images/temp${i.index+1}.jpg">
+				<div id="content_${com.communityNum }">
+					컨텐츠 위치
+				</div>
 				<div class="middle caption " >
 				</div>
 				
@@ -186,13 +208,18 @@
 						</svg>
 					</div>
 					
-					<div class="bottom-likeyCnt" >
-						<span class="likeyCnt" id="likeyCnt_${com.communityNum }">좋아요 ${ com.likeyCnt}개</span><br>
-						<c:if test="${fn:length(com.commentsList) > 2}"> <span onclick="commentViewAll(${com.communityNum})">댓글 ${fn:length(com.commentsList)}개 모두보기 </span></c:if>
+					<div class="bottom-cnt" id="bottom-cnt-${com.communityNum }">
+						<span class="likeyCnt" id="likeyCnt_${com.communityNum }">좋아요 ${ com.likeyCnt}개</span> <span>댓글 ${fn:length(com.commentsList)}개</span><br>
+						<c:if test="${fn:length(com.commentsList) > 4}"> <a href="javascript:commentViewAll(${com.communityNum})" id="commentToggle_${com.communityNum }">댓글 모두보기 </a></c:if>
 					</div>
 					<div id="testComment_${com.communityNum }">
-						<c:forEach items="${com.commentsList }" var="commentsList" begin="0" end="${fn:length(com.commentsList) >= 1 ? 1 : fn:length(com.commentsList) }" >
-							<span><b>${commentsList.nickName}</b> ${commentsList.content }</span><br>
+						<c:forEach items="${com.commentsList }" var="commentsList"  varStatus="i">
+							<c:if test="${i.index <=3 }">
+								<div><a href="communityProfile?memberNum=${commentsList.memberNum}"><b>${commentsList.nickName}</b></a> ${commentsList.content }</div>
+							</c:if>
+							<c:if test="${i.index >3 }">
+								<div style="display: none;"><a href="communityProfile?memberNum=${commentsList.memberNum}"><b>${commentsList.nickName}</b></a> ${commentsList.content }</div>
+							</c:if>
 						</c:forEach>
 					</div>
 					

@@ -17,3 +17,4 @@ drop table diarycatagory;
 drop table accountBook;
 drop table account;
 drop table member;
+delete from COMMUNITYCOMMENTS;

@@ -257,4 +257,23 @@ public class DiaryController {
 		return "diary/content";
 
 	}
+	
+	//0918상필
+		@RequestMapping("diary/loadDiaryContent")
+		public String loadDiaryContent(int diaryNum, Model model) {
+			Diary diary = ds.select(diaryNum);
+			List<ObjectPosition> opList = os.opList(diaryNum);
+			List<Integer> stiList = new ArrayList<Integer>();
+			for (int i = 0; i < opList.size(); i++) {
+				stiList.add(opList.get(i).getStickerNum());			
+			}
+			if (stiList.size() != 0) {
+				List<Sticker> opStickerList = ss.opStickerList(stiList);
+				model.addAttribute("opStickerList", opStickerList);
+			}
+			model.addAttribute("diary", diary);
+			model.addAttribute("opList", opList);
+
+			return "community/loadDiaryContent";
+		}
 }

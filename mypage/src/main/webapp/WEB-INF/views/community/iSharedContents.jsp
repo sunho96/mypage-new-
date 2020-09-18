@@ -9,13 +9,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
+	$(function() {
+		<c:forEach items="${commList}"  var="com">
+			$("#content_${com.communityNum }").load("diary/loadDiaryContent?diaryNum=${com.diary.diaryNum}");
+		</c:forEach>
+	});
 	function sharedCancel(communityNum) {
 		$.post("community/sharedCancel","communityNum="+communityNum,function(result){
 			if(result>0){
-				console.log("성공");
+				$("#div_"+communityNum).remove();
+				console.log("공유한게시글 삭제 성공");
 				
 			}else{
-				console.log("실패");
+				console.log("공유 삭제 실패");
 			}
 		});
 	}
@@ -25,9 +31,12 @@
 <br>
 	<div class="row">
 		<c:forEach items="${commList }" var="com" varStatus="i">
+			
 			<div class="col-sm-4" id="div_${com.communityNum }">
 				<div class="thumbnail" >
-					<img alt="" src="resources/community/images/temp${i.index+1}.jpg">
+					<div id="content_${com.communityNum }">
+						컨텐츠 위치
+					</div>
 					
 					<div class="caption" align="center">
 						작성자 : ${com.nickName}

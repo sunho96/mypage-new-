@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ch.mypage.model.Community;
 import com.ch.mypage.model.CommunityComments;
 import com.ch.mypage.model.CommunityLikey;
+import com.ch.mypage.model.Diary;
 import com.ch.mypage.model.Member;
+import com.ch.mypage.model.ObjectPosition;
+import com.ch.mypage.model.Sticker;
 import com.ch.mypage.service.CommunityService;
 import com.ch.mypage.service.DiaryService;
 import com.ch.mypage.service.MemberService;
@@ -63,6 +66,7 @@ public class CommunityController {
 		model.addAttribute("isLikeyList", isLikeyList);
 		return "community/home";
 	}
+	
 
 	@RequestMapping(value = "addCoummunityList", method = RequestMethod.POST)
 	@ResponseBody
@@ -143,8 +147,7 @@ public class CommunityController {
 	}
 
 	@RequestMapping("community/iSharedContents")
-	public String iSharedContents(HttpSession session, Model model) {
-		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+	public String iSharedContents(int memberNum, Model model) {
 
 		// 작성한 게시글 리스트
 		Collection<Community> commList = cs.listDefault(memberNum);
@@ -163,8 +166,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("community/iLikeyContents")
-	public String iLikeyContents(HttpSession session, Model model) {
-		int memberNum =Integer.parseInt(session.getAttribute("memberNum").toString());
+	public String iLikeyContents(int memberNum, Model model) {
 		
 		// 작성한 게시글 리스트
 		Collection<Community> commList = cs.myLikeyListDefault(memberNum);
@@ -182,7 +184,7 @@ public class CommunityController {
 		return "community/iLikeyContents";
 	}
 	
-	@RequestMapping(value="community/sharedCancel", method = RequestMethod.POST)
+	@RequestMapping(value="community/sharedCancel")
 	@ResponseBody
 	public int sharedCancel(int communityNum,HttpSession session){
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
@@ -203,6 +205,43 @@ public class CommunityController {
 		}
 		
 		return result;
+	}
+	
+	
+	/* 테스트 */
+	@RequestMapping("community/testView")
+	public String testView() {
+		
+		return "community/testCommunity";
+	}
+	
+	@RequestMapping("community/listView")
+	public String listView(Model model, HttpSession session) {
+		// 테스트용 세션
+		int memberNum;
+		if(session.getAttribute("memberNum") == null) {
+			session.setAttribute("memberNum", "1");
+			memberNum = 1;
+		}else {
+			memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		}
+		
+		
+		//게시물 리스트
+		Collection<Community> list = cs.listDefault();
+		
+		// memberNum이 좋아요 한 리스트
+		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
+		
+		// 게시물별 댓글 리스트
+		for (Community community : list) {
+			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
+		}
+		
+		// list 넘기기
+		model.addAttribute("list", list);
+		model.addAttribute("isLikeyList", isLikeyList);
+		return "community/testList";
 	}
 
 }
