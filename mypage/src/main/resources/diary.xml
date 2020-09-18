@@ -10,7 +10,6 @@
 		<result property="del" column="del" />
 		<result property="diaryCataNum" column="diaryCataNum" />
 		<result property="memberNum" column="memberNum" />
-		<result property="content" column="content" />
 		<result property="bgColor" column="bgColor" />
 	</resultMap>
 	<insert id="insert" parameterType="diary">

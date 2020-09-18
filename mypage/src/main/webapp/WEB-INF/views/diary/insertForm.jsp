@@ -97,7 +97,7 @@ function cataReset() {
 		var fontColor=$('#fontColor').val();
 		$('#text').css('color',fontColor);
 	}
-	function fontWeight() {
+	function fntWeight() {
 		var fontWeight=$('#fontWeight').val();
 		$('#text').css('font-weight',fontWeight);
 	}
@@ -133,7 +133,6 @@ function cataReset() {
 			var position = $(this).position();
 			var x = position.left;
 			var y = position.top;
-
 			var location = {
 					'stickerNum' : id,
 					'width' : width,
@@ -269,7 +268,7 @@ textarea:focus {
 				<button onclick="fnt()" class="btn btn-outline-success">적용</button>
 			</div>
 			<div style="width: 20%">
-				<input type="range" id="fontWeight" onmousemove="fontWeight()" min="100" max="500" step="10">
+				<input type="range" id="fontWeight" min="200" max="900" onchange="fntWeight()" class="form-control-range" >
 			</div>
 		</div>
 		<div id="sticker">

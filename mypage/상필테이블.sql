@@ -21,10 +21,15 @@ create table communityComments(
     drop table bgColor;
  alter table diary add(content varchar2(3000));
 alter table diary add(bgcolor VARCHAR2(20));
-
+--0918
     create table textbox(
     texboxNum NUMBER,
     content VARCHAR2(2000)
-    );
-    
+    );  
     alter table objectPosition add(textboxNum number references textbox(textboxNum));
+    alter table textbox add(fntSize number(5));
+    alter table textbox add(fntColor varchar(20));
+    alter table textbox add (fntWeight number(5));
+    alter table objectPosition drop column font;
+    drop table font;
+    

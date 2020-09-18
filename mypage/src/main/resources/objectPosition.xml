@@ -11,13 +11,12 @@
 		<result property="rotation" column="rotation" />
 		<result property="diaryNum" column="diaryNum" />
 		<result property="stickerNum" column="stickerNum" />
-		<result property="font" column="font" />
 		<result property="pictureNum" column="pictureNum" />
 		<result property="textboxNum" column="textboxNum" />
 	</resultMap>
 	<insert id="insert" parameterType="objectPosition">
 		insert into objectPosition
-		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,${diaryNum},#{stickerNum},null,null,null)
+		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,${diaryNum},#{stickerNum},null,null)
 	</insert>
 	<select id="opList" resultMap="objectPositionResult" parameterType="int">
 		select * from objectPosition where diaryNum = #{diaryNum}
