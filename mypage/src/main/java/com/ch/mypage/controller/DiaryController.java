@@ -194,9 +194,10 @@ public class DiaryController {
 			} else if (stList.get(i).get("y") instanceof Double) {
 				op.setY((double) stList.get(i).get("y"));
 			}
-			op.setStickerNum((int) stList.get(i).get("id"));
-			op.setDiaryNum((int) stList.get(i).get("num"));
-			result = os.insert(op);
+			op.setStickerNum((int) stList.get(i).get("stickerNum"));
+			//op.setStickerNum((int) stList.get(i).get("stickerNum"));
+			/* op.setDiaryNum((int) stList.get(i).get("num")); */
+			//result = os.insert(op);
 		}
 		if (result == 1) {
 			msg = "1";

@@ -52,7 +52,7 @@ function cataReset() {
 	function openText() {
 		$("#content")
 				.prepend(
-						"<div id='textbox' style='width: 100px; height: 100px;'><textarea style='width:100%; height:100%;padding:0; border: none;'id='text' name='content'>textbox</textarea><div>");
+						"<div id='textbox' style='width: 100px; height: 100px;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' id='text' name='content'>textbox</textarea><div>");
 		$('#textbox').draggable({
 			snap : true,
 			cursor : "move",
@@ -84,20 +84,21 @@ function cataReset() {
 		$('#sticker').hide();
 	}
 	function bg() {
-		var bg=$('#bgInput').val();
+		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
 	function submt() {
 		var stList = [];
 		var diary =  {
 				subject:$('#subject').val(),
-				diaryCataNum:$('#diaryCataNum').val(),
+				diaryCataNum:$('#cataNum').val(),
 				bgColor : $('#bgColor').val(),
-				content : $('#content').val()
+				content : $('#text').val()
 		};
-		alert("diary bgColor="+bgColor);
-		alert("diary diaryCataNum="+diaryCataNum);
-		alert("diary content="+content);
+		stList.push(diary);
+		alert("diary bgColor="+diary.bgColor);
+		alert("diary diaryCataNum="+diary.diaryCataNum);
+		alert("diary content="+diary.content);
 		$('.sti').each(function() {
 			var id = parseInt($(this).attr('id'),10);
 			var width= $(this).width();	
@@ -107,16 +108,15 @@ function cataReset() {
 			var y = position.top;
 
 			var location = {
-					'id' : id,
+					'stickerNum' : id,
 					'width' : width,
 					'height' :height,
 					'x' : x,
 					'y' : y
 			}
 			alert(id);
-			stList.push(diary);
-			stList.push(location);
 			
+			stList.push(location);			
 		});
 		
 		console.log(typeof stList);
@@ -177,7 +177,7 @@ font-weight: bold;
 		style="margin: auto; width: 50em; text-align: center;">
 		<tr>
 			<tr>
-			<td id="select"><select name="diaryCataNum" id="diaryCataNum" class="form-control" style=" border: thin;">
+			<td id="select"><select name="diaryCataNum" id="cataNum" class="form-control" style=" border: thin;">
 					<option disabled="disabled" selected="selected">카테고리를 선택하세요</option>
 					<c:forEach var="c" items="${cataList }">
 						<c:if test="${c.del !='y' }">
@@ -206,17 +206,17 @@ font-weight: bold;
 	<div class="container" align="center" style="margin-top: 30">
 		<div>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openSti()">sticker</a></span><span style="font-size: 20px">ㅣ</span>
+				onclick="openBg()">background</a></span><span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
 				onclick="openText()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openBg()">background</a></span>
+				onclick="openSti()">sticker</a></span>
 		</div>
 		<p>
 		<p>
 		<p>
 		<div id="backColor">
-			<input type="color" class="bgInput" id="bgInput">
+			<input type="color" class="bgInput" id="bgColor">
 			<button class="bgInput" onclick="bg()"
 				class="btn btn-outline-success">적용</button>
 		</div>
