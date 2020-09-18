@@ -46,7 +46,7 @@
 	<select id="typeList" parameterType="hashmap"
 		resultMap="diaryResult">
 		select * from diary where memberNum = #{memberNum} and
-		diaryCataNum=#{diaryCataNum}
+		diaryCataNum=#{diaryCataNum} order by diaryNum desc
 	</select>
 	<select id="selectDiaryNum" resultType="integer">
 		select max(diaryNum) from

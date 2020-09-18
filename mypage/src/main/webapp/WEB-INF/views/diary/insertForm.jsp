@@ -141,8 +141,6 @@ function cataReset() {
 					'x' : x,
 					'y' : y
 			}
-			alert(location.x);
-			alert(location.y);
 			allList.push(location);			
 		});		
 		/* console.log(typeof List); */
@@ -156,7 +154,7 @@ function cataReset() {
 				alert(data);
 				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="main";
+				 	location.href="${path}/main#diaryList";
 				}
 			}
 		});	
