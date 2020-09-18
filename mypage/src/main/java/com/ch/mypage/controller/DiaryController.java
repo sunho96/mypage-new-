@@ -41,20 +41,20 @@ public class DiaryController {
 		List<Sticker> stickerGName = ss.gNameList();
 		model.addAttribute("stickerList", stickerList);
 		model.addAttribute("stickerGName", stickerGName);
-		return "diary/decoInsertForm";
+		return "diary/insertForm";
 	}
-
-	@RequestMapping("diary/decorate")
-	public String decorate(Diary diary, Model model) {
-		List<Sticker> stickerList = ss.stickerList();
-		List<Sticker> stickerGName = ss.gNameList();
-		int diaryNum = ds.insertSelect(diary);
-		System.out.println("diaryNum=" + diaryNum);
-		model.addAttribute("stickerList", stickerList);
-		model.addAttribute("stickerGName", stickerGName);
-		model.addAttribute("diaryNum", diaryNum);
-		return "diary/decorate";
-	}
+//
+//	@RequestMapping("diary/decorate")
+//	public String decorate(Diary diary, Model model) {
+//		List<Sticker> stickerList = ss.stickerList();
+//		List<Sticker> stickerGName = ss.gNameList();
+//		int diaryNum = ds.insertSelect(diary);
+//		System.out.println("diaryNum=" + diaryNum);
+//		model.addAttribute("stickerList", stickerList);
+//		model.addAttribute("stickerGName", stickerGName);
+//		model.addAttribute("diaryNum", diaryNum);
+//		return "diary/decorate";
+//	}
 
 	@RequestMapping("diary/insert")
 	public String insert(Diary diary, Model model) {
@@ -160,7 +160,7 @@ public class DiaryController {
 	}
 
 
-	@RequestMapping(value = "diary/decoLocation", produces = "text/html;charset=utf-8")
+	@RequestMapping(value = "diary/decorate", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> stList) {
 //		System.out.println("diary="+diary.getBgColor());

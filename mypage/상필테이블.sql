@@ -16,5 +16,8 @@ create table communityComments(
     memberNum number references member(memberNum),
     communityNum number references community(communityNum)
 );
-
+  drop table background;
+    drop table hashandback;
+    drop table bgColor;
+ alter table diary add(content varchar2(3000));
 alter table diary add(bgcolor VARCHAR2(20));
