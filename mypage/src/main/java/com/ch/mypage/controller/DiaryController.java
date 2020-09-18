@@ -147,49 +147,49 @@ public class DiaryController {
 
 	@RequestMapping(value = "diary/decorate", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String decoLocation(@RequestBody List<Map> stList, HttpSession session) {
+	public String decoLocation(@RequestBody List<Map> allList, HttpSession session) {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Diary d = new Diary();
 		ObjectPosition op = new ObjectPosition();
 		int diaryNum = 0;
-		System.out.println(stList);
+		System.out.println(allList);
 		int result = 0;
 		String msg = "";
-		for (int i = 0; i < stList.size(); i++) {
+		for (int i = 0; i < allList.size(); i++) {
 			if (i == 0) {
-				d.setSubject((String) stList.get(i).get("subject"));
-				d.setDiaryCataNum(Integer.parseInt((String) stList.get(i).get("diaryCataNum")));
-				d.setBgColor((String) stList.get(i).get("bgColor"));
-				d.setContent((String) stList.get(i).get("content"));
+				d.setSubject((String) allList.get(i).get("subject"));
+				d.setDiaryCataNum(Integer.parseInt((String) allList.get(i).get("diaryCataNum")));
+				d.setBgColor((String) allList.get(i).get("bgColor"));
+				d.setContent((String) allList.get(i).get("content"));
 				d.setMemberNum(memberNum);
 				diaryNum = ds.insertSelect(d);
 			} else if (i > 0) {
-				System.out.println("stickerNum=" + stList.get(i).get("stickerNum"));
-				op.setStickerNum((int) stList.get(i).get("stickerNum"));
-				if (stList.get(i).get("width") instanceof Integer) {
-					op.setWidth((int) stList.get(i).get("width"));
-				} else if (stList.get(i).get("x") instanceof Double) {
-					op.setWidth((double) stList.get(i).get("width"));
+				System.out.println("stickerNum=" + allList.get(i).get("stickerNum"));
+				op.setStickerNum((int) allList.get(i).get("stickerNum"));
+				if (allList.get(i).get("width") instanceof Integer) {
+					op.setWidth((int) allList.get(i).get("width"));
+				} else if (allList.get(i).get("x") instanceof Double) {
+					op.setWidth((double) allList.get(i).get("width"));
 				}
-				if (stList.get(i).get("height") instanceof Integer) {
-					op.setHeight((int) stList.get(i).get("height"));
-				} else if (stList.get(i).get("height") instanceof Double) {
-					op.setHeight((double) stList.get(i).get("height"));
+				if (allList.get(i).get("height") instanceof Integer) {
+					op.setHeight((int) allList.get(i).get("height"));
+				} else if (allList.get(i).get("height") instanceof Double) {
+					op.setHeight((double) allList.get(i).get("height"));
 				}
-				if (stList.get(i).get("x") instanceof Integer) {
-					op.setX((int) stList.get(i).get("x"));
-				} else if (stList.get(i).get("x") instanceof Double) {
-					op.setX((double) stList.get(i).get("x"));
+				if (allList.get(i).get("x") instanceof Integer) {
+					op.setX((int) allList.get(i).get("x"));
+				} else if (allList.get(i).get("x") instanceof Double) {
+					op.setX((double) allList.get(i).get("x"));
 				}
-				if (stList.get(i).get("y") instanceof Integer) {
-					op.setY((int) stList.get(i).get("y"));
-				} else if (stList.get(i).get("y") instanceof Double) {
-					op.setY((double) stList.get(i).get("y"));
+				if (allList.get(i).get("y") instanceof Integer) {
+					op.setY((int) allList.get(i).get("y"));
+				} else if (allList.get(i).get("y") instanceof Double) {
+					op.setY((double) allList.get(i).get("y"));
 				}
 				op.setDiaryNum(diaryNum);
 
-				// op.setStickerNum((int) stList.get(i).get("stickerNum"));
-				/* op.setDiaryNum((int) stList.get(i).get("num")); */
+				// op.setStickerNum((int) allList.get(i).get("stickerNum"));
+				/* op.setDiaryNum((int) allList.get(i).get("num")); */
 				result = os.insert(op);
 			}
 		}

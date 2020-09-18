@@ -11,6 +11,7 @@ create sequence notice_seq start with 1 increment by 1 nocycle nocache;
 create sequence diary_seq start with 1 increment by 1 nocycle nocache;
 create sequence diaryCata_seq start with 1 increment by 1 nocycle nocache;
 create sequence sticker_seq start with 1 increment by 1 nocycle nocache;
+create sequence textbox_seq start with 1 increment by 1 nocycle nocache;
 --0916 추가
 create sequence op_seq start with 1 increment by 1 nocycle nocache;
 select* from member;

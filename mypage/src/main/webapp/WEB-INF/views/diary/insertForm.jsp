@@ -22,6 +22,7 @@
 
 $(function() {
 	$('#inputTd').hide();
+	$('#font').hide();
 	$('#diaryCatagory').change(function() {
 		var dc = $('#diaryCatagory').val();
 		if (dc == 'makeCata') {
@@ -50,10 +51,11 @@ function cataReset() {
 		$('#sti').resizable().draggable();
 	}
 	function openText() {
+		$('#font').show();
 		$("#content")
 				.prepend(
-						"<div id='textbox' style='width: 100px; height: 100px;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' id='text' name='content'>textbox</textarea><div>");
-		$('#textbox').draggable({
+						"<div class='textbox' style='width: 100px; height: 100px;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' id='text' placeholder='textbox'></textarea><div>");
+		$('.textbox').draggable({
 			snap : true,
 			cursor : "move",
 			delay : 100,
@@ -87,15 +89,36 @@ function cataReset() {
 		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
+	function fontSize() {
+		var i=$('#fontSize').val();
+		$('#text').css("font-size", i);
+	}
+	function fnt() {
+		var fontColor=$('#fontColor').val();
+		$('#text').css('color',fontColor);
+	}
 	function submt() {
-		var stList = [];
+		/* 값 넣었는 지 체크 */
+		diaryCataNum = $('#cataNum').val();
+		if (diaryCataNum == null) {
+			alert("카테고리를 선택해주세요.");
+			return false;
+		}
+		var subject = $('#subject').val();
+		if (subject == "") {
+			alert("제목을 입력해주세요.");
+			$('#subject').focus();
+			return false;
+		}
+		/* 보낼 값 */
+		var allList = [];
 		var diary =  {
 				subject:$('#subject').val(),
 				diaryCataNum:$('#cataNum').val(),
 				bgColor : $('#bgColor').val(),
 				content : $('#text').val()
 		};
-		stList.push(diary);
+		allList.push(diary);
 		/* alert("diary bgColor="+diary.bgColor);
 		alert("diary diaryCataNum="+diary.diaryCataNum);
 		alert("diary content="+diary.content); */
@@ -116,16 +139,16 @@ function cataReset() {
 			}
 			alert(location.x);
 			alert(location.y);
-			stList.push(location);			
+			allList.push(location);			
 		});
 
 		
-		/* console.log(typeof stList); */
+		/* console.log(typeof List); */
 		$.ajax({
 			url:"diary/decorate",
 			dataType: "json",
 			contentType : "application/json",
-			data : JSON.stringify(stList),
+			data : JSON.stringify(allList),
 			type:"POST",
 			success :function(data){
 				alert(data);
@@ -135,9 +158,10 @@ function cataReset() {
 				}
 			}
 		});	
-	/* 	$.post("diary/decoLocation","stList="+stList,function(data){
-			alert("다이어리 입력 성공");
-		}) */
+	}
+	function reset() {
+		$('.sti').remove();
+		$('.textbox').remove();
 	}
 </script>
 <style type="text/css">
@@ -168,8 +192,14 @@ textarea {
 textarea:focus {
 	outline: none;
 }
-tr{
-font-weight: bold;
+
+#content {
+	width: 40em;
+	height: 50em;
+	background-color: seashell;
+	overflow: hidden;
+	position: relative;
+	border-radius: 7px;
 }
 </style>
 </head>
@@ -177,9 +207,11 @@ font-weight: bold;
 	<table class="center"
 		style="margin: auto; width: 50em; text-align: center;">
 		<tr>
-			<tr>
-			<td id="select"><select name="diaryCataNum" id="cataNum" class="form-control" style=" border: thin;">
-					<option disabled="disabled" selected="selected">카테고리를 선택하세요</option>
+		<tr>
+			<td id="select"><select name="diaryCataNum" id="cataNum"
+				class="form-control" style="border: thin;">
+					<option disabled="disabled" selected="selected">카테고리를
+						선택하세요</option>
 					<c:forEach var="c" items="${cataList }">
 						<c:if test="${c.del !='y' }">
 							<option value="${c.diaryCataNum }">${c.name }</option>
@@ -198,10 +230,10 @@ font-weight: bold;
 				class="btn btn-outline-secondary" value="취소"></td>
 		</tr>
 		<tr>
-			<td><input class="form-control" aria-label="Recipient's username"
-				aria-describedby="basic-addon2" 
-				autofocus="autofocus" name="subject" 
-				id="subject" style="border: thin;" placeholder="제목을 압력하세요"></td>
+			<td><input class="form-control"
+				aria-label="Recipient's username" aria-describedby="basic-addon2"
+				autofocus="autofocus" name="subject" id="subject"
+				style="border: thin;" placeholder="제목을 압력하세요"></td>
 		</tr>
 	</table>
 	<div class="container" align="center" style="margin-top: 30">
@@ -218,7 +250,19 @@ font-weight: bold;
 		<p>
 		<div id="backColor">
 			<input type="color" class="bgInput" id="bgColor">
+
 			<button class="bgInput" onclick="bg()"
+				class="btn btn-outline-success">적용</button>
+		</div>
+		<div id="font">
+			<select id="fontSize" onchange="fontSize(${i })" class="form-control"
+				style="width: 100">
+				<option selected="selected" disabled="disabled">font size</option>
+				<c:forEach var="i" begin="10" end="80">
+					<option value="${i }">${i }</option>
+				</c:forEach>
+			</select>
+			<input type="color" id="fontColor"><button onclick="fnt()"
 				class="btn btn-outline-success">적용</button>
 		</div>
 		<div id="sticker">
@@ -242,14 +286,13 @@ font-weight: bold;
 			</div>
 		</div>
 	</div>
-
 	<div class="container" align="center" style="margin-top: 20px">
-		<div id="content"
-			style="width: 40em; height: 50em; background-color: seashell; overflow: hidden; position: relative;">
-		</div>
+		<div id="content"></div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
 				onclick="submt(${diaryNum})">저장</button>
+			<button type="button" class="btn btn-outline-success"
+				onclick="reset()">초기화</button>
 		</div>
 	</div>
 
