@@ -66,6 +66,7 @@ a:hover {
 					</c:forEach>
 					<c:forEach items="${opTxtList }" var="t">
 						<c:if test="${op.textboxNum==t.textboxNum }">
+							<div></div>
 							<div
 								style="font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute; ">
 								${t.content }
