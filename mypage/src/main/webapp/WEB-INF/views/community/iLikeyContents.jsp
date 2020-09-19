@@ -13,7 +13,8 @@
 	$(function() {
 		<c:forEach items="${commList}"  var="com">
 			console.log("com : ${com }");
-			$("#content_${com.communityNum }").load("diary/loadDiaryContent?diaryNum=${com.diary.diaryNum}");
+			console.log("좋아요 리스트 : ${com.diary.diaryNum}");
+			$("#content_${com.communityNum }").load("community/loadDiaryContent?diaryNum=${com.diary.diaryNum}");
 		</c:forEach>
 	});
 
@@ -43,10 +44,8 @@
 						<img alt="" src="images/icons/profile-48px.png" >
 						<a href="communityProfile?memberNum=${com.diary.memberNum}"><b>${com.nickName }</b></a>
 					</div>
-					<div id="content_${com.communityNum }">
-						컨텐츠 위치
-					</div>
-					
+					<!-- contents 위치  -->
+					<img alt="" src="/mypage/images/diary/contents/diaryContent${com.diary.diaryNum }.png">
 					<div class="caption" align="center">
 						작성자 : ${com.nickName }
 						<svg onclick="likey(${com.communityNum})" id="likeyBtn_${com.communityNum}" style="color:#FF3636; " width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

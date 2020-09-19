@@ -1,18 +1,24 @@
 package com.ch.mypage.controller;
 
 import java.io.Console;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,24 +55,32 @@ public class CommunityController {
 			memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		}
 		
+		return "community/home";
+	}
+	
+	
+	@RequestMapping("community/contentList")
+	public String listView(@RequestParam int startNum, Model model, HttpSession session) {
+		// 테스트용 세션
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		
 		
 		//게시물 리스트
-		Collection<Community> list = cs.listDefault();
+		Collection<Community> list = cs.addList(startNum);
 
 		// memberNum이 좋아요 한 리스트
 		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
-
+		
 		// 게시물별 댓글 리스트
 		for (Community community : list) {
 			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
 		}
-
+		
 		// list 넘기기
 		model.addAttribute("list", list);
 		model.addAttribute("isLikeyList", isLikeyList);
-		return "community/home";
+		return "community/contentList";
 	}
-	
 
 	@RequestMapping(value = "addCoummunityList", method = RequestMethod.POST)
 	@ResponseBody
@@ -209,39 +223,49 @@ public class CommunityController {
 	
 	
 	/* 테스트 */
-	@RequestMapping("community/testView")
-	public String testView() {
+	@RequestMapping(value="community/testView")
+	public String testView(Model model) {
 		
 		return "community/testCommunity";
 	}
 	
-	@RequestMapping("community/listView")
-	public String listView(Model model, HttpSession session) {
-		// 테스트용 세션
-		int memberNum;
-		if(session.getAttribute("memberNum") == null) {
-			session.setAttribute("memberNum", "1");
-			memberNum = 1;
-		}else {
-			memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
-		}
-		
-		
-		//게시물 리스트
-		Collection<Community> list = cs.listDefault();
-		
-		// memberNum이 좋아요 한 리스트
-		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
-		
-		// 게시물별 댓글 리스트
-		for (Community community : list) {
-			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
-		}
-		
-		// list 넘기기
-		model.addAttribute("list", list);
-		model.addAttribute("isLikeyList", isLikeyList);
-		return "community/testList";
-	}
+	
 
+	@ResponseBody
+	@RequestMapping(value ="community/ImgSaveTest", method = RequestMethod.POST)
+	public ModelMap ImgSaveTest(@RequestParam HashMap<Object, Object> param, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+		ModelMap map = new ModelMap();
+		String binaryData = request.getParameter("imgSrc");
+		int diaryNum = Integer.parseInt(request.getParameter("diaryNum"));
+		FileOutputStream stream = null;
+		
+		try{
+			System.out.println("binary file   "  + binaryData);
+			if(binaryData == null || binaryData.trim().equals("")) {
+			    throw new Exception();
+			}
+			binaryData = binaryData.replaceAll("data:image/png;base64,", "");
+			byte[] file = Base64.decodeBase64(binaryData);
+			
+			//String fileName=  UUID.randomUUID().toString();	//유일한 이름 생성 후 저장
+			String fileName=  "diaryContent"+diaryNum;
+			String path = request.getSession().getServletContext().getRealPath("images/diary/contents/");
+			
+			stream = new FileOutputStream(path+fileName+".png");
+			stream.write(file);
+			stream.close();
+			System.out.println("캡처 저장"+", ㅋㅋㅋㅋㅋㅋ path :  " + path);
+		    
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("에러 발생");
+		}finally{
+			if(stream != null) {
+				stream.close();
+			}
+		}
+		
+		map.addAttribute("resultMap", "");
+		return map;
+	}
 }

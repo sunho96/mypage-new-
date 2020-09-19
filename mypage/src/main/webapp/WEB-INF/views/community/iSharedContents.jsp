@@ -9,11 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	$(function() {
-		<c:forEach items="${commList}"  var="com">
-			$("#content_${com.communityNum }").load("diary/loadDiaryContent?diaryNum=${com.diary.diaryNum}");
-		</c:forEach>
-	});
+
 	function sharedCancel(communityNum) {
 		$.post("community/sharedCancel","communityNum="+communityNum,function(result){
 			if(result>0){
@@ -26,6 +22,12 @@
 		});
 	}
 </script>
+<style type="text/css">
+	.sContent{
+		width: 100%;
+		display: 
+	}
+</style>
 </head>
 <body>
 <br>
@@ -34,10 +36,9 @@
 			
 			<div class="col-sm-4" id="div_${com.communityNum }">
 				<div class="thumbnail" >
-					<div id="content_${com.communityNum }">
-						컨텐츠 위치
-					</div>
-					
+					<!-- contents -->
+					<img alt="" src="/mypage/images/diary/contents/diaryContent${com.diary.diaryNum }.png">
+					<!-- 하단 -->
 					<div class="caption" align="center">
 						작성자 : ${com.nickName}
 						<svg style="color:#FF3636; " width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -46,7 +46,7 @@ a:hover {
 	$(function() {
 		$("#save").click(function() {
 			console.log("버튼클릭");
-			screenShot($("#dcontent"));
+			screenShot($("#screenshot"));
 		});
 	});
 

@@ -12,6 +12,7 @@
       <li class="active"><a href="communityHome">홈</a></li>
       <li><a href="communitySeek">탐색</a></li>
       <li><a href="communityProfile?memberNum=${memberNum }">프로필</a></li>
+      <li><a href="community/loadDiaryContent?diaryNum=27">테스트 loadDiaryContent</a></li>
     </ul>
   </div>
 </nav>
