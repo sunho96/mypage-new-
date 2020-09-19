@@ -201,7 +201,7 @@ function cataReset() {
 		})
 		/* console.log(typeof List); */
 		$.ajax({
-			url:"update",
+			url:"updateDeco",
 			dataType: "json",
 			contentType : "application/json",
 			data : JSON.stringify(allList),

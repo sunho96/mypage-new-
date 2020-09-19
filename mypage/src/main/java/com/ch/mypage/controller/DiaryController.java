@@ -118,9 +118,9 @@ public class DiaryController {
 		return "diary/updateForm";
 	}
 
-	@RequestMapping(value = "diary/update", produces = "text/html;charset=utf-8")
+	@RequestMapping(value = "diary/updateDeco", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String update(@RequestBody List<Map> allList, HttpSession session) {
+	public String updateDeco(@RequestBody List<Map> allList, HttpSession session) {
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Diary d = new Diary();
 		ObjectPosition op = new ObjectPosition();
@@ -130,7 +130,7 @@ public class DiaryController {
 		String msg = "";
 		for (int i = 0; i < allList.size(); i++) {
 			if (i == 0) {
-				d.setDiaryNum(Integer.parseInt((String) allList.get(i).get("diaryNum")));
+				d.setDiaryNum( (int) allList.get(i).get("diaryNum"));
 				d.setSubject((String) allList.get(i).get("subject"));
 				d.setDiaryCataNum(Integer.parseInt((String) allList.get(i).get("diaryCataNum")));
 				d.setBgColor((String) allList.get(i).get("bgColor"));
@@ -205,6 +205,11 @@ public class DiaryController {
 		}
 		return msg;
 	}
+	
+	@RequestMapping("diary/update")
+	public String update() {
+		return "diary/update";
+	}
 
 	@RequestMapping("diary/delete")
 	public String delete(int diaryNum, Model model) {
@@ -229,12 +234,16 @@ public class DiaryController {
 
 	}
 
-	/*
-	 * @RequestMapping("diary/del") public String del(int diaryNum, Model model) {
-	 * int result =0; result = os.delete(diaryNum);
-	 * System.out.println("opresult= "+result); result = ds.del(diaryNum);
-	 * model.addAttribute("result", result); return "diary/del"; }
-	 */
+	@RequestMapping("diary/del")
+	public String del(int diaryNum, Model model) {
+		//ok
+		int result = 0;
+		result = os.delete(diaryNum);
+		System.out.println("opresult= " + result);
+		result = ds.del(diaryNum);
+		model.addAttribute("result", result);
+		return "diary/del";
+	}
 
 	@RequestMapping("diary/typeList")
 	public String typeList(int memberNum, int diaryCataNum, Model model) {
