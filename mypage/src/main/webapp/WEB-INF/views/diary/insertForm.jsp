@@ -54,6 +54,7 @@ function cataReset() {
 		$('#font').hide();
 	}
 	function openText() {
+		var i =0;
 		$('#font').show();
 		$('#sticker').hide();
 		$('#backColor').hide();
@@ -126,7 +127,6 @@ function cataReset() {
 				subject:$('#subject').val(),
 				diaryCataNum:$('#cataNum').val(),
 				bgColor : $('#bgColor').val(),
-				/* content : $('#text').val() */
 		};
 		allList.push(diary);
 		/* alert("diary bgColor="+diary.bgColor);
@@ -160,11 +160,12 @@ function cataReset() {
 			var fontSize =  $(this).css('font-size');
 			var fontColor =  $(this).css('color');
 			var fonWeight =  $(this).css('font-weight');
-			/* alert(width);
-			alert(height);
+		/* 	alert(width);
+			alert(height); */
+			alert(content);
 			alert(x);
 			alert(y);
-			alert(content); */
+		
 /* 			alert(fontSize);
 			alert(fontColor);
 			alert(fonWeight); */
@@ -189,10 +190,9 @@ function cataReset() {
 			data : JSON.stringify(allList),
 			type:"POST",
 			success :function(data){
-				alert(data);
 				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="${path}/main#diaryList";
+				 	location.href="diary/insert";
 				}
 			}
 		});	

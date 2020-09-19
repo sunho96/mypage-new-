@@ -30,8 +30,9 @@ alter table diary add(bgcolor VARCHAR2(20));
     alter table textbox add(fntSize number(5));
     alter table textbox add(fntColor varchar(20));
     alter table textbox add (fntWeight number(5));
-    alter table objectPosition drop column font;
-    
+    alter table objectPosition drop column font; 
     drop table font;
+    --0919
+     ALTER TABLE objectposition RENAME COLUMN textbox TO textboxNum;
     
     

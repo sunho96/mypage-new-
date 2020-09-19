@@ -38,6 +38,7 @@ a:hover {
 	height: 50em;
 	border-radius: 7px;
 	position: relative;
+	overflow: hidden;
 }
 </style>
 </head>
@@ -54,7 +55,6 @@ a:hover {
 		<div class="container" align="center"
 			style="width: 40em; height: 50em;">
 			<div id="content" style="background-color: ${diary.bgColor};">
-				${diary.content }
 				<c:forEach items="${opList }" var="op">
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
@@ -66,9 +66,7 @@ a:hover {
 					</c:forEach>
 					<c:forEach items="${opTxtList }" var="t">
 						<c:if test="${op.textboxNum==t.textboxNum }">
-							<div></div>
-							<div
-								style="font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute; ">
+							<div style="font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute; ">
 								${t.content }
 								</div>
 						</c:if>

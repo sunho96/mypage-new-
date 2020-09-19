@@ -8,17 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${result>0 }">
 	<script type="text/javascript">
 	alert("다이어리 입력 성공")
 		location.href="${path}/main#diaryList";
 	</script>
-</c:if>
-<c:if test="${result==0 }">
-	<script type="text/javascript">
-		alert("다이어리 입력 실패");
-		history.go(-1);
-	</script>
-</c:if>
 </body>
 </html>

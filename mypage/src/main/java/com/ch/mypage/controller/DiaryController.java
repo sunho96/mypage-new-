@@ -51,8 +51,6 @@ public class DiaryController {
 	@RequestMapping("diary/insert")
 	public String insert(Diary diary, Model model) {
 		System.out.println("여기 들어오나..");
-		int result = ds.insert(diary);
-		model.addAttribute("result", result);
 		return "diary/insert";
 	}
 
@@ -156,7 +154,6 @@ public class DiaryController {
 	@RequestMapping(value = "diary/decorate", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String decoLocation(@RequestBody List<Map> allList, HttpSession session) {
-		System.out.println("controller 들어옴");
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Diary d = new Diary();
 		ObjectPosition op = new ObjectPosition();
@@ -197,9 +194,7 @@ public class DiaryController {
 					}
 					op.setDiaryNum(diaryNum);
 					result = os.insert(op);
-					System.out.println("스티커 result="+result);
 				}else if(allList.get(i).containsKey("txt")) {
-					System.out.println("몇번들어오지,,?"+i);
 					ObjectPosition op2 = new ObjectPosition();
 					t.setContent((String) allList.get(i).get("content"));
 					t.setFntSize((String)(allList.get(i).get("fntSize")));
@@ -230,7 +225,6 @@ public class DiaryController {
 						op2.setTextboxNum(textboxNum);
 						op2.setDiaryNum(diaryNum);
 						result =os.insertTxt(op2);
-						System.out.println("텍스트 result="+result);
 					}
 			
 				}			
@@ -251,12 +245,6 @@ public class DiaryController {
 		return "diary/del";
 	}
 
-	@RequestMapping("diary/content")
-	public String content(int colorNum, String content) {
-		System.out.println("들어왔음");
-		return "diary/content";
-
-	}
 	
 	//0918상필
 		@RequestMapping("diary/loadDiaryContent")
