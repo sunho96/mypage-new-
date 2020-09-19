@@ -25,4 +25,13 @@
 	insert into objectPosition
 		values(op_seq.nextval,#{width},#{height},#{x},#{y},0,#{diaryNum},null,null,#{textboxNum})
 	</insert>
+	<delete id="delete" parameterType="int">
+		delete from objectPosition where diaryNum = #{diaryNum} 
+	</delete>
+	<delete id="allDel">
+		delete from objectPosition where diaryNum in 
+		 <foreach collection="list" item="diaryNumList" open="(" separator="," close=")">
+			#{diaryNumList}
+		</foreach>
+	</delete>
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ch.mypage.dao.OpDao;
+import com.ch.mypage.model.Diary;
 import com.ch.mypage.model.ObjectPosition;
 
 @Service
@@ -30,5 +31,17 @@ public class OpServiceImpl implements OpService {
 	public int insertTxt(ObjectPosition op) {
 		
 		return od.insertTxt(op);
+	}
+
+	@Override
+	public int delete(int diaryNum) {
+	
+		return od.delete(diaryNum);
+	}
+
+	@Override
+	public int allDel(List<Integer> diaryNumList) {
+
+		return od.allDel(diaryNumList);
 	}
 }

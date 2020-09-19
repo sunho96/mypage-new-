@@ -28,4 +28,6 @@ public interface DiaryService {
 
 	int allDel(int memberNum);
 
+	List<Integer> memberSelect(int memberNum);
+
 }

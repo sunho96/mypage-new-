@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ch.mypage.model.Diary;
 import com.ch.mypage.model.ObjectPosition;
 
 @Repository
@@ -30,6 +31,18 @@ public class OpDaoImpl implements OpDao {
 	public int insertTxt(ObjectPosition op) {
 		
 		return sst.insert("opns.insertTxt",op);
+	}
+
+	@Override
+	public int delete(int diaryNum) {
+		
+		return sst.delete("opns.delete",diaryNum);
+	}
+
+	@Override
+	public int allDel(List<Integer> diaryNumList) {
+
+		return sst.delete("opns.allDel",diaryNumList);
 	}
 
 

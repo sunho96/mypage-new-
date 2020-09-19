@@ -27,7 +27,7 @@
 	</select>
 	<update id="update" parameterType="diary">
 		update diary set subject =
-		#{subject}, updateDate=sysdate where
+		#{subject}, updateDate=sysdate, diaryCatanum=#{diaryCataNum}, bgColor=#{bgColor} where
 		diaryNum=#{diaryNum}
 	</update>
 	<update id="delete" parameterType="int">
@@ -63,4 +63,7 @@
 		delete from diary where
 		memberNum =#{memberNum} and del ='y'
 	</delete>
+	<select id="memberSelect" resultMap="diaryResult">
+		select diaryNum from diary where del='y' and memberNum = #{memberNum}
+	</select>
 </mapper>

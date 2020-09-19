@@ -2,6 +2,7 @@ package com.ch.mypage.dao;
 
 import java.util.List;
 
+import com.ch.mypage.model.Diary;
 import com.ch.mypage.model.ObjectPosition;
 
 public interface OpDao {
@@ -11,6 +12,10 @@ public interface OpDao {
 	List<ObjectPosition> opList(int diaryNum);
 
 	int insertTxt(ObjectPosition op);
+
+	int delete(int diaryNum);
+
+	int allDel(List<Integer> diaryNumList);
 
 
 

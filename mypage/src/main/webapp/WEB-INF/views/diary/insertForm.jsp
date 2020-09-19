@@ -50,17 +50,17 @@ function cataReset() {
 		$('#sticker').show();
 		$('#backColor').hide();
 		$('#font').hide();
-		$('#sti').resizable().draggable();
-		$('#font').hide();
 	}
 	function openText() {
 		var i =0;
+		i++;
 		$('#font').show();
 		$('#sticker').hide();
 		$('#backColor').hide();
 		$("#content")
 				.prepend(
-						"<div class='textbox' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
+						"<div class='textbox' id='"+i+"' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
+
 		$('.textbox').draggable({
 			snap : true,
 			cursor : "move",
@@ -108,7 +108,7 @@ function cataReset() {
 		var fontWeight=$('#fontWeight').val();
 		$('.text').css('font-weight',fontWeight);
 	}
-	function submt() {
+	function insert() {
 		/* 값 넣었는 지 체크 */
 		diaryCataNum = $('#cataNum').val();
 		if (diaryCataNum == null) {
@@ -162,9 +162,9 @@ function cataReset() {
 			var fonWeight =  $(this).css('font-weight');
 		/* 	alert(width);
 			alert(height); */
-			alert(content);
+/* 			alert(content);
 			alert(x);
-			alert(y);
+			alert(y) */;
 		
 /* 			alert(fontSize);
 			alert(fontColor);
@@ -295,7 +295,7 @@ textarea:focus {
 		<div id="font" style="widows: 80%">
 			<div style="width: 20%">
 				<select id="fontSize" onchange="fontSize(${i })"
-					class="form-control" >
+					class="form-control">
 					<option selected="selected" disabled="disabled">font size</option>
 					<c:forEach var="i" begin="10" end="80">
 						<option value="${i }">${i }</option>
@@ -307,7 +307,8 @@ textarea:focus {
 				<button onclick="fnt()" class="btn btn-outline-success">적용</button>
 			</div>
 			<div style="width: 20%">
-				<input type="range" id="fontWeight" min="200" max="900" onchange="fntWeight()" class="form-control-range" >
+				<input type="range" id="fontWeight" min="200" max="900"
+					onchange="fntWeight()" class="form-control-range">
 			</div>
 		</div>
 		<div id="sticker">
@@ -335,7 +336,7 @@ textarea:focus {
 		<div id="content"></div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
-				onclick="submt(${diaryNum})">저장</button>
+				onclick="insert(${diaryNum})">저장</button>
 			<button type="button" class="btn btn-outline-success"
 				onclick="reset()">초기화</button>
 		</div>
@@ -347,6 +348,5 @@ textarea:focus {
 			<li>mypage</li>
 		</ul>
 	</div>
-
 </body>
 </html>
