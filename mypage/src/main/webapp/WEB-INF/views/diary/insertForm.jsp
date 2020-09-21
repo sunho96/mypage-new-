@@ -47,12 +47,12 @@ function cataReset() {
 		$('#backColor').hide();
 		$('#font').hide();
 	});
-	function openSti() {
+	function openSti1() {
 		$('#sticker').show();
 		$('#backColor').hide();
 		$('#font').hide();
 	}
-	function openText() {
+	function openText1() {
 		var i = 1;
 		$('#font').show();
 		$('#sticker').hide();
@@ -60,11 +60,13 @@ function cataReset() {
 		
 	}
 	function openTextarea1(a) {
-		a=a+1;
+		if("$('.textbox').length" > 1){
+			a=a+1;
+		}
 		alert(a);
 		$("#content")
 		.prepend(
-				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' id='"+(a+1)+"' placeholder='textbox'></textarea><div>");
+				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='"+a+"' placeholder='textbox'></textarea><div>");
 
 			$('.textbox').draggable({
 				snap : true,
@@ -92,7 +94,7 @@ function cataReset() {
 		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px; position:absolute;'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
-	function openBg() {
+	function openBg1() {
 		$('#backColor').show();
 		$('#sticker').hide();
 		$('#font').hide();
@@ -101,17 +103,18 @@ function cataReset() {
 		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
-	function fontSize() {
-		var i=$('#fontSize').val();
-		$('.text').css("font-size", i);
+	function fontSize1(i) {
+		var i = $('#fontSelect').val();
+		alert(i);
+		$('.textarea1').css("font-size", i);
 	}
 	function fnt() {
 		var fontColor=$('#fontColor').val();
-		$('.text').css('color',fontColor);
+		$('.textarea1').css('color',fontColor);
 	}
 	function fntWeight() {
 		var fontWeight=$('#fontWeight').val();
-		$('.text').css('font-weight',fontWeight);
+		$('.textarea1').css('font-weight',fontWeight);
 	}
 	function insert() {
 		/* 값 넣었는 지 체크 */
@@ -190,7 +193,7 @@ function cataReset() {
 					'fntWeight':fonWeight
 			}
 			allList.push(textLocation);
-		})
+		});
 		/* console.log(typeof List); */
 		$.ajax({
 			url:"diary/decorate",
@@ -286,11 +289,11 @@ textarea:focus {
 	<div class="container" align="center" style="margin-top: 30">
 		<div>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openBg()">background</a></span><span style="font-size: 20px">ㅣ</span>
+				onclick="openBg1()">background</a></span><span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openText()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
+				onclick="openText1()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openSti()">sticker</a></span>
+				onclick="openSti1()">sticker</a></span>
 		</div>
 		<p>
 		<p>
@@ -305,7 +308,7 @@ textarea:focus {
 				<c:set var="a" value="1" />
 					<button onclick="openTextarea1(${a})"
 						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
-				<select id="fontSize" onchange="fontSize(${i })"style="width: 30%"
+				<select id="fontSelect" onchange="fontSize1()"style="width: 30%"
 					class="form-control">
 					<option selected="selected" disabled="disabled">font size</option>
 					<c:forEach var="i" begin="10" end="80">

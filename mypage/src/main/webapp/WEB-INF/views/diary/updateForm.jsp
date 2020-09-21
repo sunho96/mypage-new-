@@ -60,25 +60,33 @@ function cataReset() {
 		$('#backColor').hide();
 		$('#font').hide();
 	});
-	function openSti() {
+	function openSti1() {
 		$('#sticker').show();
 		$('#backColor').hide();
 		$('#font').hide();
 	}
-	function openText() {
+	
+	function openText1() {
 		$('#font').show();
 		$('#sticker').hide();
 		$('#backColor').hide();
+	}
+	
+	function openTextarea1(a) {
+		a=a+1;
+	
 		$("#content")
-				.prepend(
-						"<div class='textbox' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
-		$('.textbox').draggable({
-			snap : true,
-			cursor : "move",
-			delay : 100,
-			scroll : false,
-			cancel : "text",
-			drag : function(e, ui) {
+		.prepend(
+				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='"+(a+1)+"' placeholder='textbox'></textarea><div>");
+
+			$('.textbox').draggable({
+				snap : true,
+				cursor : "move",
+				delay : 100,
+				scroll : false,
+				cancel : "text",
+				drag : function(e, ui) {
+				//some code
 			}
 		}).resizable({
 			/* containment : "parent", */ /* height 못 커지게 막음 */
@@ -87,6 +95,9 @@ function cataReset() {
 				var height = ui.size.height;
 				var hereDrag = this; 
 			},
+			/* resize : function(e, ui) {
+				//some code
+			} */
 		});
 	}
 	function goSti(num,name) {
@@ -94,7 +105,7 @@ function cataReset() {
 		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px; position:absolute;'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
 		$('.sti').resizable().draggable();
 	}
-	function openBg() {
+	function openBg1() {
 		$('#backColor').show();
 		$('#sticker').hide();
 		$('#font').hide();
@@ -103,8 +114,8 @@ function cataReset() {
 		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
-	function fontSize() {
-		var i=$('#fontSize').val();
+	function fontSize(i) {
+/* 		var i=$('#fontSize').val(); */
 		$('.text').css("font-size", i);
 	}
 	function fnt() {
@@ -117,7 +128,6 @@ function cataReset() {
 	}
 	function update(num) {
 		/* 값 넣었는 지 체크 */
-		alert(num);
 		diaryCataNum = $('#cataNum').val();
 		if (diaryCataNum == null) {
 			alert("카테고리를 선택해주세요.");
@@ -303,24 +313,27 @@ textarea:focus {
 			style="width: 40em; height: 50em;">
 			<div>
 				<span style="font-family: 'Lilly'; font-size: 20px"> <a
-					onclick="openBg()">background</a></span><span style="font-size: 20px">ㅣ</span>
+					onclick="openBg1()">background</a></span><span style="font-size: 20px">ㅣ</span>
 				<span style="font-family: 'Lilly'; font-size: 20px"> <a
-					onclick="openText()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
+					onclick="openText1()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
 				<span style="font-family: 'Lilly'; font-size: 20px"> <a
-					onclick="openSti()">sticker</a></span>
+					onclick="openSti1()">sticker</a></span>
 			</div>
 			<p>
 			<p>
 			<p>
 			<div id="backColor">
-				<input type="color" class="bgInput" id="bgColor" value="${diary.bgColor }" }>
-
+				<input type="color" class="bgInput" id="bgColor" value="${diary.bgColor }" >
+	
 				<button class="bgInput" onclick="bg()"
 					class="btn btn-outline-success">적용</button>
 			</div>
-			<div id="font" style="widows: 80%">
-				<div style="width: 20%">
-					<select id="fontSize" onchange="fontSize(${i })"
+			<div id="font" >
+				<div style="width: 100%">
+				<c:set var="a" value="1" />
+					<button onclick="openTextarea1(${a})"
+						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
+					<select id="fontSize" onchange="fontSize(this.value)"
 						class="form-control">
 						<option selected="selected" disabled="disabled">font size</option>
 						<c:forEach var="i" begin="10" end="80">
