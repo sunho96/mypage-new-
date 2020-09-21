@@ -16,8 +16,7 @@
 		insert into diary
 		values(diary_seq.nextval,#{subject},sysdate,sysdate,'n',#{diaryCataNum},#{memberNum},#{bgColor})
 	</insert>
-	<select id="list" parameterType="hashmap"
-		resultMap="diaryResult">
+	<select id="list" parameterType="hashmap" resultMap="diaryResult">
 		select * from diary where memberNum = #{memberNum} order by
 		diaryNum desc
 	</select>
@@ -63,7 +62,7 @@
 		delete from diary where
 		memberNum =#{memberNum} and del ='y'
 	</delete>
-	<select id="memberSelect" resultMap="diaryResult">
-		select diaryNum from diary where del='y' and memberNum = #{memberNum}
+	<select id="memberSelect" resultType="integer">
+		select * from diary where del='y' and memberNum = #{memberNum}
 	</select>
 </mapper>

@@ -7,17 +7,18 @@
 <title>mypage</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--draggable  -->
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <!--resizable -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 
 $(function() {
@@ -52,22 +53,26 @@ function cataReset() {
 		$('#font').hide();
 	}
 	function openText() {
-		var i =0;
-		i++;
+		var i = 1;
 		$('#font').show();
 		$('#sticker').hide();
 		$('#backColor').hide();
+		
+	}
+	function openTextarea(a) {
+		a=a+1;
+		alert(a);
 		$("#content")
-				.prepend(
-						"<div class='textbox' id='"+i+"' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
+		.prepend(
+				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' id='"+(a+1)+"' placeholder='textbox'></textarea><div>");
 
-		$('.textbox').draggable({
-			snap : true,
-			cursor : "move",
-			delay : 100,
-			scroll : false,
-			cancel : "text",
-			drag : function(e, ui) {
+			$('.textbox').draggable({
+				snap : true,
+				cursor : "move",
+				delay : 100,
+				scroll : false,
+				cancel : "text",
+				drag : function(e, ui) {
 				//some code
 			}
 		}).resizable({
@@ -92,7 +97,7 @@ function cataReset() {
 		$('#sticker').hide();
 		$('#font').hide();
 	}
-	function bg() {
+	function goBg() {
 		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
@@ -139,6 +144,10 @@ function cataReset() {
 			var position = $(this).position();
 			var x = position.left;
 			var y = position.top;
+			alert(width);
+			alert(height); 	
+			alert(x);
+			alert(y);
 			var location = {
 					'st' : 'st',
 					'stickerNum' : id,
@@ -160,11 +169,11 @@ function cataReset() {
 			var fontSize =  $(this).css('font-size');
 			var fontColor =  $(this).css('color');
 			var fonWeight =  $(this).css('font-weight');
-		/* 	alert(width);
-			alert(height); */
-/* 			alert(content);
+		/* 	alert(content);
+			alert(width);
+			alert(height); 	
 			alert(x);
-			alert(y) */;
+			alert(y); */
 		
 /* 			alert(fontSize);
 			alert(fontColor);
@@ -287,14 +296,16 @@ textarea:focus {
 		<p>
 		<p>
 		<div id="backColor">
-			<input type="color" class="bgInput" id="bgColor">
+			<input type="color" id="bgColor">
 
-			<button class="bgInput" onclick="bg()"
-				class="btn btn-outline-success">적용</button>
+			<button onclick="goBg()" class="btn btn-outline-success">적용</button>
 		</div>
-		<div id="font" style="widows: 80%">
-			<div style="width: 20%">
-				<select id="fontSize" onchange="fontSize(${i })"
+		<div id="font">
+			<div style="100%">
+				<c:set var="a" value="1" />
+					<button onclick="openTextarea(${a})"
+						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
+				<select id="fontSize" onchange="fontSize(${i })"style="width: 30%"
 					class="form-control">
 					<option selected="selected" disabled="disabled">font size</option>
 					<c:forEach var="i" begin="10" end="80">
@@ -302,11 +313,11 @@ textarea:focus {
 					</c:forEach>
 				</select>
 			</div>
-			<div style="width: 20%">
+			<div>
 				<input type="color" id="fontColor">
-				<button onclick="fnt()" class="btn btn-outline-success">적용</button>
+				<button onclick="fnt()" class="btn btn-outline-success">색깔 적용</button>
 			</div>
-			<div style="width: 20%">
+			<div>
 				<input type="range" id="fontWeight" min="200" max="900"
 					onchange="fntWeight()" class="form-control-range">
 			</div>
@@ -336,7 +347,7 @@ textarea:focus {
 		<div id="content"></div>
 		<div style="margin: 30" align="center">
 			<button type="button" class="btn btn-outline-success"
-				onclick="insert(${diaryNum})">저장</button>
+				onclick="insert()">저장</button>
 			<button type="button" class="btn btn-outline-success"
 				onclick="reset()">초기화</button>
 		</div>

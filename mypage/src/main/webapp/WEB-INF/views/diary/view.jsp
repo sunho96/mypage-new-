@@ -37,8 +37,6 @@ a:hover {
 	width: 40em;
 	height: 50em;
 	border-radius: 7px;
-	position: relative;
-	overflow: hidden;
 }
 </style>
 </head>
@@ -52,29 +50,30 @@ a:hover {
 	<div id="mainCcontainer" align="center">
 		<h2>"${diary.subject }"</h2>
 		<h5>${diary.regDate }</h5>
-		<div class="container" align="center"
-			style="width: 40em; height: 50em;">
-			<div id="content" style="background-color: ${diary.bgColor};">
+		<div class="container" align="center">
+			<div id="content"
+				style="background-color: ${diary.bgColor}; position: relative; overflow: hidden; width: 40em; height: 50em;">
 				<c:forEach items="${opList }" var="op">
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
 							<div>
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
-									style="height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute;">
+									style="height: ${op.height}px; width: ${op.width}; left:${op.x}px; top:${op.y}px; position:absolute;">
+
 							</div>
 						</c:if>
 					</c:forEach>
 					<c:forEach items="${opTxtList }" var="t">
 						<c:if test="${op.textboxNum==t.textboxNum }">
-							<div style="font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute; ">
-								${t.content }
-								</div>
+							<div
+								style="font-size:${t.fntSize }; font-weight:${t.fntWeight }; color:${t.fntColor } ;height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute; ">
+								${t.content }</div>
 						</c:if>
 					</c:forEach>
 				</c:forEach>
 			</div>
 		</div>
-		<div style="margin-top: 30">
+		<div style="margin-top: 30" align="center">
 			<button onclick="location.href='${path}/main#diaryList'"
 				class="btn btn-outline-success">리스트 가기</button>
 			<button

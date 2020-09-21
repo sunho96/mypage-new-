@@ -71,8 +71,16 @@ public class DiaryController {
 		List<Integer> stiList = new ArrayList<Integer>();
 		List<Integer> txtList = new ArrayList<Integer>();
 		for (int i = 0; i < opList.size(); i++) {
-			stiList.add(opList.get(i).getStickerNum());
-			txtList.add(opList.get(i).getTextboxNum());
+			if(opList.get(i).getStickerNum() !=0) {
+				stiList.add(opList.get(i).getStickerNum());
+				System.out.println("stList view ="+opList.get(i).getStickerNum());
+			}
+			if(opList.get(i).getTextboxNum() != 0) {
+				txtList.add(opList.get(i).getTextboxNum());
+				System.out.println("txtList view ="+opList.get(i).getTextboxNum());
+			}
+			
+			
 		}
 		if (stiList.size() != 0) {
 			List<Sticker> opStickerList = ss.opStickerList(stiList);
@@ -335,7 +343,7 @@ public class DiaryController {
 				}
 			}
 		}
-		if (result == 1) {
+		if (result > 0) {
 			msg = "1";
 		} else {
 			msg = "0";
@@ -346,29 +354,15 @@ public class DiaryController {
 	@RequestMapping("diary/allDel")
 	public String allDel(int memberNum, Model model) {
 		int result = 0;
-		List<Integer> diaryNumList = ds.memberSelect(memberNum);
+		List<Integer> diaryNumList = new ArrayList<Integer>();
+		diaryNumList = ds.memberSelect(memberNum);
+		for (int i = 0; i < diaryNumList.size(); i++) {
+			System.out.println("num="+diaryNumList.get(i));
+		}
 		result = os.allDel(diaryNumList);
 		result = ds.allDel(memberNum); // op에서 diarynum을 사용하고 있기 때문에 다이어리부터 먼저 지울 수 없다.
 		model.addAttribute("result", result);
 		return "diary/del";
 	}
 
-	// 0918상필
-	@RequestMapping("diary/loadDiaryContent")
-	public String loadDiaryContent(int diaryNum, Model model) {
-		Diary diary = ds.select(diaryNum);
-		List<ObjectPosition> opList = os.opList(diaryNum);
-		List<Integer> stiList = new ArrayList<Integer>();
-		for (int i = 0; i < opList.size(); i++) {
-			stiList.add(opList.get(i).getStickerNum());
-		}
-		if (stiList.size() != 0) {
-			List<Sticker> opStickerList = ss.opStickerList(stiList);
-			model.addAttribute("opStickerList", opStickerList);
-		}
-		model.addAttribute("diary", diary);
-		model.addAttribute("opList", opList);
-
-		return "community/loadDiaryContent";
-	}
 }

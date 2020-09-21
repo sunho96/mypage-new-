@@ -28,10 +28,10 @@
 	<delete id="delete" parameterType="int">
 		delete from objectPosition where diaryNum = #{diaryNum} 
 	</delete>
-	<delete id="allDel">
+	<delete id="allDel" parameterType="list">
 		delete from objectPosition where diaryNum in 
 		 <foreach collection="list" item="diaryNumList" open="(" separator="," close=")">
-			#{diaryNumList}
+		#{diaryNumList}
 		</foreach>
 	</delete>
 </mapper>

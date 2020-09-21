@@ -66,14 +66,12 @@ function cataReset() {
 		$('#font').hide();
 	}
 	function openText() {
-		var i =0;
-		i++;
 		$('#font').show();
 		$('#sticker').hide();
 		$('#backColor').hide();
 		$("#content")
 				.prepend(
-						"<div class='textbox' id='"+i+"' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
+						"<div class='textbox' style='width: 100px; height: 100px;position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='text' placeholder='textbox'></textarea><div>");
 		$('.textbox').draggable({
 			snap : true,
 			cursor : "move",
@@ -209,7 +207,7 @@ function cataReset() {
 			success :function(data){
 				if(data=='1'){
 				 	alert("다이어리 수정 성공");
-				 	location.href="update";
+				 	location.href="${path}/diary/update";
 				}
 			}
 		});	
@@ -363,7 +361,7 @@ textarea:focus {
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
 							<div class="sti" id="${s.stickerNum}" 
-								style="height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute;">
+								style="height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute;">
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
 									style="width: 100%; height: 100%; padding: 0">
 							</div>
@@ -371,8 +369,8 @@ textarea:focus {
 					</c:forEach>
 					<c:forEach items="${opTxtList }" var="t">
 						<c:if test="${op.textboxNum==t.textboxNum }">
-							<div class="   "
-								style="height: ${op.height}; width: ${op.width}; left:${op.x}; top:${op.y}; position:absolute; ">
+							<div
+								style="height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute; ">
 								<textarea
 									style='width:100%; height:100%;padding:0; border: none; font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;'
 									class='text'>${t.content }</textarea>
@@ -381,14 +379,15 @@ textarea:focus {
 					</c:forEach>
 				</c:forEach>
 			</div>
-		</div>
-	</div>
-	<div style="margin-top: 100" align="center">
+			<div style="margin-top: 200" align="center">
 		<button type="button" class="btn btn-outline-success"
 			onclick="update(${diary.diaryNum})">저장</button>
 		<button type="button" class="btn btn-outline-success"
 			onclick="reset()">초기화</button>
 	</div>
+		</div>
+	</div>
+	
 	<div style="margin: 30" align="right">
 		<a href="${path}/main#diaryList">다이어리리스트 가기</a> ㅣ <a
 			href="delete?diaryNum=${diary.diaryNum}">삭제하기</a>

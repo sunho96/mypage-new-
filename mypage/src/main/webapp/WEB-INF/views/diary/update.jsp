@@ -11,7 +11,7 @@
 <c:if test="${result>0 }">
 	<script type="text/javascript">
 		alert("다이어리 수정 성공");
-		location.href="${path}/main#diaryList";
+		location.href="${path}/main";
 	</script>
 </c:if>
 <c:if test="${result==0 }">
