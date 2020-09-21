@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>table_form</title>
+<title>my page</title>
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -132,6 +132,7 @@ function cataReset() {
 		/* 보낼 값 */
 		var allList = [];
 		var diaryNum= num;
+		var bgColor 
 		var diary =  {
 				diaryNum :diaryNum,
 				subject:$('#subject').val(),
@@ -175,11 +176,11 @@ function cataReset() {
 			var fontSize =  $(this).css('font-size');
 			var fontColor =  $(this).css('color');
 			var fonWeight =  $(this).css('font-weight');
-		 	alert(width);
+/* 		 	alert(width);
 			alert(height); 
 			alert(content);
 			alert(x);
-			alert(y); 
+			alert(y);  */
 		
  		/* 	alert(fontSize);
 			alert(fontColor);
@@ -207,7 +208,7 @@ function cataReset() {
 			success :function(data){
 				if(data=='1'){
 				 	alert("다이어리 수정 성공");
-				 	location.href="${path}/diary/update";
+				 	location.href="${path}/diary/view?diaryNum=${diary.diaryNum}";
 				}
 			}
 		});	
@@ -312,7 +313,7 @@ textarea:focus {
 			<p>
 			<p>
 			<div id="backColor">
-				<input type="color" class="bgInput" id="bgColor">
+				<input type="color" class="bgInput" id="bgColor" value="${diary.bgColor }" }>
 
 				<button class="bgInput" onclick="bg()"
 					class="btn btn-outline-success">적용</button>
@@ -369,9 +370,9 @@ textarea:focus {
 					</c:forEach>
 					<c:forEach items="${opTxtList }" var="t">
 						<c:if test="${op.textboxNum==t.textboxNum }">
-							<div
+							<div class="textbox"
 								style="height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute; ">
-								<textarea
+								<textarea 
 									style='width:100%; height:100%;padding:0; border: none; font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;'
 									class='text'>${t.content }</textarea>
 							</div>

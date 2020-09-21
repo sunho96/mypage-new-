@@ -59,7 +59,7 @@ function cataReset() {
 		$('#backColor').hide();
 		
 	}
-	function openTextarea(a) {
+	function openTextarea1(a) {
 		a=a+1;
 		alert(a);
 		$("#content")
@@ -303,7 +303,7 @@ textarea:focus {
 		<div id="font">
 			<div style="100%">
 				<c:set var="a" value="1" />
-					<button onclick="openTextarea(${a})"
+					<button onclick="openTextarea1(${a})"
 						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
 				<select id="fontSize" onchange="fontSize(${i })"style="width: 30%"
 					class="form-control">

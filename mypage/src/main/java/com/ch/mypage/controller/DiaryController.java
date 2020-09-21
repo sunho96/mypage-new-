@@ -73,14 +73,10 @@ public class DiaryController {
 		for (int i = 0; i < opList.size(); i++) {
 			if(opList.get(i).getStickerNum() !=0) {
 				stiList.add(opList.get(i).getStickerNum());
-				System.out.println("stList view ="+opList.get(i).getStickerNum());
 			}
 			if(opList.get(i).getTextboxNum() != 0) {
 				txtList.add(opList.get(i).getTextboxNum());
-				System.out.println("txtList view ="+opList.get(i).getTextboxNum());
 			}
-			
-			
 		}
 		if (stiList.size() != 0) {
 			List<Sticker> opStickerList = ss.opStickerList(stiList);
