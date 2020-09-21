@@ -202,7 +202,16 @@ create table communityComments(
     memberNum number references member(memberNum),
     communityNum number references community(communityNum)
 );
-
+--0921 추가
+--20. 팔로우
+create table follow(
+  followNum number primary key,
+  memberNum number references member(memberNum),
+  target number,
+  regDate Date
+  );
+  
+  
 --0914 추가
 alter table diary drop column content;
 --0915 추가
