@@ -47,18 +47,57 @@
 			$("#tag").load("community/iTaggedContents");
 		}
 	}
+	
+	//팔로우 리스트
+	function showFollower() {
+		$("#showFollower").load("/mypage/community/showFollower?target=${member.memberNum}");
+	}
+	function showFollowing() {
+		console.log("팔로잉 클릭 memberNum : ${member.memberNum}");
+		$("#showFollowing").load("/mypage/community/showFollowing?memberNum=${member.memberNum}");
+	}
+	
+	//팔로우버튼
+	function follow(target) {
+		$.post("/mypage/community/follow","target="+target,function(result){
+			if(result == 1){
+				$(".followBtn").html('<button class="btn btn-default btn-xs" onclick="follow('+target+')">팔로잉취소</button>');
+			}else if (result== -1){
+				$(".followBtn").html('<button class="btn btn-info btn-xs" onclick="follow('+target+')">팔로우</button>');
+			}else{
+				alert("follow() 실패");
+			}
+		});
+	}	
 </script>
 </head>
 <body style="background: #F6F6F6;">
 	<%@ include file="communityNav.jsp" %>
 	
-	<div class="container">
+	<div class="container-fluid ">
 		<header>
 			<div class="row">
 				<div class="col-sm-4"><img src="/mypage/images/icons/profile.jpg" class="img-circle" alt="" /></div>
 				<div class="col-sm-8">
-					<h2>${member.nickName }</h2><br>
-					<h4>	<span>게시물 ${sharedCount}</span>   <span>팔로워</span>  <span>팔로우</span></h4> 
+					<h2 style="margin-right: 30px; display: inline;">${member.nickName }</h2>
+					<span class="followBtn">
+						<c:if test="${member.memberNum != memberNum }">
+							<c:if test="${not empty isFollowing }">
+								<button class="btn btn-default btn-xs" onclick="follow(${member.memberNum})">팔로잉취소</button>
+							</c:if>
+							<c:if test="${empty isFollowing }">
+								<button class="btn btn-info btn-xs" onclick="follow(${member.memberNum})">팔로우</button>
+							</c:if>
+						</c:if>
+					</span>
+					
+					<br>
+					<h4>	<span>게시물 ${sharedCount}</span>   
+					<button type="button" data-toggle="modal" data-target="#showFollower">팔로워 ${followerCount }</button>  
+					<button type="button" data-toggle="modal" data-target="#showFollowing">팔로잉 ${followingCount }</button>
+					<span data-toggle="modal" data-target="#showFollower" onclick="showFollower()">팔로워 ${followerCount }</span>  
+					<span data-toggle="modal" data-target="#showFollowing" onclick="showFollowing()">팔로잉 ${followingCount }</span></h4>
+					
 				</div>
 			</div>
 		</header>
@@ -84,6 +123,30 @@
 		 
 		
 	</div>
+	
+	
+	<!-- Following List -->
+  <div class="modal fade" id="showFollowing" role="dialog">
+      
+  </div>
+<!-- Follower List -->
+  <div class="modal fade" id="showFollower" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          	test팔로워
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
 
 </body>
 </html>

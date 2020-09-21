@@ -28,6 +28,7 @@ import com.ch.mypage.model.Community;
 import com.ch.mypage.model.CommunityComments;
 import com.ch.mypage.model.CommunityLikey;
 import com.ch.mypage.model.Diary;
+import com.ch.mypage.model.Follow;
 import com.ch.mypage.model.Member;
 import com.ch.mypage.model.ObjectPosition;
 import com.ch.mypage.model.Sticker;
@@ -63,6 +64,7 @@ public class CommunityController {
 	public String listView(@RequestParam int startNum, Model model, HttpSession session) {
 		// 테스트용 세션
 		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		Collection<Follow> followingList = new ArrayList<Follow>();
 		
 		
 		//게시물 리스트
@@ -71,13 +73,15 @@ public class CommunityController {
 		// memberNum이 좋아요 한 리스트
 		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
 		
-		// 게시물별 댓글 리스트
+		// 게시물별 댓글 리스트	, 팔로잉 리스트
 		for (Community community : list) {
 			community.setCommentsList(cs.commentsList(community.getCommunityNum()));
+			followingList.add(cs.selectFollow(memberNum,community.getDiary().getMemberNum()));
 		}
 		
 		// list 넘기기
 		model.addAttribute("list", list);
+		model.addAttribute("followingList", followingList);
 		model.addAttribute("isLikeyList", isLikeyList);
 		return "community/contentList";
 	}
@@ -148,13 +152,22 @@ public class CommunityController {
 
 	@RequestMapping("communityProfile")
 	public String communityProfile(@RequestParam int memberNum, Model model, HttpSession session) {
-
+		int memberNo = Integer.parseInt(session.getAttribute("memberNum").toString());	//팔로우용
+		
 		// member의 정보
 		Member member = ms.selectMember(memberNum);
 		int sharedCount = cs.sharedCount(memberNum); // 공유한 게시물수
-
+		int followingCount = cs.followingCount(memberNum);	//팔로잉 수
+		int followerCount = cs.followerCount(memberNum);	//팔로워 수
+		Follow isFollowing = cs.selectFollow(memberNo, memberNum);
+		
+		
+		
 		model.addAttribute("member", member);
 		model.addAttribute("sharedCount", sharedCount);
+		model.addAttribute("followingCount", followingCount);
+		model.addAttribute("followerCount", followerCount);
+		model.addAttribute("isFollowing", isFollowing);
 
 		return "community/profile";
 
@@ -221,18 +234,51 @@ public class CommunityController {
 		return result;
 	}
 	
-	
-	/* 테스트 */
-	@RequestMapping(value="community/testView")
-	public String testView(Model model) {
+	//팔로우
+	@RequestMapping( value = "community/follow", method = RequestMethod.POST)
+	@ResponseBody
+	public int follow(int target, HttpSession session) {
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		int result=0;
 		
-		return "community/testCommunity";
+		Follow follow = cs.selectFollow(memberNum, target);
+		
+		if(follow ==null) {
+			result = cs.insertFollow(memberNum,target);
+		}else {
+			cs.deleteFollow(memberNum,target);
+			result = -1;
+		}
+		
+		return result;
+		
+	}
+	@RequestMapping("community/showFollowing")
+	public String showFollowing(int memberNum, Model model,HttpSession session){
+		int sessionMemberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		Collection<Follow> followingList = cs.followingList(memberNum);
+		Collection<Follow> isFollowingList = cs.isFollowingList(sessionMemberNum,followingList);
+		
+		System.out.println("followingList : " + followingList);
+		System.out.println("isFollowingList : " + isFollowingList);
+		model.addAttribute("followingList", followingList);
+		model.addAttribute("isFollowingList", isFollowingList);
+		return "community/followingList";
+	}
+	@RequestMapping("community/showFollower")
+	public String showFollower(int memberNum,Model model){
+		System.out.println("memberNum : " + memberNum);
+		Collection<Follow> followerList = cs.followerList(memberNum);
+		
+		model.addAttribute("followingList", followerList);
+		return "community/showFollower";
 	}
 	
-	
 
+	
+	//div 이미지로 변경
 	@ResponseBody
-	@RequestMapping(value ="community/ImgSaveTest", method = RequestMethod.POST)
+	@RequestMapping(value ="community/ImgSave", method = RequestMethod.POST)
 	public ModelMap ImgSaveTest(@RequestParam HashMap<Object, Object> param, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 		ModelMap map = new ModelMap();
 		String binaryData = request.getParameter("imgSrc");

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.ch.mypage.model.Community;
 import com.ch.mypage.model.CommunityComments;
 import com.ch.mypage.model.CommunityLikey;
+import com.ch.mypage.model.Follow;
 
 @Repository
 public class CommunityDaoImpl implements CommunityDao {
@@ -138,6 +139,62 @@ public class CommunityDaoImpl implements CommunityDao {
 	public void deleteHashAndCom(int communityNum) {
 		// TODO Auto-generated method stub
 		sst.delete("hashAndCommns.deleteComm", communityNum);
+	}
+	
+	
+	//팔로우
+	@Override
+	public Follow selectFollow(int memberNum, int target) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("memberNum", memberNum);
+		map.put("target", target);
+		return sst.selectOne("followns.selectFollowing", map);
+	}
+	@Override
+	public int insertFollow(int memberNum, int target) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("memberNum", memberNum);
+		map.put("target", target);
+		return sst.insert("followns.insert", map);
+	}
+	@Override
+	public void deleteFollow(int memberNum, int target) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("memberNum", memberNum);
+		map.put("target", target);
+		
+		sst.delete("followns.delete", map);
+	}
+	@Override
+	public int followingCount(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectOne("followns.followingCount", memberNum);
+	}
+	@Override
+	public int followerCount(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectOne("followns.followerCount", memberNum);
+	}
+	@Override
+	public Collection<Follow> followingList(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectList("followns.followingList", memberNum);
+	}
+	@Override
+	public Collection<Follow> followerList(int memberNum) {
+		// TODO Auto-generated method stub
+		return sst.selectList("followns.followerList", memberNum);
+	}
+	@Override
+	public Collection<Follow> isFollowingList(int memberNum, Collection<Follow> targetList) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNum", memberNum);
+		map.put("targetList", targetList);
+		return sst.selectList("followns.isFollowingList",map);
 	}
 	
 	

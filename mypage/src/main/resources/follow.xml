@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="followns">
+	<resultMap type="follow" id="follow">
+		<result property="followNum" column="followNum" />
+		<result property="memberNum" column="memberNum" />
+		<result property="target" column="target" />
+		<result property="regDate" column="regDate" />
+		<result property="nickName" column="nickName" />
+		 
+	</resultMap>
+	
+	<select id="followingList" parameterType="int" resultMap="follow">
+		select f.*,m.nickName from follow f, member m
+		where f.target = m.memberNum
+    		and f.memberNum=#{memberNum}
+	</select>
+	<select id="isFollowingList" parameterType="hashMap" resultMap="follow">
+		select f.*,m.nickName from follow f, member m
+		where f.target = m.memberNum
+			and f.memberNum=#{memberNum}
+			and f.target in 
+ 				<foreach collection="targetList" item="target" open="(" close=")" separator=",">
+					#{target.target}
+				</foreach>	
+	</select>
+	
+	<select id="followerList" parameterType="int" resultMap="follow">
+		select f.*,m.nickName from follow f, member m
+		where f.memberNum = m.memberNum
+    	and f.target=#{target}
+	</select>
+	
+	<select id="selectFollowing" parameterType="hashmap" resultType="follow">
+		select * from follow
+		where memberNum = #{memberNum}
+			and target = #{target}
+	</select>
+	<select id="followingCount" parameterType="int" resultType="int">
+		select count(*) from follow
+		where memberNum = #{memberNum}
+	</select>
+	<select id="followerCount" parameterType="int" resultType="int">
+		select count(*) from follow
+		where target = #{memberNum}
+	</select>
+	
+	<insert id="insert" parameterType="hashmap">
+		<selectKey keyProperty="followNum" order="BEFORE" resultType="int"> 
+			select nvl(max(followNum),0)+1 from follow
+		</selectKey>
+		
+		insert into follow values(#{followNum},#{memberNum},#{target},sysdate)
+	</insert>
+	
+	<delete id="delete" parameterType="hashmap">
+		delete from follow 
+		where memberNum = #{memberNum}
+			and target = #{target}
+	</delete>
+</mapper>

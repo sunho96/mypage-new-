@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 네비에서 멤버 : ${memberNum }
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" data-spy="fix" data-offset-top="197">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="main">
       	<img alt="" src="/mypage/images/logo_black.png" height="100%;">
       </a>
     </div>
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav" id="communityNav">
       <li class="active"><a href="communityHome">홈</a></li>
       <li><a href="communitySeek">탐색</a></li>
       <li><a href="communityProfile?memberNum=${memberNum }">프로필</a></li>
-      <li><a href="community/loadDiaryContent?diaryNum=27">테스트 loadDiaryContent</a></li>
     </ul>
   </div>
+
 </nav>

@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.ch.mypage.model.Community;
 import com.ch.mypage.model.CommunityComments;
 import com.ch.mypage.model.CommunityLikey;
+import com.ch.mypage.model.Follow;
 
 public interface CommunityService {
 
@@ -41,6 +42,22 @@ public interface CommunityService {
 	void deleteHashAndCom(int communityNum);
 
 	int deleteCommunity(int communityNum);
+
+	Follow selectFollow(int memberNum, int target);
+
+	int insertFollow(int memberNum, int target);
+
+	void deleteFollow(int memberNum, int target);
+
+	int followingCount(int memberNum);
+
+	int followerCount(int memberNum);
+
+	Collection<Follow> followingList(int memberNum);
+
+	Collection<Follow> followerList(int memberNum);
+
+	Collection<Follow> isFollowingList(int memberNum,Collection<Follow> targetList);
 
 
 	

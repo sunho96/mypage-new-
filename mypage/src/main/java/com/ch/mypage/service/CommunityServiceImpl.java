@@ -9,6 +9,7 @@ import com.ch.mypage.dao.CommunityDao;
 import com.ch.mypage.model.Community;
 import com.ch.mypage.model.CommunityComments;
 import com.ch.mypage.model.CommunityLikey;
+import com.ch.mypage.model.Follow;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -116,6 +117,56 @@ public class CommunityServiceImpl implements CommunityService {
 	public int deleteCommunity(int communityNum) {
 		// TODO Auto-generated method stub
 		return cd.deleteCommunity(communityNum);
+	}
+
+	
+	//팔로우
+	@Override
+	public Follow selectFollow(int memberNum, int target) {
+		// TODO Auto-generated method stub
+		return cd.selectFollow(memberNum,target);
+	}
+
+	@Override
+	public int insertFollow(int memberNum, int target) {
+		// TODO Auto-generated method stub
+		return cd.insertFollow(memberNum,target);
+	}
+
+	@Override
+	public void deleteFollow(int memberNum, int target) {
+		// TODO Auto-generated method stub
+		cd.deleteFollow(memberNum,target);
+	}
+
+	@Override
+	public int followingCount(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.followingCount(memberNum);
+	}
+
+	@Override
+	public int followerCount(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.followerCount(memberNum);
+	}
+
+	@Override
+	public Collection<Follow> followingList(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.followingList(memberNum);
+	}
+
+	@Override
+	public Collection<Follow> followerList(int memberNum) {
+		// TODO Auto-generated method stub
+		return cd.followerList(memberNum);
+	}
+
+	@Override
+	public Collection<Follow> isFollowingList(int memberNum,Collection<Follow> targetList) {
+		// TODO Auto-generated method stub
+		return cd.isFollowingList(memberNum,targetList);
 	}
 
 
