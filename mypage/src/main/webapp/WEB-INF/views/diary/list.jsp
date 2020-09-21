@@ -55,7 +55,7 @@
 				<button class="cataInput" onclick="cataReset()">취소</button></li>
 		</ul>
 		<div class="tab-content">
-			<div id="scoll">
+			<div>
 				<table class="table">
 					<thead>
 						<tr>

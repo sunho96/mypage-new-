@@ -7,19 +7,17 @@
 <title>mypage</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--draggable  -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <!--resizable -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<!--draggable  -->
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<!-- <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-<!-- <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 
@@ -48,8 +46,9 @@ function cataReset() {
 		$('#sticker').hide();
 		$('#backColor').hide();
 		$('#font').hide();
+		$('#getfile').hide();
 		
-		/* var file = document.querySelector('#getfile');
+		var file = document.querySelector('#getfile');
 		
 		file.onchange =function(){
 			
@@ -59,26 +58,26 @@ function cataReset() {
 			reader.readAsDataURL(fileList[0]);
 			//로드한 후
 			reader.onload = function() {
-			 	document.querySelector('#preview').src=reader.result; 
+			/* 	document.querySelector('#preview').src=reader.result; */
 				$('#content').prepend("<div class='imgDisp' style='width: 100px; height: 100px; position:absolute;'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
 				$('.imgDisp').resizable().draggable();
-				$('#morefile').prepend('<a onclick="morefile()">사진추가하기(click)</a>'); 
-				 var width=$('.imgDisp').width();
+		/* 		$('#morefile').prepend('<a onclick="morefile()">사진추가하기(click)</a>'); */
+				/* var width=$('.imgDisp').width();
 				var heigth=$('.imgDisp').height();
 				var postion=$('.imgDisp').postion();
 				alert(width);
 				alert(heigth);
 				alert(postion.left);
-				alert(postion.top); 
+				alert(postion.top); */
 			
-			}
-		} */
+		}
+	}
 	});
-	/* function getfile() {
+	function getfile() {
 		$('#sticker').hide();
 		$('#backColor').hide();
 		$('#getfile').show();
-	} */
+	}
 	function openSti1() {
 		$('#sticker').show();
 		$('#backColor').hide();
@@ -95,10 +94,10 @@ function cataReset() {
 		if("$('.textbox').length" > 1){
 			a=a+1;
 		}
-		var textbx1 = document.getElementsByClassName("textbox");
+		alert(a);
 		$("#content")
 		.prepend(
-				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='text' placeholder='textbox'></textarea><div>");
+				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='"+a+"' placeholder='textbox'></textarea><div>");
 
 			$('.textbox').draggable({
 				snap : true,
@@ -124,8 +123,7 @@ function cataReset() {
 	function goSti(num,name) {
 		console.log("name="+name);
 		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px; position:absolute;'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
-		$('.sti').resizable();
-		$('.sti').draggable();
+		$('.sti').resizable().draggable();
 	}
 	function openBg1() {
 		$('#backColor').show();
@@ -180,10 +178,10 @@ function cataReset() {
 			var position = $(this).position();
 			var x = position.left;
 			var y = position.top;
-		/* 	alert(width);
+			alert(width);
 			alert(height); 	
 			alert(x);
-			alert(y); */
+			alert(y);
 			var location = {
 					'st' : 'st',
 					'stickerNum' : id,
@@ -195,7 +193,7 @@ function cataReset() {
 			allList.push(location);			
 		});
 		
-		$('.textarea1').each(function(){
+		$('.text').each(function(){
 			var width= $('.textbox').width();	
 			var height= $('.textbox').height();
 			var position = $('.textbox').position();
@@ -205,11 +203,11 @@ function cataReset() {
 			var fontSize =  $(this).css('font-size');
 			var fontColor =  $(this).css('color');
 			var fonWeight =  $(this).css('font-weight');
-		 	alert(content);
+		/* 	alert(content);
 			alert(width);
 			alert(height); 	
 			alert(x);
-			alert(y); 
+			alert(y); */
 		
 /* 			alert(fontSize);
 			alert(fontColor);
@@ -227,7 +225,7 @@ function cataReset() {
 			}
 			allList.push(textLocation);
 		});
-   
+		
 		
 		/* console.log(typeof List); */
 		$.ajax({

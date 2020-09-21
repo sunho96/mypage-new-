@@ -50,7 +50,6 @@ public class DiaryController {
 
 	@RequestMapping("diary/insert")
 	public String insert(Diary diary, Model model) {
-		System.out.println("여기 들어오나..");
 		return "diary/insert";
 	}
 
@@ -63,7 +62,16 @@ public class DiaryController {
 		model.addAttribute("list", list);
 		return "diary/list";
 	}
-
+	
+	
+	/*
+	 * @RequestMapping("diary/reader") public String reader(HttpSession session) {
+	 * int memberNum =
+	 * Integer.parseInt(session.getAttribute("memberNum").toString());
+	 * 
+	 * return null; }
+	 */
+	
 	@RequestMapping("diary/view")
 	public String view(int diaryNum, Model model) {
 		Diary diary = ds.select(diaryNum);
@@ -360,5 +368,6 @@ public class DiaryController {
 		model.addAttribute("result", result);
 		return "diary/del";
 	}
+
 
 }

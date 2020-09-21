@@ -58,7 +58,7 @@ a:hover {
 						<c:if test="${op.stickerNum==s.stickerNum }">
 							<div>
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
-									style="height: ${op.height}px; width: ${op.width}; left:${op.x}px; top:${op.y}px; position:absolute;">
+									style="height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute;">
 
 							</div>
 						</c:if>
