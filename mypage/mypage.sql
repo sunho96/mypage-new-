@@ -322,3 +322,6 @@ insert into sticker values(sticker_seq.nextval,'cupid1.png', '천사');
 
 -- d01.png 부터 다시 만들기 메모 
 select * from diary;
+
+--0922
+alter table diary drop column content;

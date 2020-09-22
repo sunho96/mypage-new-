@@ -87,7 +87,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="memberUpdate_form", produces = "text/html;charset=utf-8")
 	public String memberUpdate_form(Model model, HttpSession session) {
-		int memberNum = Integer.parseInt((String)session.getAttribute("memberNum"));
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Member member = ms.selectMember(memberNum);
 		model.addAttribute("member", member); 
 		return "member/memberUpdate_form";

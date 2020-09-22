@@ -32,7 +32,7 @@
 	      <!-- Follower List-->
 	      <div class="modal-content">
 		        <div class="modal-header">
-			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <button  type="button" class="close modalCloseBtn" data-dismiss="modal">&times;</button>
 			          <h4 class="modal-title">팔로워</h4>
 		        </div>
 		        <table class="table table-striped">
@@ -40,15 +40,15 @@
 		        		<c:forEach items="${followerList }" var="f" varStatus="i">
 		        			<tr>
 				        		<td>
-				        			<a href="javascript:coummunityChange('communityProfile?memberNum=${f.memberNum}')"><b style="font-size: medium;">${f.nickName }</b></a>
+				        			<a href="javascript:coummunityChange('communityProfile?memberNum=${f.memberNum}',1)"><b style="font-size: medium;">${f.nickName }</b></a>
 				        		</td>
 				        		<td class="followBtn_${f.memberNum}" >
 					        		<c:if test="${f.memberNum != memberNum }">
 										<c:if test="${f.memberNum == isFollowerList[i.index].memberNum}">
-											<button class="btn btn-default " onclick="follow('${f.target}')">팔로잉취소</button>
+											<button class="btn btn-default " onclick="follow('${f.memberNum}')">팔로잉취소</button>
 										</c:if>
 										<c:if test="${empty isFollowerList[i.index] }">
-											<button class="btn btn-info " onclick="follow('${f.target}')">팔로우</button>
+											<button class="btn btn-info " onclick="follow('${f.memberNum}')">팔로우</button>
 										</c:if>
 									</c:if>
 				        		</td>
@@ -57,24 +57,7 @@
 		          	</c:forEach>
 		        	</tbody>
 		        </table>
-		        <%-- <div class="modal-body" >
-		          	<c:forEach items="${followerList }" var="f" varStatus="i">
-		          		<div id="div_${f.target }" style="height: 40px; ">
-		          			<a href="communityProfile?memberNum=${f.target}"><b style="font-size: medium;">${f.nickName }</b></a> 
-
-		          			<span class="followBtn_${f.target}" style="float: right;">
-								<c:if test="${f.target != memberNum }">
-									<c:if test="${f.target == isFollowerList[i.index].target }">
-										<button class="btn btn-default " onclick="follow(${f.target})">팔로잉취소</button>
-									</c:if>
-									<c:if test="${empty isFollowerList[i.index] }">
-										<button class="btn btn-info " onclick="follow(${f.target})">팔로우</button>
-									</c:if>
-								</c:if>
-							</span>
-		          		</div>
-		          	</c:forEach>
-		        </div> --%>
+		       
 	       
 	      </div>
       </div>

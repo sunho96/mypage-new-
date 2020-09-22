@@ -8,6 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
+
 	location.href="loginForm";
 </script>
 </body>

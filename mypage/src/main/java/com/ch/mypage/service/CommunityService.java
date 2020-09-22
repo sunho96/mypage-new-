@@ -61,6 +61,8 @@ public interface CommunityService {
 
 	int insertCommunity(int diaryNum);
 
+	Community communityChk(int diaryNum);
+
 
 	
 

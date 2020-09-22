@@ -61,6 +61,8 @@ public interface CommunityDao {
 
 	int insertCommunity(int diaryNum);
 
+	Community communityChk(int diaryNum);
+
 
 	
 }

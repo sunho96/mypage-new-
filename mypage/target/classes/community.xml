@@ -27,6 +27,12 @@
 		where d.DIARYNUM = c.DIARYNUM
   			and communityNum=#{communityNum}
 	</select>
+	<select id="communityChk" parameterType="int" resultType="community" >
+		select * from community
+		where diaryNum=#{diaryNum}
+	</select>
+	
+	
 	<select id="listDefault" resultMap="community">
 		select d.*,c.*,m.nickName,nvl(likeyCnt,0) likeyCnt
 		from diary d,member m
@@ -83,12 +89,14 @@
 			and comm.memberNum=m.memberNum 
 	</select>
 	
-	<insert id="insertCommunity" parameterType="int">
+	<insert id="insertCommunity" parameterType="hashmap">
 		<selectKey keyProperty="communityNum" order="BEFORE" resultType="int">
-			select nvl(max(communityNum),0)+1 from community
+			select nvl(max(communityNum),0)+1 communityNum from community
 		</selectKey>
 		insert into community values (#{communityNum},sysdate,#{diaryNum})
+		
 	</insert>
+	
 	<delete id="deleteCommunity" parameterType="int">
 		delete from community 
 		where communityNum = #{communityNum}

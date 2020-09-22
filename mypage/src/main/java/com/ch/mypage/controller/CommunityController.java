@@ -187,7 +187,6 @@ public class CommunityController {
 
 		// memberNum이 좋아요 한 리스트
 		Collection<CommunityLikey> isLikeyList = cs.isLikeyList(memberNum);
-
 		model.addAttribute("commList", commList);
 		model.addAttribute("isLikeyList", isLikeyList);
 		return "community/iSharedContents";
@@ -277,10 +276,8 @@ public class CommunityController {
 		Collection<Follow> isFollowerList = new ArrayList<Follow>();
 		
 		for (Follow follow : followerList) {
-			isFollowerList.add(cs.selectFollow(follow.getMemberNum(),sessionMemberNum));
+			isFollowerList.add(cs.selectFollow(sessionMemberNum,follow.getMemberNum()));
 		}
-		System.out.println("followerList : " + followerList);
-		System.out.println("isFollowerList : " + isFollowerList);
 		model.addAttribute("followerList", followerList);
 		model.addAttribute("isFollowerList", isFollowerList);
 		return "community/followerList";
@@ -292,7 +289,6 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping(value ="community/ImgSave", method = RequestMethod.POST)
 	public ModelMap ImgSaveTest(@RequestParam HashMap<Object, Object> param, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-		System.out.println("imgSave 들어옴.");
 		ModelMap map = new ModelMap();
 		String binaryData = request.getParameter("imgSrc");
 		int diaryNum = Integer.parseInt(request.getParameter("diaryNum"));
@@ -342,11 +338,18 @@ public class CommunityController {
 		}
 		
 		//커뮤니티 입력
-		int result= cs.insertCommunity(diaryNum);
+		int result = 0;
+		Community community = cs.communityChk(diaryNum);
+		if( community == null) {
+			result = cs.insertCommunity(diaryNum);
+		}
+		
 		if(result>0) {
 			map.addAttribute("result", "커뮤니이 입력 성공");
+			System.out.println("커뮤니티 입력성공");
 		}else {
 			map.addAttribute("result", "커뮤니티 입력 실패");
+			System.out.println("커뮤니티 입력실패");
 		}
 		
 		map.addAttribute("resultMap", "");

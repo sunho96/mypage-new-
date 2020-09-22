@@ -56,7 +56,10 @@ public class CommunityDaoImpl implements CommunityDao {
 	@Override
 	public int insertCommunity(int diaryNum) {
 		// TODO Auto-generated method stub
-		return sst.insert("communityns.insertCommunity",diaryNum);
+		HashMap<String, Integer> hm = new HashMap<>();
+		hm.put("diaryNum",diaryNum);
+		System.out.println("diaryNum :" + diaryNum);
+		return sst.insert("communityns.insertCommunity",hm);
 	}
 	@Override
 	public int deleteCommunity(int communityNum) {
@@ -64,6 +67,11 @@ public class CommunityDaoImpl implements CommunityDao {
 		return sst.delete("communityns.deleteCommunity", communityNum);
 	}
 	
+	@Override
+	public Community communityChk(int diaryNum) {
+		// TODO Auto-generated method stub
+		return sst.selectOne("communityns.communityChk",diaryNum);
+	}
 	
 	
 	

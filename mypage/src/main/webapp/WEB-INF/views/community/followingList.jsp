@@ -32,7 +32,7 @@
 	      <!-- Following List-->
 	      <div class="modal-content">
 		        <div class="modal-header">
-			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <button type="button" class="close modalCloseBtn" data-dismiss="modal">&times;</button>
 			          <h4 class="modal-title">팔로잉</h4>
 		        </div>
 		        <table class="table table-striped">
@@ -40,7 +40,7 @@
 		        		<c:forEach items="${followingList }" var="f" varStatus="i">
 		        			<tr>
 				        		<td>
-				        			<a href="javascript:coummunityChange('communityProfile?memberNum=${f.target}')"><b style="font-size: medium;">${f.nickName }</b></a>
+				        			<a href="javascript:coummunityChange('communityProfile?memberNum=${f.target}',1)"><b style="font-size: medium;">${f.nickName }</b></a>
 				        		</td>
 				        		<td class="followBtn_${f.target}" >
 					        		<c:if test="${f.target != memberNum }">

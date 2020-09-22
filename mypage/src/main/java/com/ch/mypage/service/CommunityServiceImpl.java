@@ -28,6 +28,14 @@ public class CommunityServiceImpl implements CommunityService {
 		return cd.addList(startNum);
 	}
 
+	@Override
+	public Community communityChk(int diaryNum) {
+		// TODO Auto-generated method stub
+		return cd.communityChk(diaryNum);
+	}
+	
+	
+	
 	//좋아요
 	@Override
 	public CommunityLikey selectLikey(int memberNum, int communityNum) {
@@ -174,6 +182,7 @@ public class CommunityServiceImpl implements CommunityService {
 		// TODO Auto-generated method stub
 		return cd.insertCommunity(diaryNum);
 	}
+
 
 
 	

@@ -36,6 +36,10 @@
 <script type="text/javascript">
 	$(function(){
 		$("#shared").load("community/iSharedContents?memberNum=${member.memberNum}");
+		
+		
+		
+		
 	});
 	function loadContents(value) {
 		if (value=="shared"){

@@ -36,5 +36,9 @@ alter table diary add(bgcolor VARCHAR2(20));
      ALTER TABLE objectposition RENAME COLUMN textbox TO textboxNum;
     
     --0922
-    insert into diaryCatagory values(diaryCata_seq.nextval,'기타');
     alter table diaryCatagory drop column del;
+    insert into diaryCatagory values(diaryCata_seq.nextval,'기타');
+    alter table diary drop column content;
+    alter table textbox MODIFY (fntsize varchar2(10));
+	alter table textbox MODIFY (content varchar2(3000));
+	alter table textbox MODIFY (fntcolor varchar2(20));

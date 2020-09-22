@@ -196,8 +196,8 @@ function cataReset() {
 			type:"POST",
 			success :function(data){
 				 	alert("다이어리 입력 성공");
-				 	/* screenShot($('#content'),data); */
-				 	location.href="${path}/main#diaryList"
+				 	screenShot($('#content'),data);
+				 	/* location.href="${path}/main#diaryList" */
 				}
 		});	
 	}
