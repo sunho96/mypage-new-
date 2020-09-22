@@ -23,4 +23,8 @@ public interface DiaryCataService {
 
 	int memAndCataAllDel(int memberNum);
 
+	int updateMemAndCata(int memberNum, int diaryCataNum);
+
+	int selectGitaNum(String name);
+
 }

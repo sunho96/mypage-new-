@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ch.mypage.model.DiaryCatagory;
 import com.ch.mypage.model.MemAndCata;
 import com.ch.mypage.service.DiaryCataService;
+import com.ch.mypage.service.DiaryService;
 
 @Controller
 public class DiaryCataController {
 
 	@Autowired
 	private DiaryCataService dcs;
+	@Autowired
+	private DiaryService ds;
 
 	@RequestMapping("diaryCatagory/list")
 	public String list(Model model, HttpSession session) {
@@ -58,11 +61,24 @@ public class DiaryCataController {
 
 	@RequestMapping("diaryCatagory/del")
 	public String del(int diaryCataNum, int memberNum, Model model) {
-		int result = dcs.memAnaCataDel(memberNum, diaryCataNum);
+		int result=0;
+		String name = "기타";
+		int gitaNum = dcs.selectGitaNum(name); //기타 번호 추출
+		MemAndCata mc = dcs.selectMemAndCata(gitaNum, memberNum); //기타가지고 있는지 확인
+		if(mc == null) {
+			result = dcs.updateMemAndCata(memberNum,gitaNum); //카테고리 삭제하기 전 기타 카테고리 만들어주기
+			System.out.println("updateMemandcat result="+result);
+			result = ds.updateCataGita(diaryCataNum,gitaNum); //삭제된 다이어리 카테고리 기타로 변경
+			System.out.println("updateCataGita result1="+result);
+			result = dcs.cataDel(diaryCataNum, memberNum);
+		}else {
+			result = ds.updateCataGita(diaryCataNum,gitaNum); //삭제된 다이어리 카테고리 기타로 변경
+			result = dcs.memAnaCataDel(diaryCataNum, memberNum);
+		}	
+		
 		model.addAttribute("result", result);
 		return "diaryCatagory/del";
 	}
-
 	@RequestMapping("diaryCatagory/allDel")
 	public String allDel(int memberNum, Model model) {
 		int result = dcs.memAndCataAllDel(memberNum);

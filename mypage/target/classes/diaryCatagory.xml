@@ -5,15 +5,17 @@
 	<resultMap type="diaryCatagory" id="diaryCatagoryResult">
 		<result property="diaryCataNum" column="diaryCataNum" />
 		<result property="name" column="name" />
-		<result property="del" column="del" />
 	</resultMap>
 	<insert id="insertCata" parameterType="string">
-		insert into diaryCatagory values(diaryCata_seq.nextval,#{name},'n')
+		insert into diaryCatagory values(diaryCata_seq.nextval,#{name})
 	</insert>
-	<update id="cataDel" parameterType="hashmap">
+	<!-- <update id="cataDel" parameterType="hashmap">
 		update diaryCatagory set del='y' where diaryCataNum=(select diaryCataNum from diary where diaryCataNum=#{diaryCataNum} and memberNum=#{memberNum})
-	</update>
+	</update> -->
 	<select id="selectCata" parameterType="string" resultType="diaryCatagory">
 		select * from diaryCatagory where name=#{name}
+	</select>
+	<select id="selectGitaNum" resultType="integer" parameterType="string">
+		select diaryCataNum from diaryCatagory where name=#{name}
 	</select>
 </mapper>

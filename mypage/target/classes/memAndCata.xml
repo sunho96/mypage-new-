@@ -10,7 +10,7 @@
 		insert into memAndCata values(#{memberNum},#{diaryCataNum})
 	</insert>
 	<select id="cataList" parameterType="int" resultMap="memAndCataResult">
-		select memberNum, mc.diaryCatanum, name,del from memAndCata mc, diaryCatagory dc where mc.diaryCataNum= dc.diaryCataNum and memberNum=#{memberNum} order by diaryCataNum
+		select memberNum, mc.diaryCatanum, name from memAndCata mc, diaryCatagory dc where mc.diaryCataNum= dc.diaryCataNum and memberNum=#{memberNum} order by diaryCataNum
 	</select>
 	<delete id="memAnaCataDel" parameterType="hashmap">
 		delete from memAndCata where memberNum = #{memberNum} and diaryCataNum=#{diaryCataNum}
@@ -21,4 +21,10 @@
 	<delete id="memAndCataAllDel" parameterType="int">
 		delete from memAndCata where memberNum = #{memberNum}
 	</delete>
+	<insert id="insertGita" parameterType="integer">
+		insert into memAndCata values(#{memberNum},18)
+	</insert>
+	<update id="updateMemAndCata" parameterType="hashmap">
+		update memAndCata set diaryNum= 18 where memberNum = #{memberNum} and diaryNum=#{diaryNum}
+	</update>
 </mapper>

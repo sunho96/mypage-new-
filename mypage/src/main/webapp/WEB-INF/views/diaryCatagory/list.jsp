@@ -69,16 +69,29 @@
 			</thead>
 			<tbody>
 				<c:forEach var="c" items="${cataList }" varStatus="a">
-					<input type="hidden" value="${c.diaryCataNum }" id="num_${a.index }">
+					<input type="hidden" value="${c.diaryCataNum }"
+						id="num_${a.index }">
 					<c:if test="${c.del !='y' }">
 						<tr>
-							<td id="name_${a.index }">${c.name }</td>
-							<td id="updateInput_${a.index }" class="updateId">
-							<input type="text" value=${c.name } id="input_${a.index }" style="border: none;">     
-							<a onclick="cataUpdate(${a.index})">수정하기</a>ㅣ<a onclick="reset(${a.index})">취소</a></td>
-							<td><button onclick="update(${a.index})">수정</button></td>
-							<td><button
-									onclick="location.href='del?diaryCataNum=${c.diaryCataNum}&memberNum=${memberNum }'">삭제</button></td>
+							<c:if test="${c.name!='기타' }">
+								<td id="name_${a.index }">${c.name }</td>
+								<td id="updateInput_${a.index }" class="updateId"><input
+									type="text" value=${c.name } id="input_${a.index }"
+									style="border: none;"> <a
+									onclick="cataUpdate(${a.index})">수정하기</a>ㅣ<a
+									onclick="reset(${a.index})">취소</a></td>
+
+								<td>
+									<button onclick="update(${a.index})">수정</button>
+								</td>
+								<td>
+									<button
+										onclick="location.href='del?diaryCataNum=${c.diaryCataNum}&memberNum=${memberNum }'">삭제</button>
+								</td>
+
+
+							</c:if>
+
 						</tr>
 					</c:if>
 				</c:forEach>

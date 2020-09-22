@@ -7,20 +7,15 @@
 <title>mypage</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!--resizable -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<!--draggable  -->
+<!--draggable  -->
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<!-- <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+ <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-<!-- <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
 <script type="text/javascript">
 
 $(function() {
@@ -41,44 +36,13 @@ function insertCata() {
 }
 function cataReset() {
 	$("#inputTd").hide();
-	$("#select").show();
-}
-	
+	$("#select1").show();
+}	
 	$(function() {
 		$('#sticker').hide();
 		$('#backColor').hide();
-		$('#font').hide();
-		
-		/* var file = document.querySelector('#getfile');
-		
-		file.onchange =function(){
-			
-			var fileList = file.files;
-			//읽기
-			var reader = new FileReader();
-			reader.readAsDataURL(fileList[0]);
-			//로드한 후
-			reader.onload = function() {
-			 	document.querySelector('#preview').src=reader.result; 
-				$('#content').prepend("<div class='imgDisp' style='width: 100px; height: 100px; position:absolute;'><img src="+reader.result+" width='100%' height='100%' style='padding: 0'></div>");
-				$('.imgDisp').resizable().draggable();
-				$('#morefile').prepend('<a onclick="morefile()">사진추가하기(click)</a>'); 
-				 var width=$('.imgDisp').width();
-				var heigth=$('.imgDisp').height();
-				var postion=$('.imgDisp').postion();
-				alert(width);
-				alert(heigth);
-				alert(postion.left);
-				alert(postion.top); 
-			
-			}
-		} */
+		$('#font').hide();		
 	});
-	/* function getfile() {
-		$('#sticker').hide();
-		$('#backColor').hide();
-		$('#getfile').show();
-	} */
 	function openSti1() {
 		$('#sticker').show();
 		$('#backColor').hide();
@@ -92,10 +56,6 @@ function cataReset() {
 		
 	}
 	function openTextarea1(a) {
-		if("$('.textbox').length" > 1){
-			a=a+1;
-		}
-		var textbx1 = document.getElementsByClassName("textbox");
 		$("#content")
 		.prepend(
 				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='text' placeholder='textbox'></textarea><div>");
@@ -116,16 +76,15 @@ function cataReset() {
 				var height = ui.size.height;
 				var hereDrag = this; 
 			},
-			/* resize : function(e, ui) {
+			resize : function(e, ui) {
 				//some code
-			} */
+			} 
 		});
 	}
 	function goSti(num,name) {
 		console.log("name="+name);
 		$('#content').prepend("<div class='sti' id='"+num+"' title='"+num+"' style='width:100px;height:100px; position:absolute;'><img src='${path}/images/stickerImage/"+name+"' style='padding=0;width: 100%;height: 100%'/></div>");
-		$('.sti').resizable();
-		$('.sti').draggable();
+		$('.sti').resizable().draggable();
 	}
 	function openBg1() {
 		$('#backColor').show();
@@ -136,7 +95,7 @@ function cataReset() {
 		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
-	function fontSize1(i) {
+	function fontSize1() {
 		var i = $('#fontSelect').val();
 		alert(i);
 		$('.textarea1').css("font-size", i);
@@ -231,7 +190,7 @@ function cataReset() {
 		
 		/* console.log(typeof List); */
 		$.ajax({
-			url:"diary/decorate",
+			url:"decorate",
 			dataType: "json",
 			contentType : "application/json",
 			data : JSON.stringify(allList),
@@ -239,7 +198,7 @@ function cataReset() {
 			success :function(data){
 				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="diary/insert";
+				 	location.href="insert";
 				}
 			}
 		});	
@@ -289,11 +248,17 @@ textarea:focus {
 </style>
 </head>
 <body>
+	<div id="logo" align="center"
+		style="margin-top: 10px; margin-bottom: 30px">
+		<a href="${path }/main"><span
+			style="font-family: 'Dynalight'; font-size: 50px; color: black; margin-bottom: 20">My
+				Page</span></a>
+	</div>
 	<table class="center"
 		style="margin: auto; width: 50em; text-align: center;">
 		<tr>
 		<tr>
-			<td id="select"><select name="diaryCataNum" id="cataNum"
+			<td id="select1"><select name="diaryCataNum" id="cataNum"
 				class="form-control" style="border: thin;">
 					<option disabled="disabled" selected="selected">카테고리를
 						선택하세요</option>
@@ -328,9 +293,7 @@ textarea:focus {
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
 				onclick="openText1()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
 			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openSti1()">sticker</a></span><span style="font-size: 20px">ㅣ</span>
-			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="getfile()">photo</a></span>
+				onclick="openSti1()">sticker</a></span>
 		</div>
 		<p>
 		<p>
@@ -339,10 +302,6 @@ textarea:focus {
 			<input type="color" id="bgColor">
 
 			<button onclick="goBg()" class="btn btn-outline-success">적용</button>
-		</div>
-		<div id="picture">
-			<!-- <img  id="preview" alt="이미지가 보여지는 영역" src="" width="300px" height="300px"> -->
-			<input type="file" name="name" id="getfile" accept="image/*">
 		</div>
 		<div id="font">
 			<div style="">
@@ -363,7 +322,7 @@ textarea:focus {
 					적용</button>
 			</div>
 			<div>
-				<input type="range" id="fontWeight" min="200" max="900"
+				<input type="range" id="fontWeight" min="200" max="900" style="width: 30%"
 					onchange="fntWeight()" class="form-control-range">
 			</div>
 		</div>
@@ -399,10 +358,13 @@ textarea:focus {
 	</div>
 
 	<!-- Footer -->
-	<div id="footer" style="margin: 50;" align="center">
-		<ul class="copyright" style="list-style: none">
-			<li>mypage</li>
-		</ul>
+	<div id="footer" style="margin: 500;" align="center">	
+		<div id="logo" align="center"
+		style="margin-top: 10px; margin-bottom: 30px">
+		<a href="${path }/main"><span
+			style="font-family: 'Dynalight'; font-size: 28px; color: black; margin-bottom: 20">My
+				Page</span></a>
+	</div>
 	</div>
 </body>
 </html>

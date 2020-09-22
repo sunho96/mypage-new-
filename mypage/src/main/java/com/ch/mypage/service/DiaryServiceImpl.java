@@ -85,4 +85,10 @@ public class DiaryServiceImpl implements DiaryService {
 		return dd.memberSelect(memberNum);
 	}
 
+	@Override
+	public int updateCataGita(int diaryCataNum, int gitaNum) {
+		
+		return dd.updateCataGita(diaryCataNum,gitaNum);
+	}
+
 }

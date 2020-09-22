@@ -65,4 +65,7 @@
 	<select id="memberSelect" resultType="integer">
 		select * from diary where del='y' and memberNum = #{memberNum}
 	</select>
+	<update id="updateCataGita" parameterType="hashmap">
+		update diary set diaryCataNum=#{gitaNum} where diaryCataNum=#{diaryCataNum}
+	</update>
 </mapper>

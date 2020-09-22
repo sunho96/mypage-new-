@@ -62,5 +62,16 @@ public class DiaryCataServiceImpl implements DiaryCataService {
 		return dcd.memAndCataAllDel(memberNum);
 	}
 
-	
+	@Override
+	public int updateMemAndCata(int memberNum, int diaryCataNum) {
+
+		return dcd.updateMemAndCata(memberNum,diaryCataNum);
+	}
+
+
+	@Override
+	public int selectGitaNum(String name) {
+		return dcd.selectGitaNum(name);
+	}
+
 }

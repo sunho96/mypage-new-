@@ -24,11 +24,15 @@
 	
 </script>
 <style type="text/css">
-
 </style>
 </head>
 <body>
-
+	<div id="logo" align="center"
+		style="margin-top: 10px; margin-bottom: 30px">
+		<a href="${path }/main"><span
+			style="font-family: 'Dynalight'; font-size: 50px; color: black; margin-bottom: 20">My
+				Page</span></a>
+	</div>
 	<div class="container">
 		<ul class="nav nav-tabs">
 			<li><a data-toggle="tab" href="" onclick="all()">all</a></li>

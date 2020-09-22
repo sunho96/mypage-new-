@@ -30,4 +30,5 @@ public interface DiaryDao {
 
 	List<Integer> memberSelect(int memberNum);
 
+	int updateCataGita(int diaryCataNum, int gitaNum);
 }

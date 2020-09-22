@@ -250,9 +250,8 @@ public class DiaryController {
 	public String del(int diaryNum, Model model) {
 		//ok
 		int result = 0;
-		result = os.delete(diaryNum);
-		System.out.println("opresult= " + result);
-		result = ds.del(diaryNum);
+		result = os.delete(diaryNum); //element 좌표 값 삭제
+		result = ds.del(diaryNum); //diary 삭제
 		model.addAttribute("result", result);
 		return "diary/del";
 	}

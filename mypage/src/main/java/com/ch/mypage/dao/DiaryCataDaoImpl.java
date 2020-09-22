@@ -75,6 +75,21 @@ public class DiaryCataDaoImpl implements DiaryCataDao {
 		return sst.delete("memAndCatans.memAndCataAllDel",memberNum);
 	}
 
-	
+
+	@Override
+	public int updateMemAndCata(int memberNum, int diaryCataNum) {
+		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+		hm.put("diaryCataNum", diaryCataNum);
+		hm.put("memberNum", memberNum);
+		sst.insert("memAndCatans.insertGita",memberNum);
+		return sst.update("memAndCatans.updateMemAndCata",hm);
+	}
+
+
+	@Override
+	public int selectGitaNum(String name) {
+
+		return sst.selectOne("diaryCatans.selectGitaNum",name);
+	}
 	
 }

@@ -89,4 +89,13 @@ public class DiaryDaoImpl implements DiaryDao {
 		return sst.selectList("diaryns.memberSelect",memberNum);
 	}
 
+	@Override
+	public int updateCataGita(int diaryCataNum, int gitaNum) {
+		System.out.println("diaryCataNum="+diaryCataNum);
+		System.out.println("gitaNum="+gitaNum);
+		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+		hm.put("diaryCataNum", diaryCataNum);
+		hm.put("gitaNum", gitaNum);
+		return sst.update("diaryns.updateCataGita",hm);
+	}
 }

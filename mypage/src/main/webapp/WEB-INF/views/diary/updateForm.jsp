@@ -402,7 +402,8 @@ textarea:focus {
 		</div>
 	</div>
 	
-	<div style="margin: 30" align="right">
+	<div style="margin-right: 100px" align="right">
+		<a href="${path }/diary/view?diaryNum=${diary.diaryNum}">수정취소</a>ㅣ
 		<a href="${path}/main#diaryList">다이어리리스트 가기</a> ㅣ <a
 			href="delete?diaryNum=${diary.diaryNum}">삭제하기</a>
 	</div>

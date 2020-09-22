@@ -30,4 +30,6 @@ public interface DiaryService {
 
 	List<Integer> memberSelect(int memberNum);
 
+	int updateCataGita(int diaryCataNum, int gitaNum);
+
 }
