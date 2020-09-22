@@ -13,7 +13,7 @@
 <!--draggable  -->
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
- <script
+<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -58,7 +58,7 @@ function cataReset() {
 	}
 	function openTextarea1() {
 		num++;
-		var t1 = "<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='"+num+"' placeholder='textbox'></textarea><div>";
+		var t1 = "<div class='textbox' style='width: 100px; height: 100px; position:absolute; '><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='"+num+"' placeholder='textbox'></textarea><div>";
 		$("#content").prepend(t1);
 			$('.textbox').draggable({
 				snap : true,
@@ -165,11 +165,11 @@ function cataReset() {
 			var fontSize =  $(this).css('font-size');
 			var fontColor =  $(this).css('color');
 			var fonWeight =  $(this).css('font-weight');
-		 	alert(content);
+		 /* 	alert(content);
 			alert(width);
 			alert(height); 	
 			alert(x);
-			alert(y); 
+			alert(y);  */
 /* 			alert(fontSize);
 			alert(fontColor);
 			alert(fonWeight); */
@@ -186,7 +186,6 @@ function cataReset() {
 			}
 			allList.push(textLocation);
 		});
-   
 		
 		/* console.log(typeof List); */
 		$.ajax({
@@ -197,7 +196,8 @@ function cataReset() {
 			type:"POST",
 			success :function(data){
 				 	alert("다이어리 입력 성공");
-				 	screenShot($('#content'),data);
+				 	/* screenShot($('#content'),data); */
+				 	location.href="${path}/main#diaryList"
 				}
 		});	
 	}
@@ -210,10 +210,8 @@ function cataReset() {
 		console.log(typeof(target));
 		console.log(typeof(diaryNum));
 		console.log("screen 메소드 실행");
-
 		if (target != null && target.length > 0) {
 			console.log("if문 실행");
-
 			var t = target[0];
 			console.log("t : " + t);
 			html2canvas(t).then(function(canvas) {
@@ -239,7 +237,7 @@ function cataReset() {
 				});
 			});
 		}
-	}	
+		}
 </script>
 <style type="text/css">
 a:link {
@@ -287,117 +285,117 @@ textarea:focus {
 			style="font-family: 'Dynalight'; font-size: 50px; color: black; margin-bottom: 20">My
 				Page</span></a>
 	</div>
-	<table class="center"
-		style="margin: auto; width: 50em; text-align: center;">
-		<tr>
-		<tr>
-			<td id="select1"><select name="diaryCataNum" id="cataNum"
-				class="form-control" style="border: thin;">
-					<option disabled="disabled" selected="selected">카테고리를
-						선택하세요</option>
-					<c:forEach var="c" items="${cataList }">
-						<c:if test="${c.del !='y' }">
-							<option value="${c.diaryCataNum }">${c.name }</option>
-						</c:if>
-					</c:forEach>
-					<option value="makeCata">카테고리 만들기</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td id="inputTd"><input type="text" name="name" id="newCata"
-				class="form-control" aria-label="Recipient's username"
-				aria-describedby="basic-addon2" placeholder="create your catagory"
-				autofocus="autofocus"> <input type="button"
-				onclick="insertCata()" class="btn btn-outline-secondary" value="등록">
-				<input type="button" onclick="cataReset()"
-				class="btn btn-outline-secondary" value="취소"></td>
-		</tr>
-		<tr>
-			<td><input class="form-control"
-				aria-label="Recipient's username" aria-describedby="basic-addon2"
-				autofocus="autofocus" name="subject" id="subject"
-				style="border: thin;" placeholder="제목을 압력하세요"></td>
-		</tr>
-	</table>
-	<div class="container" align="center" style="margin-top: 30">
-		<div>
-			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openBg1()">background</a></span><span style="font-size: 20px">ㅣ</span>
-			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openText1()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
-			<span style="font-family: 'Lilly'; font-size: 20px"> <a
-				onclick="openSti1()">sticker</a></span>
-		</div>
-		<p>
-		<p>
-		<p>
-		<div id="backColor">
-			<input type="color" id="bgColor">
-
-			<button onclick="goBg()" class="btn btn-outline-success">적용</button>
-		</div>
-		<div id="font">
-			<div style="">
-				<c:set var="a" value="1" />
-				<button onclick="openTextarea1(${a})"
-					class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
-				<select id="fontSelect" onchange="fontSize1()" style="width: 30%"
-					class="form-control">
-					<option selected="selected" disabled="disabled">font size</option>
-					<c:forEach var="i" begin="10" end="80">
-						<option value="${i }">${i }</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div>
-				<input type="color" id="fontColor">
-				<button onclick="fnt()" class="btn btn-outline-success">색깔
-					적용</button>
-			</div>
-			<div>
-				<input type="range" id="fontWeight" min="200" max="900" style="width: 30%"
-					onchange="fntWeight()" class="form-control-range">
-			</div>
-		</div>
-		<div id="sticker">
-			<ul class="nav nav-pills">
-				<c:forEach items="${stickerGName}" var="g">
-					<li><a data-toggle="pill" href="#${g.groupName }">${g.groupName}</a></li>
-				</c:forEach>
-			</ul>
-			<div class="tab-content">
-				<c:forEach items="${stickerGName}" var="g">
-					<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
-						<c:forEach items="${stickerList }" var="s">
-							<c:if test="${g.groupName==s.groupName }">
-								<a onclick="goSti(${s.stickerNum },'${s.name}')"><img
-									src="${path }/images/stickerImage/${s.name}" width="100px"
-									height="100px"></a>
+	<div id="mainContainer" align="center">
+		<table class="center"
+			style="margin: auto; width: 50em; text-align: center;">
+			<tr>
+			<tr>
+				<td id="select1"><select name="diaryCataNum" id="cataNum"
+					class="form-control" style="border: thin;">
+						<option disabled="disabled" selected="selected">카테고리를
+							선택하세요</option>
+						<c:forEach var="c" items="${cataList }">
+							<c:if test="${c.del !='y' }">
+								<option value="${c.diaryCataNum }">${c.name }</option>
 							</c:if>
 						</c:forEach>
-					</div>
-				</c:forEach>
+						<option value="makeCata">카테고리 만들기</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td id="inputTd"><input type="text" name="name" id="newCata"
+					class="form-control" aria-label="Recipient's username"
+					aria-describedby="basic-addon2" placeholder="create your catagory"
+					autofocus="autofocus"> <input type="button"
+					onclick="insertCata()" class="btn btn-outline-secondary" value="등록">
+					<input type="button" onclick="cataReset()"
+					class="btn btn-outline-secondary" value="취소"></td>
+			</tr>
+			<tr>
+				<td><input class="form-control"
+					aria-label="Recipient's username" aria-describedby="basic-addon2"
+					autofocus="autofocus" name="subject" id="subject"
+					style="border: thin;" placeholder="제목을 압력하세요"></td>
+			</tr>
+		</table>
+		<div class="container" align="center"
+			style="margin-top: 30; width: 40em; height: 50em;">
+			<div>
+				<span style="font-family: 'Lilly'; font-size: 20px"> <a
+					onclick="openBg1()">background</a></span><span style="font-size: 20px">ㅣ</span>
+				<span style="font-family: 'Lilly'; font-size: 20px"> <a
+					onclick="openText1()">textbox</a></span> <span style="font-size: 20px">ㅣ</span>
+				<span style="font-family: 'Lilly'; font-size: 20px"> <a
+					onclick="openSti1()">sticker</a></span>
+			</div>
+			<p>
+			<p>
+			<p>
+			<div id="backColor">
+				<input type="color" id="bgColor">
+
+				<button onclick="goBg()" class="btn btn-outline-success">적용</button>
+			</div>
+			<div id="font">
+				<div style="">
+					<c:set var="a" value="1" />
+					<button onclick="openTextarea1(${a})"
+						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
+					<select id="fontSelect" onchange="fontSize1()" style="width: 30%"
+						class="form-control">
+						<option selected="selected" disabled="disabled">font size</option>
+						<c:forEach var="i" begin="10" end="80">
+							<option value="${i }">${i }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div>
+					<input type="color" id="fontColor">
+					<button onclick="fnt()" class="btn btn-outline-success">색깔
+						적용</button>
+				</div>
+				<div>
+					<input type="range" id="fontWeight" min="200" max="900"
+						style="width: 30%" onchange="fntWeight()"
+						class="form-control-range">
+				</div>
+			</div>
+			<div id="sticker">
+				<ul class="nav nav-pills">
+					<c:forEach items="${stickerGName}" var="g">
+						<li><a data-toggle="pill" href="#${g.groupName }">${g.groupName}</a></li>
+					</c:forEach>
+				</ul>
+				<div class="tab-content">
+					<c:forEach items="${stickerGName}" var="g">
+						<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
+							<c:forEach items="${stickerList }" var="s">
+								<c:if test="${g.groupName==s.groupName }">
+									<a onclick="goSti(${s.stickerNum },'${s.name}')"><img
+										src="${path }/images/stickerImage/${s.name}" width="100px"
+										height="100px"></a>
+								</c:if>
+							</c:forEach>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<div id="content"></div>
+			<div style="margin: 30" align="center">
+				<button type="button" class="btn btn-outline-success"
+					onclick="insert()">저장</button>
+				<button type="button" class="btn btn-outline-success"
+					onclick="reset()">초기화</button>
 			</div>
 		</div>
 	</div>
-	<div class="container" align="center" style="margin-top: 20px">
-		<div id="content"></div>
-		<div style="margin: 30" align="center">
-			<button type="button" class="btn btn-outline-success"
-				onclick="insert()">저장</button>
-			<button type="button" class="btn btn-outline-success"
-				onclick="reset()">초기화</button>
-		</div>
-	</div>
-
-	<!-- Footer -->
-	<div id="footer" style="margin: 500;" align="center">	
+	<div id="footer" style="margin: 500;" align="center">
 		<div id="logo" align="center"
-		style="margin-top: 10px; margin-bottom: 30px">
-		<a href="${path }/main"><span
-			style="font-family: 'Dynalight'; font-size: 28px; color: black; margin-bottom: 20">My
-				Page</span></a>
-	</div>
+			style="margin-top: 10px; margin-bottom: 30px">
+			<a href="${path }/main"><span
+				style="font-family: 'Dynalight'; font-size: 28px; color: black; margin-bottom: 20">My
+					Page</span></a>
+		</div>
 	</div>
 </body>
 </html>

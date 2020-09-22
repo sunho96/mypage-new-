@@ -66,12 +66,13 @@ public class DiaryCataController {
 		int gitaNum = dcs.selectGitaNum(name); //기타 번호 추출
 		MemAndCata mc = dcs.selectMemAndCata(gitaNum, memberNum); //기타가지고 있는지 확인
 		if(mc == null) {
+			System.out.println("1");
 			result = dcs.updateMemAndCata(memberNum,gitaNum); //카테고리 삭제하기 전 기타 카테고리 만들어주기
 			System.out.println("updateMemandcat result="+result);
 			result = ds.updateCataGita(diaryCataNum,gitaNum); //삭제된 다이어리 카테고리 기타로 변경
 			System.out.println("updateCataGita result1="+result);
-			result = dcs.cataDel(diaryCataNum, memberNum);
 		}else {
+			System.out.println("2");
 			result = ds.updateCataGita(diaryCataNum,gitaNum); //삭제된 다이어리 카테고리 기타로 변경
 			result = dcs.memAnaCataDel(diaryCataNum, memberNum);
 		}	

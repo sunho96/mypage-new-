@@ -16,6 +16,7 @@
 <!--draggable  -->
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <!--resizable -->
 <script type="text/javascript">
 $(function() {
@@ -218,7 +219,8 @@ function cataReset() {
 			success :function(data){
 				if(data=='1'){
 				 	alert("다이어리 수정 성공");
-				 	location.href="${path}/diary/view?diaryNum=${diary.diaryNum}";
+				 	/* screenShot($('#content'),"${diary.diaryNum}"); */
+					location.href="${path}/diary/view?diaryNum=${diary.diaryNum}";
 				}
 			}
 		});	
@@ -227,6 +229,39 @@ function cataReset() {
 		$('.sti').remove();
 		$('.textbox').remove();
 	}
+	function screenShot(target,diaryNum) {
+		alert("screenShot함수 들어옴");
+		console.log(typeof(target));
+		console.log(typeof(diaryNum));
+		console.log("screen 메소드 실행");
+		if (target != null && target.length > 0) {
+			console.log("if문 실행");
+			var t = target[0];
+			console.log("t : " + t);
+			html2canvas(t).then(function(canvas) {
+				var myImg = canvas.toDataURL("image/png");
+				myImg = myImg.replace("data:image/png;base64,", "");
+				console.log("myImg : " + myImg);
+				$.ajax({
+					type : "POST",
+					data : {
+						"imgSrc" : myImg,
+						"diaryNum" : diaryNum
+					},
+					dataType : "text",
+					url : "${path}/community/ImgSave",
+					success : function(data) {
+						console.log(data);
+						alert("공유 성공");
+						location.href="${path}/main#community";
+					},
+					error : function(a, b, c) {
+						alert("error");
+					}
+				});
+			});
+		}
+		}
 </script>
 <style type="text/css">
 a:link {
@@ -323,19 +358,21 @@ textarea:focus {
 			<p>
 			<p>
 			<div id="backColor">
-				<input type="color" class="bgInput" id="bgColor" value="${diary.bgColor }" >
-	
+				<input type="color" class="bgInput" id="bgColor"
+					value="${diary.bgColor }">
+
 				<button class="bgInput" onclick="bg()"
 					class="btn btn-outline-success">적용</button>
 			</div>
-			<div id="font" >
+			<div id="font">
 				<div>
-				<c:set var="a" value="1" />
+					<c:set var="a" value="1" />
 					<button onclick="openTextarea1(${a})"
 						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
-					<select id="fontSize" onchange="fontSize1()"
-						class="form-control" style="width: 30%">
-						<option selected="selected" disabled="disabled" >font size</option>
+					<select id="fontSize" onchange="fontSize1()" class="form-control"
+						style="width: 30%">
+						<option selected="selected" disabled="disabled">font
+							size</option>
 						<c:forEach var="i" begin="10" end="80">
 							<option value="${i }">${i }</option>
 						</c:forEach>
@@ -345,7 +382,7 @@ textarea:focus {
 					<input type="color" id="fontColor">
 					<button onclick="fnt()" class="btn btn-outline-success">적용</button>
 				</div>
-				<div style="width: 20%">
+				<div style="width: 30%">
 					<input type="range" id="fontWeight" min="200" max="900"
 						onchange="fntWeight()" class="form-control-range">
 				</div>
@@ -361,7 +398,7 @@ textarea:focus {
 						<div id="${g.groupName }" class="tab-pane fade" style="margin: 20">
 							<c:forEach items="${stickerList }" var="s">
 								<c:if test="${g.groupName==s.groupName }">
-									<a onclick="goSti(${s.stickerNum },'${s.name}')"><img 
+									<a onclick="goSti(${s.stickerNum },'${s.name}')"><img
 										src="${path }/images/stickerImage/${s.name}" width="100px"
 										height="100px"></a>
 								</c:if>
@@ -374,7 +411,7 @@ textarea:focus {
 				<c:forEach items="${opList }" var="op">
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
-							<div class="sti" id="${s.stickerNum}" 
+							<div class="sti" id="${s.stickerNum}"
 								style="height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute;">
 								<img alt="" src="${path }/images/stickerImage/${s.name}"
 									style="width: 100%; height: 100%; padding: 0">
@@ -385,7 +422,7 @@ textarea:focus {
 						<c:if test="${op.textboxNum==t.textboxNum }">
 							<div class="textbox"
 								style="height: ${op.height}px; width: ${op.width}px; left:${op.x}px; top:${op.y}px; position:absolute; ">
-								<textarea 
+								<textarea
 									style='width:100%; height:100%;padding:0; border: none; font-size:${t.fntSize } ;font-weight:${t.fntWeight } ; color:${t.fntColor } ;'
 									class='text'>${t.content }</textarea>
 							</div>
@@ -394,18 +431,21 @@ textarea:focus {
 				</c:forEach>
 			</div>
 			<div style="margin-top: 200" align="center">
-		<button type="button" class="btn btn-outline-success"
-			onclick="update(${diary.diaryNum})">저장</button>
-		<button type="button" class="btn btn-outline-success"
-			onclick="reset()">초기화</button>
-	</div>
+				<button type="button" class="btn btn-outline-success"
+					onclick="update(${diary.diaryNum})">저장</button>
+				<button type="button" class="btn btn-outline-success"
+					onclick="reset()">초기화</button>
+				<div>
+					<div style="margin-right: 100px" align="right">
+						<a href="${path }/diary/view?diaryNum=${diary.diaryNum}">수정취소</a>ㅣ
+						<a href="${path}/main#diaryList">다이어리리스트 가기</a> ㅣ <a
+							href="delete?diaryNum=${diary.diaryNum}">삭제하기</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	
-	<div style="margin-right: 100px" align="right">
-		<a href="${path }/diary/view?diaryNum=${diary.diaryNum}">수정취소</a>ㅣ
-		<a href="${path}/main#diaryList">다이어리리스트 가기</a> ㅣ <a
-			href="delete?diaryNum=${diary.diaryNum}">삭제하기</a>
-	</div>
+
+
 </body>
 </html>

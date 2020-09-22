@@ -100,7 +100,7 @@ a:hover {
 				<button id="save" class="btn btn-outline-success">공유하기</button>
 			</div>
 			<div id="content"
-				style="background-color: ${diary.bgColor}; position: relative; overflow: hidden; width: 40em; height: 50em;">
+				style="background-color: ${diary.bgColor};">
 				<c:forEach items="${opList }" var="op">
 					<c:forEach items="${opStickerList }" var="s">
 						<c:if test="${op.stickerNum==s.stickerNum }">
