@@ -37,7 +37,8 @@
 			<div class="col-sm-4" id="div_${com.communityNum }">
 				<div class="thumbnail" >
 					<!-- contents -->
-					<img alt="" src="/mypage/images/diary/contents/diaryContent${com.diary.diaryNum }.png">
+					<img alt="" src="/mypage/images/diary/contents/diaryContent${com.diary.diaryNum }.png"
+						onerror="this.src='/mypage/resources/community/images/temp4.jpg'">
 					<!-- 하단 -->
 					<div class="caption" align="center">
 						작성자 : ${com.nickName}

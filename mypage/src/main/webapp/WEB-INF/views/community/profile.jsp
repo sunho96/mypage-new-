@@ -12,7 +12,7 @@
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
-	div .thumbnail{
+	div . {
 		margin-bottom: 40px;
 
 	}
@@ -30,6 +30,7 @@
  		max-width: 100%;
   		height: auto;
 	}
+	
 	
 </style>
 <script type="text/javascript">
@@ -53,28 +54,30 @@
 		$("#showFollower").load("/mypage/community/showFollower?target=${member.memberNum}");
 	}
 	function showFollowing() {
-		console.log("팔로잉 클릭 memberNum : ${member.memberNum}");
 		$("#showFollowing").load("/mypage/community/showFollowing?memberNum=${member.memberNum}");
 	}
 	
 	//팔로우버튼
 	function follow(target) {
+			console.log("profile follow() 되니");
 		$.post("/mypage/community/follow","target="+target,function(result){
 			if(result == 1){
+				console.log("팔로잉 취소");
 				$(".followBtn").html('<button class="btn btn-default btn-xs" onclick="follow('+target+')">팔로잉취소</button>');
 			}else if (result== -1){
+				console.log("팔로우");
 				$(".followBtn").html('<button class="btn btn-info btn-xs" onclick="follow('+target+')">팔로우</button>');
 			}else{
 				alert("follow() 실패");
 			}
+			console.log("profile follow post 되니");
 		});
 	}	
 </script>
 </head>
 <body style="background: #F6F6F6;">
-	<%@ include file="communityNav.jsp" %>
 	
-	<div class="container-fluid ">
+	<div class="container-fluid " style="width: 1000px;">
 		<header>
 			<div class="row">
 				<div class="col-sm-4"><img src="/mypage/images/icons/profile.jpg" class="img-circle" alt="" /></div>
@@ -93,8 +96,6 @@
 					
 					<br>
 					<h4>	<span>게시물 ${sharedCount}</span>   
-					<button type="button" data-toggle="modal" data-target="#showFollower">팔로워 ${followerCount }</button>  
-					<button type="button" data-toggle="modal" data-target="#showFollowing">팔로잉 ${followingCount }</button>
 					<span data-toggle="modal" data-target="#showFollower" onclick="showFollower()">팔로워 ${followerCount }</span>  
 					<span data-toggle="modal" data-target="#showFollowing" onclick="showFollowing()">팔로잉 ${followingCount }</span></h4>
 					
@@ -126,26 +127,12 @@
 	
 	
 	<!-- Following List -->
-  <div class="modal fade" id="showFollowing" role="dialog">
+  <div class="modal fade " id="showFollowing" role="dialog">
       
   </div>
 <!-- Follower List -->
-  <div class="modal fade" id="showFollower" role="dialog">
-    <div class="modal-dialog">
+  <div class="modal fade " id="showFollower" role="dialog">
     
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          	test팔로워
-        </div>
-        
-      </div>
-      
-    </div>
   </div>
 
 </body>

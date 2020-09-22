@@ -39,7 +39,7 @@
 	
 	//댓글 엔터로 버튼사용
 	function commentKeyUp(communityNum){ 
-		if($("#comment_"+communityNum).val().length>0){
+		if($(".comment_"+communityNum).val().length>0){
 			$("#writeBtn_"+communityNum).removeAttr("disabled");
 			if(event.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
 				//writeComment function 실행
@@ -54,7 +54,7 @@
 
 	//댓글쓰기
 	function writeComment(communityNum) {
-		text = $("#comment_"+communityNum).val();
+		text = $(".comment_"+communityNum).val();
 		
 		$.post("/mypage/writeComment","communityNum=" + communityNum + "&content=" + text,function(value){
 			//댓글추가
@@ -74,11 +74,11 @@
 				$(' <a href="javascript:commentViewAll('+communityNum+')">댓글 모두보기 </a>').appendTo("#bottom-cnt-"+communityNum);
 			}
 			
-			$("#comment_"+communityNum).val('');
+			$(".comment_"+communityNum).val('');
 		});
 		
 		$("#writeBtn_"+communityNum).attr("disabled","disabled");
-		$("#comment_"+communityNum).blur();
+		$(".comment_"+communityNum).blur();
 	}
 	
 	
@@ -96,7 +96,7 @@
 	
 	//댓글쓰기 버튼
 	function focusComment(communityNum) {
-		$("#comment_"+communityNum).focus();
+		$(".comment_"+communityNum).focus();
 	}
 	//팔로우버튼
 	function follow(target) {
@@ -120,7 +120,7 @@
 			<div class="thumbnail" >
 				<div class="top caption " >
 					<img alt="" src="/mypage/images/icons/profile-48px.png" >
-					<a href="communityProfile?memberNum=${com.diary.memberNum}" style="margin-right: 30px;"><b style="font-size: 20px;">${com.nickName }</b></a>
+					<a href="javascript:coummunityChange('communityProfile?memberNum=${com.diary.memberNum}')" style="margin-right: 30px;"><b style="font-size: 20px;">${com.nickName }</b></a>
 					<span class="followBtn_${com.diary.memberNum }">
 						<c:if test="${com.diary.memberNum != memberNum }">
 							<c:if test="${com.diary.memberNum == followingList[i.index].target }">
@@ -134,7 +134,8 @@
 				</div>
 				
 				<!-- contents -->
-				<img alt="" src="/mypage/images/diary/contents/diaryContent${com.diary.diaryNum }.png">
+				<img alt="" src="/mypage/images/diary/contents/diaryContent${com.diary.diaryNum }.png"
+					onerror="this.src='/mypage/resources/community/images/temp4.jpg'">
 				<div class="middle caption " >
 				</div>
 				
@@ -155,10 +156,10 @@
 					<div id="testComment_${com.communityNum }">
 						<c:forEach items="${com.commentsList }" var="commentsList"  varStatus="i">
 							<c:if test="${i.index <=3 }">
-								<div><a href="communityProfile?memberNum=${commentsList.memberNum}"><b>${commentsList.nickName}</b></a> ${commentsList.content }</div>
+								<div><a href="javascript:coummunityChange('communityProfile?memberNum=${commentsList.memberNum}')"><b>${commentsList.nickName}</b></a> ${commentsList.content }</div>
 							</c:if>
 							<c:if test="${i.index >3 }">
-								<div style="display: none;"><a href="communityProfile?memberNum=${commentsList.memberNum}"><b>${commentsList.nickName}</b></a> ${commentsList.content }</div>
+								<div style="display: none;"><a href="javascript:coummunityChange('communityProfile?memberNum=${commentsList.memberNum}')"><b>${commentsList.nickName}</b></a> ${commentsList.content }</div>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -166,7 +167,7 @@
 					<div class="write-comment"  >
 						<div class="col">
 							<div class="input-group">
-								<input class="form-control input-lg" type="text" id="comment_${com.communityNum}" onkeyup="commentKeyUp(${com.communityNum})" > 
+								<input class="form-control input-lg comment_${com.communityNum}" type="text" onkeyup="commentKeyUp(${com.communityNum})" > 
 								<span class="input-group-btn">
 									<button class="btn btn-default btn-lg" onclick="writeComment(${com.communityNum})" id="writeBtn_${com.communityNum}" disabled="disabled">게시</button>
 								</span>

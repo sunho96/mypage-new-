@@ -54,10 +54,16 @@ public class CommunityDaoImpl implements CommunityDao {
 		return sst.selectList("communityns.myLikeyListDefault",memberNum);
 	}
 	@Override
+	public int insertCommunity(int diaryNum) {
+		// TODO Auto-generated method stub
+		return sst.insert("communityns.insertCommunity",diaryNum);
+	}
+	@Override
 	public int deleteCommunity(int communityNum) {
 		// TODO Auto-generated method stub
 		return sst.delete("communityns.deleteCommunity", communityNum);
 	}
+	
 	
 	
 	
@@ -196,6 +202,7 @@ public class CommunityDaoImpl implements CommunityDao {
 		map.put("targetList", targetList);
 		return sst.selectList("followns.isFollowingList",map);
 	}
+	
 	
 	
 	

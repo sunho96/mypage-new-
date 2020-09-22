@@ -1,6 +1,7 @@
 package com.ch.mypage.controller;
 
 import java.io.Console;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -249,7 +250,7 @@ public class CommunityController {
 			cs.deleteFollow(memberNum,target);
 			result = -1;
 		}
-		
+		System.out.println("컨트롤러 follow result : " + result);
 		return result;
 		
 	}
@@ -257,21 +258,32 @@ public class CommunityController {
 	public String showFollowing(int memberNum, Model model,HttpSession session){
 		int sessionMemberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		Collection<Follow> followingList = cs.followingList(memberNum);
-		Collection<Follow> isFollowingList = cs.isFollowingList(sessionMemberNum,followingList);
+		Collection<Follow> isFollowingList = new ArrayList<Follow>();
 		
-		System.out.println("followingList : " + followingList);
-		System.out.println("isFollowingList : " + isFollowingList);
+		for (Follow follow : followingList) {
+			isFollowingList.add(cs.selectFollow(sessionMemberNum, follow.getTarget()));
+		}
+		
 		model.addAttribute("followingList", followingList);
 		model.addAttribute("isFollowingList", isFollowingList);
 		return "community/followingList";
 	}
+
 	@RequestMapping("community/showFollower")
-	public String showFollower(int memberNum,Model model){
-		System.out.println("memberNum : " + memberNum);
-		Collection<Follow> followerList = cs.followerList(memberNum);
+	public String showFollower(int target,Model model,HttpSession session){
+		int sessionMemberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
 		
-		model.addAttribute("followingList", followerList);
-		return "community/showFollower";
+		Collection<Follow> followerList = cs.followerList(target);
+		Collection<Follow> isFollowerList = new ArrayList<Follow>();
+		
+		for (Follow follow : followerList) {
+			isFollowerList.add(cs.selectFollow(follow.getMemberNum(),sessionMemberNum));
+		}
+		System.out.println("followerList : " + followerList);
+		System.out.println("isFollowerList : " + isFollowerList);
+		model.addAttribute("followerList", followerList);
+		model.addAttribute("isFollowerList", isFollowerList);
+		return "community/followerList";
 	}
 	
 
@@ -296,7 +308,24 @@ public class CommunityController {
 			//String fileName=  UUID.randomUUID().toString();	//유일한 이름 생성 후 저장
 			String fileName=  "diaryContent"+diaryNum;
 			String path = request.getSession().getServletContext().getRealPath("images/diary/contents/");
+
+			//디렉토리 생성
+			File Folder = new File(path);
+
+			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+			if (!Folder.exists()) {
+				try{
+				    Folder.mkdir(); //폴더 생성합니다.
+				    System.out.println("폴더가 생성되었습니다.");
+			        } 
+			        catch(Exception e){
+				    e.getStackTrace();
+				}        
+		         }else {
+				System.out.println("이미 폴더가 생성되어 있습니다.");
+			}
 			
+			//png로 저장
 			stream = new FileOutputStream(path+fileName+".png");
 			stream.write(file);
 			stream.close();
@@ -309,6 +338,14 @@ public class CommunityController {
 			if(stream != null) {
 				stream.close();
 			}
+		}
+		
+		//커뮤니티 입력
+		int result= cs.insertCommunity(diaryNum);
+		if(result>0) {
+			map.addAttribute("result", "커뮤니이 입력 성공");
+		}else {
+			map.addAttribute("result", "커뮤니티 입력 실패");
 		}
 		
 		map.addAttribute("resultMap", "");

@@ -169,6 +169,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return cd.isFollowingList(memberNum,targetList);
 	}
 
+	@Override
+	public int insertCommunity(int diaryNum) {
+		// TODO Auto-generated method stub
+		return cd.insertCommunity(diaryNum);
+	}
+
 
 	
 

@@ -11,35 +11,53 @@
 	$(function() {
 		console.log("followingList 실행");
 	});
+	
+	//팔로우버튼
+	function follow(target) {
+		$.post("/mypage/community/follow","target="+target,function(result){
+			if(result == 1){
+				$(".followBtn_"+target).html('<button class="btn btn-default " onclick="follow('+target+')">팔로잉취소</button>');
+			}else if (result== -1){
+				$(".followBtn_"+target).html('<button class="btn btn-info " onclick="follow('+target+')">팔로우</button>');
+			}else{
+				alert("follow() 실패");
+			}
+		});
+	}	
 </script>
 </head>
 <body>
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-sm">
     
 	      <!-- Following List-->
 	      <div class="modal-content">
 		        <div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
-			          <h4 class="modal-title">Modal Header</h4>
+			          <h4 class="modal-title">팔로잉</h4>
 		        </div>
-		        <div class="modal-body" >
-		          	<c:forEach items="${followingList }" var="f" varStatus="i">
-		          		<div id="div_${f.target }" style="height: 40px; ">
-		          			<a href="communityProfile?memberNum=${f.memberNum}"><b>${f.nickName }</b></a> 
-		          			f.target : 	${f.target }, memberNum : ${memberNum }
-		          			<span class="followBtn_${member.memberNum }" style="float: right;">
-								<c:if test="${f.target != memberNum }">
-									<c:if test="${f.target }">
-										<button class="btn btn-default btn-xs" onclick="follow(${member.memberNum})">팔로잉취소</button>
+		        <table class="table table-striped">
+		        	<tbody>
+		        		<c:forEach items="${followingList }" var="f" varStatus="i">
+		        			<tr>
+				        		<td>
+				        			<a href="javascript:coummunityChange('communityProfile?memberNum=${f.target}')"><b style="font-size: medium;">${f.nickName }</b></a>
+				        		</td>
+				        		<td class="followBtn_${f.target}" >
+					        		<c:if test="${f.target != memberNum }">
+										<c:if test="${f.target == isFollowingList[i.index].target }">
+											<button class="btn btn-default " onclick="follow(${f.target})">팔로잉취소</button>
+										</c:if>
+										<c:if test="${empty isFollowingList[i.index] }">
+											<button class="btn btn-info " onclick="follow(${f.target})">팔로우</button>
+										</c:if>
 									</c:if>
-									<c:if test="${empty isFollowing }">
-										<button class="btn btn-info btn-xs" onclick="follow(${member.memberNum})">팔로우</button>
-									</c:if>
-								</c:if>
-							</span>
-		          		</div>
+				        		</td>
+		        			</tr>
+		        		
 		          	</c:forEach>
-		        </div>
+		        	</tbody>
+		        </table>
+		        
 	       
 	      </div>
       </div>

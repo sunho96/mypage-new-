@@ -52,18 +52,18 @@
 	var startNum =1;
 	var endCommunityChk = false;
 	$(function() {
-		$(".homeCommunityContainer").load("/mypage/community/contentList?startNum="+startNum );
+		$(".homeCommunityContainerLoad").load("/mypage/community/contentList?startNum="+startNum );
 		startNum +=5;
 		
 		$(window).scroll(function() {
-			var scrollHeight = $(window).scrollTop() + $(window).height();	//갑자기 window.height() 값이 이상해짐 ...너무큼
+			var scrollHeight = $(window).scrollTop() + $(window).height();	
 			var documentHeight = $(document).height() ;
 			
 			console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",  $(window).height() : " +  $(window).height());
 			console.log("scrollHeight : " +scrollHeight + ", documentHeight : " + documentHeight);
 			//스크롤의 높이와 문서의 높이가 같고 community에 데이터가 남아있을때
 			if (scrollHeight >= documentHeight && endCommunityChk==false) {
-				$('<div class="homeCommunityContainer"></div>').appendTo(".container").load("/mypage/community/contentList?startNum="+startNum);
+				$('<div class="homeCommunityContainerLoad"></div>').appendTo(".homeCommunityContainer").load("/mypage/community/contentList?startNum="+startNum);
 				startNum +=5;
 			}
 		});
@@ -72,10 +72,10 @@
 </script>
 </head>
 <body>
-<%@ include file="communityNav.jsp" %>
 <div class=" container" >
 	<div class="homeCommunityContainer">
-	
+		<div class="homeCommunityContainerLoad">
+		</div>
 	</div>
 
 </div>

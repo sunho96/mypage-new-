@@ -82,6 +82,13 @@
 		where comm.communityNum=cl.communityNum(+)
 			and comm.memberNum=m.memberNum 
 	</select>
+	
+	<insert id="insertCommunity" parameterType="int">
+		<selectKey keyProperty="communityNum" order="BEFORE" resultType="int">
+			select nvl(max(communityNum),0)+1 from community
+		</selectKey>
+		insert into community values (#{communityNum},sysdate,#{diaryNum})
+	</insert>
 	<delete id="deleteCommunity" parameterType="int">
 		delete from community 
 		where communityNum = #{communityNum}

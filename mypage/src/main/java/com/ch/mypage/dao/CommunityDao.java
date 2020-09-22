@@ -59,6 +59,8 @@ public interface CommunityDao {
 
 	Collection<Follow> isFollowingList(int memberNum, Collection<Follow> targetList);
 
+	int insertCommunity(int diaryNum);
+
 
 	
 }
