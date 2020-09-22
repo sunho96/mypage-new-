@@ -292,6 +292,7 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping(value ="community/ImgSave", method = RequestMethod.POST)
 	public ModelMap ImgSaveTest(@RequestParam HashMap<Object, Object> param, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+		System.out.println("imgSave 들어옴.");
 		ModelMap map = new ModelMap();
 		String binaryData = request.getParameter("imgSrc");
 		int diaryNum = Integer.parseInt(request.getParameter("diaryNum"));

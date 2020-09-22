@@ -16,8 +16,9 @@
  <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script type="text/javascript">
-
+var num = 0;
 $(function() {
 	$('#inputTd').hide();
 
@@ -55,10 +56,10 @@ function cataReset() {
 		$('#backColor').hide();
 		
 	}
-	function openTextarea1(a) {
-		$("#content")
-		.prepend(
-				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='text' placeholder='textbox'></textarea><div>");
+	function openTextarea1() {
+		num++;
+		var t1 = "<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='"+num+"' placeholder='textbox'></textarea><div>";
+		$("#content").prepend(t1);
 			$('.textbox').draggable({
 				snap : true,
 				cursor : "move",
@@ -96,7 +97,6 @@ function cataReset() {
 	}
 	function fontSize1() {
 		var i = $('#fontSelect').val();
-		alert(i);
 		$('.textarea1').css("font-size", i+'px');
 	}
 	function fnt() {
@@ -170,7 +170,6 @@ function cataReset() {
 			alert(height); 	
 			alert(x);
 			alert(y); 
-		
 /* 			alert(fontSize);
 			alert(fontColor);
 			alert(fonWeight); */
@@ -197,17 +196,50 @@ function cataReset() {
 			data : JSON.stringify(allList),
 			type:"POST",
 			success :function(data){
-				if(data=='1'){
 				 	alert("다이어리 입력 성공");
-				 	location.href="insert";
+				 	screenShot($('#content'),data);
 				}
-			}
 		});	
 	}
 	function reset() {
 		$('.sti').remove();
 		$('.textbox').remove();
 	}
+	function screenShot(target,data) {
+		alert("screenShot함수 들어옴");
+		console.log(typeof(target));
+		console.log(typeof(diaryNum));
+		console.log("screen 메소드 실행");
+
+		if (target != null && target.length > 0) {
+			console.log("if문 실행");
+
+			var t = target[0];
+			console.log("t : " + t);
+			html2canvas(t).then(function(canvas) {
+				var myImg = canvas.toDataURL("image/png");
+				myImg = myImg.replace("data:image/png;base64,", "");
+				console.log("myImg : " + myImg);
+				$.ajax({
+					type : "POST",
+					data : {
+						"imgSrc" : myImg,
+						"diaryNum" : data
+					},
+					dataType : "text",
+					url : "${path}/community/ImgSave",
+					success : function(data) {
+						console.log(data);
+						alert("공유 성공");
+						location.href="${path}/main#community";
+					},
+					error : function(a, b, c) {
+						alert("error");
+					}
+				});
+			});
+		}
+	}	
 </script>
 <style type="text/css">
 a:link {

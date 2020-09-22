@@ -277,7 +277,7 @@ public class DiaryController {
 		int diaryNum = 0;
 		System.out.println(allList);
 		int result = 0;
-		String msg = "";
+		String msg = null;
 		for (int i = 0; i < allList.size(); i++) {
 			if (i == 0) {
 				d.setSubject((String) allList.get(i).get("subject"));
@@ -347,9 +347,9 @@ public class DiaryController {
 			}
 		}
 		if (result > 0) {
-			msg = "1";
+			msg = diaryNum+"";
 		} else {
-			msg = "0";
+			msg = "실패";
 		}
 		return msg;
 	}

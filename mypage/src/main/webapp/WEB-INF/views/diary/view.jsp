@@ -92,7 +92,7 @@ a:hover {
 			style="font-family: 'Dynalight'; font-size: 50px; color: black; margin-bottom: 20">My
 				Page</span></a>
 	</div>
-	<div id="mainCcontainer" align="center">
+	<div id="mainCcontainer" align="center" style="margin: auto">
 		<h2>"${diary.subject }"</h2>
 		<h5>${diary.regDate }</h5>
 		<div class="container" align="center">
