@@ -114,9 +114,9 @@ function cataReset() {
 		var bg=$('#bgColor').val();
 		$('#content').css('background-color',bg);
 	}
-	function fontSize(i) {
-/* 		var i=$('#fontSize').val(); */
-		$('.text').css("font-size", i);
+	function fontSize1() {
+		var fontSize=$('#fontSize').val();
+		$('.text').css('font-size', fontSize+'px');
 	}
 	function fnt() {
 		var fontColor=$('#fontColor').val();
@@ -329,19 +329,19 @@ textarea:focus {
 					class="btn btn-outline-success">적용</button>
 			</div>
 			<div id="font" >
-				<div style="width: 100%">
+				<div>
 				<c:set var="a" value="1" />
 					<button onclick="openTextarea1(${a})"
 						class="btn btn-outline-success" style="width: 30%">텍스트박스</button>
-					<select id="fontSize" onchange="fontSize(this.value)"
-						class="form-control">
-						<option selected="selected" disabled="disabled">font size</option>
+					<select id="fontSize" onchange="fontSize1()"
+						class="form-control" style="width: 30%">
+						<option selected="selected" disabled="disabled" >font size</option>
 						<c:forEach var="i" begin="10" end="80">
 							<option value="${i }">${i }</option>
 						</c:forEach>
 					</select>
 				</div>
-				<div style="width: 20%">
+				<div>
 					<input type="color" id="fontColor">
 					<button onclick="fnt()" class="btn btn-outline-success">적용</button>
 				</div>

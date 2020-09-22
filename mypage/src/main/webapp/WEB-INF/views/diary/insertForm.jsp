@@ -59,7 +59,6 @@ function cataReset() {
 		$("#content")
 		.prepend(
 				"<div class='textbox' style='width: 100px; height: 100px; position:absolute;'><textarea style='width:100%; height:100%;padding:0; border: none; font-size:30px;' class='textarea1' id='text' placeholder='textbox'></textarea><div>");
-
 			$('.textbox').draggable({
 				snap : true,
 				cursor : "move",
@@ -98,7 +97,7 @@ function cataReset() {
 	function fontSize1() {
 		var i = $('#fontSelect').val();
 		alert(i);
-		$('.textarea1').css("font-size", i);
+		$('.textarea1').css("font-size", i+'px');
 	}
 	function fnt() {
 		var fontColor=$('#fontColor').val();
@@ -108,6 +107,8 @@ function cataReset() {
 		var fontWeight=$('#fontWeight').val();
 		$('.textarea1').css('font-weight',fontWeight);
 	}
+	
+
 	function insert() {
 		/* 값 넣었는 지 체크 */
 		diaryCataNum = $('#cataNum').val();

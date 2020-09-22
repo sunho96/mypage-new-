@@ -29,8 +29,6 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-
-
 		<!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

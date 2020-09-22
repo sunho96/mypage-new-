@@ -64,13 +64,13 @@ public class DiaryController {
 	}
 	
 	
-	/*
-	 * @RequestMapping("diary/reader") public String reader(HttpSession session) {
-	 * int memberNum =
-	 * Integer.parseInt(session.getAttribute("memberNum").toString());
-	 * 
-	 * return null; }
-	 */
+	@RequestMapping("diary/list2")
+	public String list2(HttpSession session,Model model) {
+		int memberNum = Integer.parseInt(session.getAttribute("memberNum").toString());
+		List<Diary> list = ds.list(memberNum);
+		return null;
+		
+	}
 	
 	@RequestMapping("diary/view")
 	public String view(int diaryNum, Model model) {

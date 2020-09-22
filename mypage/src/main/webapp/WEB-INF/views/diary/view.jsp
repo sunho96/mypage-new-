@@ -44,6 +44,8 @@
 					url : "${path}/community/ImgSave",
 					success : function(data) {
 						console.log(data);
+						alert("공유 성공");
+						location.href="${path}/main#community";
 					},
 					error : function(a, b, c) {
 						alert("error");
